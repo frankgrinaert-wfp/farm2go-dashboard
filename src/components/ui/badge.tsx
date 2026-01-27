@@ -1,0 +1,54 @@
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
+
+import { cn } from "@/lib/utils";
+
+const badgeVariants = cva(
+  "inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden whitespace-nowrap rounded-full border border-transparent px-2 py-0.5 font-medium text-xs transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 [&>svg]:pointer-events-none [&>svg]:size-3",
+  {
+    variants: {
+      variant: {
+        default: "bg-info-200 text-info-800 [a&]:hover:bg-info-300",
+        secondary:
+          "bg-neutral-alpha-200 text-neutral-alpha-800 [a&]:hover:bg-neutral-alpha-300",
+        outline:
+          "border-border text-neutral-alpha-800 [a&]:hover:bg-neutral-alpha-100",
+        destructive: "bg-danger-200 text-danger-800 [a&]:hover:bg-danger-300",
+        warning: "bg-warning-200 text-warning-800 [a&]:hover:bg-warning-300",
+        success: "bg-success-200 text-success-800 [a&]:hover:bg-success-300",
+        blue: "bg-blue-200 text-blue-800 [a&]:hover:bg-blue-300",
+        aqua: "bg-aqua-200 text-aqua-800 [a&]:hover:bg-aqua-300",
+        green: "bg-green-200 text-green-800 [a&]:hover:bg-green-300",
+        ivory: "bg-ivory-200 text-ivory-800 [a&]:hover:bg-ivory-300",
+        brown: "bg-brown-200 text-brown-800 [a&]:hover:bg-brown-300",
+        orange: "bg-orange-200 text-orange-800 [a&]:hover:bg-orange-300",
+        red: "bg-red-200 text-red-800 [a&]:hover:bg-red-300",
+        purple: "bg-purple-200 text-purple-800 [a&]:hover:bg-purple-300",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
+function Badge({
+  className,
+  variant,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+  const Comp = asChild ? Slot : "span";
+
+  return (
+    <Comp
+      data-slot="badge"
+      className={cn(badgeVariants({ variant }), className)}
+      {...props}
+    />
+  );
+}
+
+export { Badge, badgeVariants };

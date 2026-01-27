@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -391,4 +392,13 @@
     --sidebar-accent-foreground: #000000e9;
     --sidebar-border: #0000001e;
     --sidebar-ring: #0078b8;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
 }
