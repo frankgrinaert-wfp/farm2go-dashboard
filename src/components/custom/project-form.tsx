@@ -15,11 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Field,
-  FieldDescription,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Icon } from "@/components/ui/icon";
 import { Input } from "@/components/ui/input";
 import {
@@ -35,13 +31,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import {
-  PriorityConfig,
+import { PriorityConfig, StatusConfig } from "../../pages/config";
+import type {
   Project,
   ProjectPriority,
   ProjectStatus,
-  StatusConfig,
-} from "../config";
+} from "../../pages/config";
 
 interface ProjectFormProps {
   onAddProject: (project: Project) => void;

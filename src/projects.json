@@ -1,0 +1,137 @@
+[
+  {
+    "projectId": "PRJ-001",
+    "name": "Website redesign",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH",
+    "progress": 65,
+    "assignee": "Sarah Johnson",
+    "dueDate": "2025-02-15"
+  },
+  {
+    "projectId": "PRJ-002",
+    "name": "Mobile app development",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH",
+    "progress": 42,
+    "assignee": "Michael Chen",
+    "dueDate": "2025-03-30"
+  },
+  {
+    "projectId": "PRJ-003",
+    "name": "API integration",
+    "status": "COMPLETED",
+    "priority": "MEDIUM",
+    "progress": 100,
+    "assignee": "Emily Davis",
+    "dueDate": "2024-12-20"
+  },
+  {
+    "projectId": "PRJ-004",
+    "name": "Database migration",
+    "status": "IN_PROGRESS",
+    "priority": "CRITICAL",
+    "progress": 78,
+    "assignee": "David Martinez",
+    "dueDate": "2025-01-25"
+  },
+  {
+    "projectId": "PRJ-005",
+    "name": "Security audit",
+    "status": "NOT_STARTED",
+    "priority": "HIGH",
+    "progress": 0,
+    "assignee": "Jessica Williams",
+    "dueDate": "2025-04-10"
+  },
+  {
+    "projectId": "PRJ-006",
+    "name": "Customer portal",
+    "status": "IN_PROGRESS",
+    "priority": "MEDIUM",
+    "progress": 55,
+    "assignee": "Robert Brown",
+    "dueDate": "2025-02-28"
+  },
+  {
+    "projectId": "PRJ-007",
+    "name": "Analytics dashboard",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH",
+    "progress": 88,
+    "assignee": "Amanda Garcia",
+    "dueDate": "2025-01-20"
+  },
+  {
+    "projectId": "PRJ-008",
+    "name": "Payment gateway setup",
+    "status": "COMPLETED",
+    "priority": "CRITICAL",
+    "progress": 100,
+    "assignee": "James Wilson",
+    "dueDate": "2024-11-30"
+  },
+  {
+    "projectId": "PRJ-009",
+    "name": "Email campaign system",
+    "status": "NOT_STARTED",
+    "priority": "LOW",
+    "progress": 0,
+    "assignee": "Lisa Anderson",
+    "dueDate": "2025-05-15"
+  },
+  {
+    "projectId": "PRJ-010",
+    "name": "Cloud infrastructure",
+    "status": "IN_PROGRESS",
+    "priority": "CRITICAL",
+    "progress": 34,
+    "assignee": "Thomas Moore",
+    "dueDate": "2025-03-10"
+  },
+  {
+    "projectId": "PRJ-011",
+    "name": "User authentication",
+    "status": "COMPLETED",
+    "priority": "HIGH",
+    "progress": 100,
+    "assignee": "Jennifer Taylor",
+    "dueDate": "2024-12-05"
+  },
+  {
+    "projectId": "PRJ-012",
+    "name": "Document management",
+    "status": "IN_PROGRESS",
+    "priority": "MEDIUM",
+    "progress": 48,
+    "assignee": "Christopher Lee",
+    "dueDate": "2025-02-20"
+  },
+  {
+    "projectId": "PRJ-013",
+    "name": "Performance optimization",
+    "status": "NOT_STARTED",
+    "priority": "MEDIUM",
+    "progress": 0,
+    "assignee": "Michelle White",
+    "dueDate": "2025-04-25"
+  },
+  {
+    "projectId": "PRJ-014",
+    "name": "Reporting module",
+    "status": "IN_PROGRESS",
+    "priority": "HIGH",
+    "progress": 92,
+    "assignee": "Daniel Harris",
+    "dueDate": "2025-01-15"
+  },
+  {
+    "projectId": "PRJ-015",
+    "name": "Integration testing",
+    "status": "IN_PROGRESS",
+    "priority": "LOW",
+    "progress": 61,
+    "assignee": "Karen Thompson",
+    "dueDate": "2025-02-05"
+  }
+]

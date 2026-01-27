@@ -10,12 +10,8 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { WFPIcon } from "@/components/icons";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import WFPIcon from "../../wfp.svg";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -107,7 +103,7 @@ function ProjectsHeader() {
           </Sheet>
 
           <a href="/examples/demo-app" className="flex items-center gap-2">
-            <WFPIcon className="size-9" />
+            <img src={WFPIcon} alt="WFP Logo" className="size-9" />
             <span className="font-bold text-base text-wfp-blue">Demo App</span>
           </a>
           <NavigationMenu className="hidden md:flex" viewport={false}>

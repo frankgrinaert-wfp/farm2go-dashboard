@@ -31,9 +31,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PriorityConfig, Project, StatusConfig } from "../config";
-import type { ProjectAction } from "../page";
-import { PROJECT_ACTIONS } from "../page";
+import { PriorityConfig, StatusConfig } from "../../pages/config";
+import type { Project } from "../../pages/config";
+import type { ProjectAction } from "../../pages/index";
+import { PROJECT_ACTIONS } from "../../pages/index";
 
 interface ProjectsTableProps {
   projects: Project[];
