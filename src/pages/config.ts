@@ -1,9 +1,5 @@
-import {
-  faCircleChevronDown,
-  faCircleChevronUp,
-  faCircleExclamation,
-  faCircleMinus,
-} from "@fortawesome/free-solid-svg-icons";
+import type { LucideIcon } from "lucide-react";
+import { ChevronDown, ChevronsUp, ChevronUp, Equal } from "lucide-react";
 
 export type ProjectStatus = "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
 export type ProjectPriority = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
@@ -33,26 +29,29 @@ const StatusConfig = {
   },
 };
 
-const PriorityConfig = {
+const PriorityConfig: Record<
+  ProjectPriority,
+  { label: string; icon: LucideIcon; color: string }
+> = {
   CRITICAL: {
     label: "Critical",
-    icon: faCircleExclamation,
+    icon: ChevronsUp,
     color: "text-danger-500",
   },
   HIGH: {
     label: "High",
-    icon: faCircleChevronUp,
-    color: "text-warning-500",
+    icon: ChevronUp,
+    color: "text-danger-500",
   },
   MEDIUM: {
     label: "Medium",
-    icon: faCircleMinus,
-    color: "text-info-500",
+    icon: Equal,
+    color: "text-warning-500",
   },
   LOW: {
     label: "Low",
-    icon: faCircleChevronDown,
-    color: "text-success-500",
+    icon: ChevronDown,
+    color: "text-info-500",
   },
 };
 

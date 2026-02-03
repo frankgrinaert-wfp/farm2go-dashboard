@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  faCheck,
-  faEllipsis,
-  faPen,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
 import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
+import { Check, Ellipsis, Pencil, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -16,7 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "@/components/ui/icon";
 import { Progress } from "@/components/ui/progress";
 import {
   Table,
@@ -31,8 +25,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PriorityConfig, StatusConfig } from "../../pages/config";
 import type { Project } from "../../pages/config";
+import { PriorityConfig, StatusConfig } from "../../pages/config";
 import type { ProjectAction } from "../../pages/index";
 import { PROJECT_ACTIONS } from "../../pages/index";
 
@@ -110,10 +104,13 @@ function ProjectsTable({
               <TableCell>{project.name}</TableCell>
               <TableCell>
                 <div className="flex items-center gap-2">
-                  <Icon
-                    className={`size-4 ${PriorityConfig[project.priority].color}`}
-                    icon={PriorityConfig[project.priority].icon}
-                  />
+                  {(() => {
+                    const { icon: PriorityIcon, color } =
+                      PriorityConfig[project.priority];
+                    return (
+                      <PriorityIcon className={`size-4 ${color}`} aria-hidden />
+                    );
+                  })()}
                   {PriorityConfig[project.priority].label}
                 </div>
               </TableCell>
@@ -129,18 +126,10 @@ function ProjectsTable({
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex items-center justify-end gap-2">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        aria-label="Edit project"
-                      >
-                        <Icon icon={faPen} />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>Edit project</TooltipContent>
-                  </Tooltip>
+                  <Button variant="ghost">
+                    <Pencil />
+                    Edit
+                  </Button>
                   <DropdownMenu>
                     <Tooltip>
                       <TooltipTrigger asChild>
@@ -150,7 +139,7 @@ function ProjectsTable({
                             size="icon"
                             aria-label="More options"
                           >
-                            <Icon icon={faEllipsis} />
+                            <Ellipsis />
                           </Button>
                         </DropdownMenuTrigger>
                       </TooltipTrigger>
@@ -166,7 +155,7 @@ function ProjectsTable({
                           )
                         }
                       >
-                        <Icon icon={faCheck} />
+                        <Check />
                         Mark as done
                       </DropdownMenuItem>
                       <DropdownMenuItem
@@ -175,7 +164,7 @@ function ProjectsTable({
                           onAction(PROJECT_ACTIONS.DELETE, project.projectId)
                         }
                       >
-                        <Icon icon={faTrashCan} />
+                        <Trash2 />
                         Delete
                       </DropdownMenuItem>
                     </DropdownMenuContent>
