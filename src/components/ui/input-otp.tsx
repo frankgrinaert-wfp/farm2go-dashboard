@@ -1,10 +1,10 @@
 "use client";
 
-import { faMinus } from "@fortawesome/free-solid-svg-icons";
 import { OTPInput, OTPInputContext } from "input-otp";
+import { MinusIcon } from "lucide-react";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { Icon } from "@/components/ui/icon";
 
 function InputOTP({
   className,
@@ -69,7 +69,7 @@ function InputOTPSlot({
 function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
   return (
     <div data-slot="input-otp-separator" {...props}>
-      <Icon icon={faMinus} />
+      <MinusIcon />
     </div>
   );
 }
