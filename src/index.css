@@ -232,6 +232,20 @@
     --color-neutral-alpha-200: var(--neutral-alpha-200);
     --color-neutral-alpha-100: var(--neutral-alpha-100);
     --color-neutral-alpha-50: var(--neutral-alpha-50);
+    --color-stone-*: initial;
+    --color-zinc-*: initial;
+    --color-gray-*: initial;
+    --color-slate-*: initial;
+    --color-rose-*: initial;
+    --color-pink-*: initial;
+    --color-fuchsia-*: initial;
+    --color-sky-*: initial;
+    --color-cyan-*: initial;
+    --color-teal-*: initial;
+    --color-emerald-*: initial;
+    --color-lime-*: initial;
+    --color-yellow-*: initial;
+    --color-amber-*: initial;
 }
 
 :root {
@@ -358,7 +372,7 @@
     --purple-950: #34001b;
     --black: #000;
     --white: #fff;
-    --font-sans: Open Sans, Noto Sans, ui-sans-serif, sans-serif, system-ui;
+    --font-sans: Open Sans, Noto Sans Arabic, Noto Sans Bengali, Noto Sans JP, Noto Sans KR, Noto Sans SC, Noto Sans, ui-sans-serif, sans-serif, system-ui;
     --font-serif: Noto Serif, ui-serif, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     --background: #fff;

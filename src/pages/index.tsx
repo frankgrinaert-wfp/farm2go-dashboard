@@ -1,9 +1,4 @@
-import {
-  faCheck,
-  faCloudArrowUp,
-  faSearch,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { Check, Search, Trash2, Upload } from "lucide-react";
 import { useState } from "react";
 import {
   AlertDialog,
@@ -16,7 +11,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
 import {
   InputGroup,
   InputGroupAddon,
@@ -99,14 +93,14 @@ function MainPage() {
                     variant="success-outline"
                     onClick={() => openDialog(PROJECT_ACTIONS.MARK_AS_DONE)}
                   >
-                    <Icon icon={faCheck} />
+                    <Check />
                     Mark as done
                   </Button>
                   <Button
                     variant="destructive-outline"
                     onClick={() => openDialog(PROJECT_ACTIONS.DELETE)}
                   >
-                    <Icon icon={faTrashCan} />
+                    <Trash2 />
                     Delete
                   </Button>
                 </div>
@@ -114,7 +108,7 @@ function MainPage() {
             ) : (
               <div className="flex items-center gap-2">
                 <Button variant="secondary">
-                  <Icon icon={faCloudArrowUp} />
+                  <Upload />
                   Import projects
                 </Button>
                 <ProjectForm onAddProject={handleAddProject} />
@@ -125,7 +119,7 @@ function MainPage() {
         <InputGroup className="max-w-sm">
           <InputGroupInput placeholder="Search..." />
           <InputGroupAddon>
-            <Icon icon={faSearch} />
+            <Search />
           </InputGroupAddon>
         </InputGroup>
         <ProjectsTable

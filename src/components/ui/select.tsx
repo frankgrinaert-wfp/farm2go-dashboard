@@ -1,14 +1,10 @@
 "use client";
 
-import {
-  faAngleDown,
-  faAngleUp,
-  faCheck,
-} from "@fortawesome/free-solid-svg-icons";
 import * as SelectPrimitive from "@radix-ui/react-select";
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { Icon } from "@/components/ui/icon";
 
 function Select({
   ...props
@@ -48,7 +44,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <Icon icon={faAngleDown} className="size-4 text-muted-foreground" />
+        <ChevronDownIcon className="size-4" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -57,7 +53,7 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = "popper",
+  position = "item-aligned",
   align = "center",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
@@ -118,9 +114,12 @@ function SelectItem({
       )}
       {...props}
     >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
+      <span
+        data-slot="select-item-indicator"
+        className="absolute right-2 flex size-3.5 items-center justify-center"
+      >
         <SelectPrimitive.ItemIndicator>
-          <Icon icon={faCheck} />
+          <CheckIcon className="size-4" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -151,7 +150,7 @@ function SelectScrollUpButton({
       className={cn("flex items-center justify-center py-1", className)}
       {...props}
     >
-      <Icon icon={faAngleUp} className="size-4 text-muted-foreground" />
+      <ChevronUpIcon className="size-4" />
     </SelectPrimitive.ScrollUpButton>
   );
 }
@@ -166,7 +165,7 @@ function SelectScrollDownButton({
       className={cn("flex items-center justify-center py-1", className)}
       {...props}
     >
-      <Icon icon={faAngleDown} className="size-4 text-muted-foreground" />
+      <ChevronDownIcon className="size-4" />
     </SelectPrimitive.ScrollDownButton>
   );
 }

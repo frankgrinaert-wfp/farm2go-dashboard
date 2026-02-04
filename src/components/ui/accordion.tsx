@@ -1,10 +1,10 @@
 "use client";
 
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { ChevronDownIcon } from "lucide-react";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { Icon } from "@/components/ui/icon";
 
 function Accordion({
   ...props
@@ -41,10 +41,7 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <Icon
-          icon={faAngleDown}
-          className="pointer-events-none size-4 shrink-0 translate-y-0.5 text-muted-foreground transition-transform duration-200"
-        />
+        <ChevronDownIcon className="pointer-events-none size-4 shrink-0 translate-y-0.5 text-muted-foreground transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

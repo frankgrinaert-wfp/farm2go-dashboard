@@ -1,6 +1,6 @@
 "use client";
 
-import { faCalendar, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { CalendarIcon, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -16,7 +16,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
-import { Icon } from "@/components/ui/icon";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -84,7 +83,7 @@ function ProjectForm({ onAddProject }: ProjectFormProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button>
-          <Icon icon={faPlus} />
+          <Plus />
           Create project
         </Button>
       </DialogTrigger>
@@ -141,15 +140,18 @@ function ProjectForm({ onAddProject }: ProjectFormProps) {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.entries(PriorityConfig).map(([key, config]) => (
-                      <SelectItem key={key} value={key}>
-                        <Icon
-                          icon={config.icon}
-                          className={`${config.color}`}
-                        />
-                        {config.label}
-                      </SelectItem>
-                    ))}
+                    {Object.entries(PriorityConfig).map(([key, config]) => {
+                      const PriorityIcon = config.icon;
+                      return (
+                        <SelectItem key={key} value={key}>
+                          <PriorityIcon
+                            className={config.color}
+                            aria-hidden
+                          />
+                          {config.label}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
               </Field>
@@ -194,7 +196,7 @@ function ProjectForm({ onAddProject }: ProjectFormProps) {
                       !date && "text-muted-foreground",
                     )}
                   >
-                    <Icon icon={faCalendar} />
+                    <CalendarIcon />
                     {date ? format(date, "PPP") : "Pick a date"}
                   </Button>
                 </PopoverTrigger>

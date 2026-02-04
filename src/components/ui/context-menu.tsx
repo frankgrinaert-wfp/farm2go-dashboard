@@ -1,14 +1,10 @@
 "use client";
 
-import {
-  faAngleRight,
-  faCheck,
-  faCircle,
-} from "@fortawesome/free-solid-svg-icons";
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
+import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { Icon } from "@/components/ui/icon";
 
 function ContextMenu({
   ...props
@@ -76,8 +72,7 @@ function ContextMenuSubTrigger({
       {...props}
     >
       {children}
-      {/* <ChevronRightIcon className="ml-auto" /> */}
-      <Icon icon={faAngleRight} className="ml-auto" />
+      <ChevronRightIcon className="ml-auto" />
     </ContextMenuPrimitive.SubTrigger>
   );
 }
@@ -156,8 +151,8 @@ function ContextMenuCheckboxItem({
       {...props}
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
-        <ContextMenuPrimitive.ItemIndicator className="flex items-center">
-          <Icon icon={faCheck} />
+        <ContextMenuPrimitive.ItemIndicator>
+          <CheckIcon className="size-4" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
       {children}
@@ -180,8 +175,8 @@ function ContextMenuRadioItem({
       {...props}
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
-        <ContextMenuPrimitive.ItemIndicator className="flex items-center">
-          <Icon icon={faCircle} />
+        <ContextMenuPrimitive.ItemIndicator>
+          <CircleIcon className="size-2 fill-current" />
         </ContextMenuPrimitive.ItemIndicator>
       </span>
       {children}

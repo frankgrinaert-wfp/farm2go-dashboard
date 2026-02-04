@@ -1,12 +1,12 @@
 import {
-  faAngleLeft,
-  faAngleRight,
-  faEllipsis,
-} from "@fortawesome/free-solid-svg-icons";
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  MoreHorizontalIcon,
+} from "lucide-react";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Icon } from "@/components/ui/icon";
+import { type Button, buttonVariants } from "@/components/ui/button";
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -75,7 +75,7 @@ function PaginationPrevious({
       className={cn("gap-1 px-2.5 sm:pl-2.5", className)}
       {...props}
     >
-      <Icon icon={faAngleLeft} />
+      <ChevronLeftIcon />
       <span className="hidden sm:block">Previous</span>
     </PaginationLink>
   );
@@ -93,7 +93,7 @@ function PaginationNext({
       {...props}
     >
       <span className="hidden sm:block">Next</span>
-      <Icon icon={faAngleRight} />
+      <ChevronRightIcon />
     </PaginationLink>
   );
 }
@@ -106,13 +106,10 @@ function PaginationEllipsis({
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn(
-        "flex size-9 items-center items-center justify-center justify-center [&_svg:not([class*='size-'])]:size-4",
-        className,
-      )}
+      className={cn("flex size-9 items-center justify-center", className)}
       {...props}
     >
-      <Icon icon={faEllipsis} />
+      <MoreHorizontalIcon className="size-4" />
       <span className="sr-only">More pages</span>
     </span>
   );

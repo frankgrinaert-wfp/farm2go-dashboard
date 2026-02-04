@@ -1,14 +1,13 @@
 "use client";
 
 import {
-  faArrowRightFromBracket,
-  faBars,
-  faBell,
-  faGear,
-  faKey,
-  faQuestionCircle,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
+  Bell,
+  HelpCircle,
+  LogOut,
+  Menu,
+  Settings,
+  UserCircle,
+} from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Icon } from "@/components/ui/icon";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -58,7 +56,7 @@ function ProjectsHeader() {
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
-                <Icon icon={faBars} />
+                <Menu />
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[280px] sm:w-[350px]">
@@ -139,7 +137,7 @@ function ProjectsHeader() {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Help">
-                  <Icon icon={faQuestionCircle} />
+                  <HelpCircle />
                 </Button>
               </TooltipTrigger>
               <TooltipContent>Help</TooltipContent>
@@ -153,7 +151,7 @@ function ProjectsHeader() {
                       size="icon"
                       aria-label="Notifications"
                     >
-                      <Icon icon={faBell} />
+                      <Bell />
                     </Button>
                   </DropdownMenuTrigger>
                 </TooltipTrigger>
@@ -223,20 +221,16 @@ function ProjectsHeader() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Icon icon={faUser} />
+                <UserCircle />
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Icon icon={faGear} />
+                <Settings />
                 Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Icon icon={faKey} />
-                Change password
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
-                <Icon icon={faArrowRightFromBracket} />
+                <LogOut />
                 Log out
               </DropdownMenuItem>
             </DropdownMenuContent>

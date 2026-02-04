@@ -1,10 +1,10 @@
 "use client";
 
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
+import { CheckIcon } from "lucide-react";
 import * as React from "react";
+
 import { cn } from "@/lib/utils";
-import { Icon } from "@/components/ui/icon";
 
 function Checkbox({
   className,
@@ -23,7 +23,7 @@ function Checkbox({
         data-slot="checkbox-indicator"
         className="grid place-content-center text-current transition-none"
       >
-        <Icon icon={faCheck} className="size-3" />
+        <CheckIcon className="size-3.5" />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );
