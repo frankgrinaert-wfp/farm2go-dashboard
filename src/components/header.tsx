@@ -8,7 +8,8 @@ import {
   Settings,
   UserCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,20 +47,110 @@ const ResourceMenuItems = [
   { name: "Tools & equipment", href: "#" },
 ];
 
+const GAP = 16; // gap-4 between logo, nav, and between left/right sections
+
 function ProjectsHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navFits, setNavFits] = useState(true);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const actionsRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLAnchorElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    function checkNavFits() {
+      const header = headerRef.current;
+      const actions = actionsRef.current;
+      const logo = logoRef.current;
+      const nav = navRef.current;
+      if (!header || !actions || !logo || !nav) return;
+
+      const availableWidth =
+        header.clientWidth - actions.clientWidth - GAP;
+      const requiredWidth =
+        logo.offsetWidth + GAP + nav.scrollWidth;
+      setNavFits(availableWidth >= requiredWidth);
+    }
+
+    checkNavFits();
+
+    const observer = new ResizeObserver(() => {
+      checkNavFits();
+    });
+    if (headerRef.current) observer.observe(headerRef.current);
+    if (navRef.current) observer.observe(navRef.current);
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 h-14 bg-background px-4 shadow-md">
-      <div className="mx-auto flex h-full items-center justify-between">
-        <div className="flex gap-2">
-          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[280px] sm:w-[350px]">
+      <div
+        ref={headerRef}
+        className="mx-auto flex h-full min-w-0 items-center justify-between gap-4"
+      >
+        <div className="flex min-w-0 flex-1 gap-4">
+          <a
+            ref={logoRef}
+            href="/examples/demo-app"
+            className="flex shrink-0 items-center gap-2"
+          >
+            <img src="/public/logos/regular/wfp-emblem.svg" alt="WFP Logo" className="size-9" />
+            <span
+              className={cn(
+                "font-bold text-base text-wfp-blue",
+                navFits ? "block" : "hidden"
+              )}
+            >
+              Demo App
+            </span>
+          </a>
+          <div
+            ref={navRef}
+            className={cn(
+              "shrink-0",
+              !navFits && "absolute left-0 top-0 invisible pointer-events-none"
+            )}
+            aria-hidden={!navFits}
+          >
+            <NavigationMenu className="flex" viewport={false}>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuLink href="/examples/demo-app">
+                    Projects
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuLink href="/examples/demo-app">
+                    Reports
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-48">
+                      {ResourceMenuItems.map((item) => (
+                        <li key={item.name}>
+                          <NavigationMenuLink href={item.href}>
+                            {item.name}
+                          </NavigationMenuLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+          {!navFits && (
+            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="outline">
+                  <Menu />
+                  Menu
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[280px] sm:w-[350px]">
               <SheetHeader>
                 <SheetTitle className="flex items-center gap-2">
                   Menu
@@ -97,42 +188,10 @@ function ProjectsHeader() {
                 </div>
               </nav>
             </SheetContent>
-          </Sheet>
-
-          <a href="/examples/demo-app" className="flex items-center gap-2">
-            <img src="/public/logos/regular/wfp-emblem.svg" alt="WFP Logo" className="size-9" />
-            <span className="font-bold text-base text-wfp-blue">Demo App</span>
-          </a>
-          <NavigationMenu className="hidden md:flex" viewport={false}>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/examples/demo-app">
-                  Projects
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink href="/examples/demo-app">
-                  Reports
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-48">
-                    {ResourceMenuItems.map((item) => (
-                      <li key={item.name}>
-                        <NavigationMenuLink href={item.href}>
-                          {item.name}
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+            </Sheet>
+          )}
         </div>
-        <div className="flex items-center gap-2">
+        <div ref={actionsRef} className="flex shrink-0 items-center gap-2">
           <div className="flex items-center gap-1">
             <Tooltip>
               <TooltipTrigger asChild>
