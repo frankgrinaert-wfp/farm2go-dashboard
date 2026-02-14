@@ -1,4 +1,4 @@
-import { ProjectsHeader } from "@/components/custom/header";
+import { ProjectsHeader } from "@/components/header";
 import type { ReactNode } from "react";
 
 interface IProps {

@@ -16,8 +16,8 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { ProjectForm } from "@/components/custom/project-form";
-import { ProjectsTable } from "@/components//custom/projects-table";
+import { ProjectForm } from "@/components/project-form";
+import { ProjectsTable } from "@/components/projects-table";
 import type { Project, ProjectStatus } from "./config";
 import projectsDataJson from "../projects.json";
 

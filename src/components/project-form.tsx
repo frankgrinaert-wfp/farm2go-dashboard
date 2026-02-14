@@ -30,12 +30,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { PriorityConfig, StatusConfig } from "../../pages/config";
+import { PriorityConfig, StatusConfig } from "@/pages/config";
 import type {
   Project,
   ProjectPriority,
   ProjectStatus,
-} from "../../pages/config";
+} from "@/pages/config";
 
 interface ProjectFormProps {
   onAddProject: (project: Project) => void;
