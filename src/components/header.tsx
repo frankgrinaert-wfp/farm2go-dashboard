@@ -52,11 +52,16 @@ function ProjectsHeader() {
   return (
     <header className="sticky top-0 z-50 h-14 bg-background px-4 shadow-md">
       <div className="mx-auto flex h-full items-center justify-between">
-        <div className="flex gap-2">
+        <div className="flex gap-4">
+          <a href="/examples/demo-app" className="flex items-center gap-2">
+            <img src="/public/logos/regular/wfp-emblem.svg" alt="WFP Logo" className="size-9" />
+            <span className="font-bold text-base text-wfp-blue hidden sm:block">Demo App</span>
+          </a>
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
+              <Button variant="outline" className="sm:hidden">
                 <Menu />
+                Menu
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[280px] sm:w-[350px]">
@@ -98,12 +103,7 @@ function ProjectsHeader() {
               </nav>
             </SheetContent>
           </Sheet>
-
-          <a href="/examples/demo-app" className="flex items-center gap-2">
-            <img src="/public/logos/regular/wfp-emblem.svg" alt="WFP Logo" className="size-9" />
-            <span className="font-bold text-base text-wfp-blue">Demo App</span>
-          </a>
-          <NavigationMenu className="hidden md:flex" viewport={false}>
+          <NavigationMenu className="hidden sm:flex" viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink href="/examples/demo-app">
