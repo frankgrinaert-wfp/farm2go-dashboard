@@ -1,6 +1,5 @@
 "use client";
 
-import { DropdownMenuSeparator } from "@radix-ui/react-dropdown-menu";
 import { Check, Ellipsis, Pencil, Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -146,7 +145,6 @@ function ProjectsTable({
                       <TooltipContent>More options</TooltipContent>
                     </Tooltip>
                     <DropdownMenuContent>
-                      <DropdownMenuSeparator />
                       <DropdownMenuItem
                         onClick={() =>
                           onAction(
