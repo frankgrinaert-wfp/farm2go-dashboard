@@ -39,8 +39,8 @@ function MetricsColumnCard({
   metrics,
 }: MetricsColumnCardProps) {
   return (
-    <Card className="p-0">
-      <CardHeader className="p-0">
+    <Card className="p-0 gap-0">
+      <CardHeader className="p-0! border-b gap-0">
         <Item>
           <ItemMedia className={titleIconClassName}>
             <TitleIcon className="size-full" />

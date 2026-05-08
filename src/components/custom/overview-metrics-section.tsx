@@ -33,7 +33,8 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Farmers",
     total: "1000 total",
     icon: User,
-    titleIconClassName: "size-12 rounded-lg p-2.5 text-green-600 bg-green-100",
+    titleIconClassName:
+      "size-12 rounded-lg p-2.5 text-orange-600 bg-orange-100",
     metrics: [
       {
         label: "Farmer produces created",
@@ -83,7 +84,8 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Aggregation Centres",
     total: "1000 total",
     icon: Users,
-    titleIconClassName: "size-12 rounded-lg p-2.5 text-green-600 bg-green-100",
+    titleIconClassName:
+      "size-12 rounded-lg p-2.5 text-orange-600 bg-orange-100",
     metrics: [
       {
         label: "Farmer registrations created",
