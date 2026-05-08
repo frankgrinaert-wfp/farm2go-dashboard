@@ -64,6 +64,15 @@ const Languages = [
   { value: "es", label: "Spanish (Español)" },
 ];
 
+const Countries = [
+  { value: "🇧🇩 Bangladesh", label: "🇧🇩 Bangladesh" },
+  { value: "🇨🇺 Cuba", label: "🇨🇺 Cuba" },
+  { value: "🇲🇼 Malawi", label: "🇲🇼 Malawi" },
+  { value: "🇲🇿 Mozambique", label: "🇲🇿 Mozambique" },
+  { value: "🇸🇩 Sudan", label: "🇸🇩 Sudan" },
+  { value: "🇿🇼 Zimbabwe", label: "🇿🇼 Zimbabwe" },
+];
+
 function ProjectsHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -157,6 +166,22 @@ function ProjectsHeader() {
           </NavigationMenu>
         </div>
         <div className="flex items-center gap-2">
+          <Select defaultValue="🇧🇩 Bangladesh">
+            <SelectTrigger aria-label="Country">
+              <SelectValue placeholder="🇧🇩 Bangladesh" />
+            </SelectTrigger>
+            <SelectContent>
+              {Countries.map((country) => (
+                <SelectItem
+                  key={country.value}
+                  value={country.value}
+                  className="whitespace-nowrap"
+                >
+                  {country.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Select defaultValue="en">
             <SelectTrigger aria-label="Language">
               <SelectValue placeholder="English" />
