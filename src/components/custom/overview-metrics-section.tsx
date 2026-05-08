@@ -39,7 +39,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Farmers",
     total: "1000 total",
     icon: User,
-    categoryColor: "orange",
+    categoryColor: "green",
     metrics: [
       {
         label: "Farmer produces created",
