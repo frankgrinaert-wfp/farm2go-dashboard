@@ -112,9 +112,9 @@ function MetricsColumnCard({
           {metrics.map((metric, index) => (
             <div key={metric.label}>
               {index > 0 ? <ItemSeparator /> : null}
-              <Item className="items-start px-5">
+              <Item className="items-start">
                 <ItemMedia className="self-start">
-                  <metric.icon className={`size-5 ${iconStyles.metric}`} />
+                  <metric.icon className={`size-5 ml-1 ${iconStyles.metric}`} />
                 </ItemMedia>
                 <ItemContent className="gap-1">
                   <ItemDescription className="font-semibold">
