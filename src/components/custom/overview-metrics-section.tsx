@@ -29,7 +29,7 @@ type MetricsColumn = {
   title: string;
   total: string;
   icon: typeof Users;
-  titleIconClassName: string;
+  titleIconColorClassName: string;
   metrics: MetricItem[];
 };
 
@@ -38,8 +38,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Farmers",
     total: "1000 total",
     icon: User,
-    titleIconClassName:
-      "size-12 rounded-lg p-2.5 text-orange-600 bg-orange-100",
+    titleIconColorClassName: "text-orange-600 bg-orange-100",
     metrics: [
       {
         label: "Farmer produces created",
@@ -89,8 +88,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Aggregation Centres",
     total: "1000 total",
     icon: Users,
-    titleIconClassName:
-      "size-12 rounded-lg p-2.5 text-orange-600 bg-orange-100",
+    titleIconColorClassName: "text-orange-600 bg-orange-100",
     metrics: [
       {
         label: "Farmer registrations created",
@@ -176,7 +174,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Buyers",
     total: "1000 total",
     icon: Store,
-    titleIconClassName: "size-12 rounded-lg p-2.5 text-blue-600 bg-blue-100",
+    titleIconColorClassName: "text-blue-600 bg-blue-100",
     metrics: [
       {
         label: "App login (web)",
@@ -220,14 +218,14 @@ const METRICS_COLUMNS: MetricsColumn[] = [
 
 function OverviewMetricsSection() {
   return (
-    <section className="grid gap-8 lg:grid-cols-3">
+    <section className="grid items-start gap-8 lg:grid-cols-3">
       {METRICS_COLUMNS.map((column) => (
         <MetricsColumnCard
           key={column.title}
           title={column.title}
           total={column.total}
           icon={column.icon}
-          titleIconClassName={column.titleIconClassName}
+          titleIconColorClassName={column.titleIconColorClassName}
           metrics={column.metrics}
         />
       ))}

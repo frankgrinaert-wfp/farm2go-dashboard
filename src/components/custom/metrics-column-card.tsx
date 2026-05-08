@@ -27,27 +27,31 @@ type MetricsColumnCardProps = {
   title: string;
   total: string;
   icon: LucideIcon;
-  titleIconClassName: string;
+  titleIconColorClassName: string;
   metrics: MetricItem[];
 };
+
+const TITLE_ICON_BASE_CLASSNAME = "size-10 rounded-lg p-2";
 
 function MetricsColumnCard({
   title,
   total,
   icon: TitleIcon,
-  titleIconClassName,
+  titleIconColorClassName,
   metrics,
 }: MetricsColumnCardProps) {
   return (
     <Card className="p-0 gap-0">
       <CardHeader className="p-0! border-b gap-0">
         <Item>
-          <ItemMedia className={titleIconClassName}>
+          <ItemMedia
+            className={`${TITLE_ICON_BASE_CLASSNAME} ${titleIconColorClassName}`}
+          >
             <TitleIcon className="size-full" />
           </ItemMedia>
-          <ItemContent>
-            <CardTitle className="text-xl">{title}</CardTitle>
-            <CardDescription className="text-sm">{total}</CardDescription>
+          <ItemContent className="gap-0">
+            <CardTitle className="text-lg">{title}</CardTitle>
+            <CardDescription className="text-xs">{total}</CardDescription>
           </ItemContent>
         </Item>
       </CardHeader>
@@ -65,7 +69,7 @@ function MetricsColumnCard({
                     {metric.label}
                   </ItemDescription>
                   <div className="flex items-baseline justify-between gap-4">
-                    <ItemTitle className="text-lg font-semibold">
+                    <ItemTitle className="text-base font-semibold">
                       {metric.value}
                     </ItemTitle>
                     <ItemDescription className="text-xs">
