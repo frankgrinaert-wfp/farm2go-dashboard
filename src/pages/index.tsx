@@ -1,13 +1,15 @@
+import { OverviewMetricsSection } from "@/components/custom/overview-metrics-section";
+import { OverviewToolbar } from "@/components/custom/overview-toolbar";
+
 function MainPage() {
   return (
     <>
-      <main className="mx-auto flex flex-col gap-6 p-4 sm:p-6 md:p-8">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex flex-col gap-3">
-            <h1 className="font-bold text-2xl sm:text-3xl">Overview</h1>
-          </div>
-          <div className="flex flex-wrap items-center gap-4"></div>
-        </div>
+      <main className="bg-muted flex flex-col gap-6 py-4 px-6 sm:py-6 sm:px-8 md:py-8 md:px-10">
+        <OverviewToolbar
+          title="Overview"
+          reportsUrl="https://analytics.wfp.org/views/Farm2GoDashboard_17737548909260/HomePage"
+        />
+        <OverviewMetricsSection />
       </main>
     </>
   );
