@@ -1,4 +1,4 @@
-import { Slot } from "@radix-ui/react-slot";
+import { Slot } from "radix-ui";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
@@ -10,7 +10,7 @@ function Code({
 }: React.ComponentProps<"code"> & {
   asChild?: boolean;
 }) {
-  const Comp = asChild ? Slot : "code";
+  const Comp = asChild ? Slot.Root : "code";
 
   return (
     <Comp
