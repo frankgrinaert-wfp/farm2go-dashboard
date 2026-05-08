@@ -175,7 +175,7 @@ function ProjectsHeader() {
         </div>
         <div className="flex items-center gap-3">
           <Select defaultValue="🇧🇩 Bangladesh">
-            <SelectTrigger aria-label="Country">
+            <SelectTrigger aria-label="Country" className="border-border">
               <SelectValue placeholder="🇧🇩 Bangladesh" />
             </SelectTrigger>
             <SelectContent>
@@ -191,7 +191,7 @@ function ProjectsHeader() {
             </SelectContent>
           </Select>
           <Select defaultValue="en">
-            <SelectTrigger aria-label="Language">
+            <SelectTrigger aria-label="Language" className="border-border">
               <SelectValue placeholder="English" />
             </SelectTrigger>
             <SelectContent>
