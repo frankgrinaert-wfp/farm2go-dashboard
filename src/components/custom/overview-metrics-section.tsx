@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import {
   MetricsColumnCard,
+  type CategoryColor,
   type MetricItem,
 } from "@/components/custom/metrics-column-card";
 
@@ -29,7 +30,7 @@ type MetricsColumn = {
   title: string;
   total: string;
   icon: typeof Users;
-  titleIconColorClassName: string;
+  categoryColor: CategoryColor;
   metrics: MetricItem[];
 };
 
@@ -38,7 +39,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Farmers",
     total: "1000 total",
     icon: User,
-    titleIconColorClassName: "text-orange-600 bg-orange-100",
+    categoryColor: "orange",
     metrics: [
       {
         label: "Farmer produces created",
@@ -88,7 +89,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Aggregation Centres",
     total: "1000 total",
     icon: Users,
-    titleIconColorClassName: "text-orange-600 bg-orange-100",
+    categoryColor: "orange",
     metrics: [
       {
         label: "Farmer registrations created",
@@ -174,7 +175,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     title: "Buyers",
     total: "1000 total",
     icon: Store,
-    titleIconColorClassName: "text-blue-600 bg-blue-100",
+    categoryColor: "blue",
     metrics: [
       {
         label: "App login (web)",
@@ -225,7 +226,7 @@ function OverviewMetricsSection() {
           title={column.title}
           total={column.total}
           icon={column.icon}
-          titleIconColorClassName={column.titleIconColorClassName}
+          categoryColor={column.categoryColor}
           metrics={column.metrics}
         />
       ))}
