@@ -56,21 +56,23 @@ function MetricsColumnCard({
           {metrics.map((metric, index) => (
             <div key={metric.label}>
               {index > 0 ? <ItemSeparator /> : null}
-              <Item className="px-5">
-                <ItemMedia>
+              <Item className="items-start px-5">
+                <ItemMedia className="self-start">
                   <metric.icon className="size-5 text-neutral-600" />
                 </ItemMedia>
-                <ItemContent>
+                <ItemContent className="gap-1">
                   <ItemDescription className="font-semibold">
                     {metric.label}
                   </ItemDescription>
-                  <ItemTitle className="text-lg font-semibold">
-                    {metric.value}
-                  </ItemTitle>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <ItemTitle className="text-lg font-semibold">
+                      {metric.value}
+                    </ItemTitle>
+                    <ItemDescription className="text-xs">
+                      {metric.byline}
+                    </ItemDescription>
+                  </div>
                 </ItemContent>
-                <ItemDescription className="text-xs">
-                  {metric.byline}
-                </ItemDescription>
               </Item>
             </div>
           ))}
