@@ -62,7 +62,7 @@ function MetricsColumnCard({
               {index > 0 ? <ItemSeparator /> : null}
               <Item className="items-start px-5">
                 <ItemMedia className="self-start">
-                  <metric.icon className="size-5 text-neutral-600" />
+                  <metric.icon className="size-5 text-neutral-500" />
                 </ItemMedia>
                 <ItemContent className="gap-1">
                   <ItemDescription className="font-semibold">
