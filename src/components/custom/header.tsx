@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  Bell,
   HelpCircle,
   LogOut,
   Menu,
@@ -137,71 +136,14 @@ function ProjectsHeader() {
           </NavigationMenu>
         </div>
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Help">
-                  <HelpCircle />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Help</TooltipContent>
-            </Tooltip>
-            <DropdownMenu>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      aria-label="Notifications"
-                    >
-                      <Bell />
-                    </Button>
-                  </DropdownMenuTrigger>
-                </TooltipTrigger>
-                <TooltipContent>Notifications</TooltipContent>
-              </Tooltip>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 py-3">
-                  <div className="font-medium">
-                    Project deadline approaching
-                  </div>
-                  <div className="text-muted-foreground text-xs">
-                    Website Redesign is due in 2 days
-                  </div>
-                  <div className="text-muted-foreground text-xs">
-                    5 minutes ago
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 py-3">
-                  <div className="font-medium">New task assigned</div>
-                  <div className="text-muted-foreground text-xs">
-                    You have been assigned to Database Migration
-                  </div>
-                  <div className="text-muted-foreground text-xs">
-                    1 hour ago
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="flex flex-col items-start gap-1 py-3">
-                  <div className="font-medium">Project completed</div>
-                  <div className="text-muted-foreground text-xs">
-                    Payment Gateway Setup has been completed
-                  </div>
-                  <div className="text-muted-foreground text-xs">
-                    3 hours ago
-                  </div>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="justify-center text-center text-primary text-sm">
-                  View all notifications
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon" aria-label="Help">
+                <HelpCircle />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Help</TooltipContent>
+          </Tooltip>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
