@@ -100,8 +100,12 @@ function ProjectsHeader() {
           </Sheet>
 
           <a href="/examples/demo-app" className="flex items-center gap-2">
-            <img src="/public/logos/regular/wfp-emblem.svg" alt="WFP Logo" className="size-9" />
-            <span className="font-bold text-base text-wfp-blue">Demo App</span>
+            <img
+              src="/public/logos/regular/wfp-emblem.svg"
+              alt="WFP Logo"
+              className="size-9"
+            />
+            <span className="font-bold text-base text-wfp-blue">Farm2Go</span>
           </a>
           <NavigationMenu className="hidden md:flex" viewport={false}>
             <NavigationMenuList>
