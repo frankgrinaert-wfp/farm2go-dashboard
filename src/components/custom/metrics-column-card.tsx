@@ -46,8 +46,8 @@ function MetricsColumnCard({
             <TitleIcon className="size-full" />
           </ItemMedia>
           <ItemContent>
-            <CardTitle className="text-lg">{title}</CardTitle>
-            <CardDescription className="text-xs">{total}</CardDescription>
+            <CardTitle className="text-xl">{title}</CardTitle>
+            <CardDescription className="text-sm">{total}</CardDescription>
           </ItemContent>
         </Item>
       </CardHeader>
