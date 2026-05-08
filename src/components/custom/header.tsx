@@ -4,8 +4,9 @@ import {
   HelpCircle,
   LogOut,
   Menu,
-  Settings,
+  Info,
   UserCircle,
+  ScrollText,
 } from "lucide-react";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -20,11 +21,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
   Sheet,
@@ -66,14 +65,14 @@ function ProjectsHeader() {
               </SheetHeader>
               <nav className="flex flex-col gap-2">
                 <a
-                  href="/examples/demo-app"
+                  href="#"
                   className="rounded-md px-4 py-2 font-medium text-sm transition-colors hover:bg-accent"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Project
                 </a>
                 <a
-                  href="/examples/demo-app"
+                  href="#"
                   className="rounded-md px-4 py-2 font-medium text-sm transition-colors hover:bg-accent"
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -98,39 +97,21 @@ function ProjectsHeader() {
             </SheetContent>
           </Sheet>
 
-          <a href="/examples/demo-app" className="flex items-center gap-2">
+          <a href="#" className="flex items-center gap-2">
             <img
-              src="/public/logos/regular/wfp-emblem.svg"
+              src="/public/logos/farm2go.svg"
               alt="WFP Logo"
-              className="size-9"
+              className="size-6"
             />
             <span className="font-bold text-base text-wfp-blue">Farm2Go</span>
           </a>
           <NavigationMenu className="hidden md:flex" viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink href="/examples/demo-app">
-                  Projects
-                </NavigationMenuLink>
+                <NavigationMenuLink href="#">Overview</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="/examples/demo-app">
-                  Reports
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-48">
-                    {ResourceMenuItems.map((item) => (
-                      <li key={item.name}>
-                        <NavigationMenuLink href={item.href}>
-                          {item.name}
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
+                <NavigationMenuLink href="#">Farmers</NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
@@ -149,10 +130,10 @@ function ProjectsHeader() {
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar>
                   <AvatarImage
-                    src="https://avatars.githubusercontent.com/u/36326203"
-                    alt="@ggkapanadze"
+                    src="https://ca.slack-edge.com/T0252LMSB-UFQQQB50V-5a561a7581d9-192"
+                    alt="User avatar"
                   />
-                  <AvatarFallback>GK</AvatarFallback>
+                  <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
@@ -163,6 +144,9 @@ function ProjectsHeader() {
                   <p className="truncate text-muted-foreground text-xs">
                     john.doe@example.com
                   </p>
+                  <p className="truncate text-muted-foreground text-xs">
+                    Manager
+                  </p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -171,8 +155,18 @@ function ProjectsHeader() {
                 Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <Settings />
-                Settings
+                <Info />
+                App information
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a
+                  href="https://cdn.wfp.org/legal/terms/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ScrollText />
+                  Terms and conditions
+                </a>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
