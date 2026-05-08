@@ -81,12 +81,13 @@ const Countries: CountryOption[] = [
 function ProjectsHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileSheetOpen, setProfileSheetOpen] = useState(false);
-  const [appInformationDialogOpen, setAppInformationDialogOpen] = useState(false);
+  const [appInformationDialogOpen, setAppInformationDialogOpen] =
+    useState(false);
 
   return (
     <header className="sticky top-0 z-50 h-14 bg-background px-4 shadow-md">
       <div className="mx-auto flex h-full items-center justify-between">
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -172,7 +173,7 @@ function ProjectsHeader() {
             </NavigationMenuList>
           </NavigationMenu>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Select defaultValue="🇧🇩 Bangladesh">
             <SelectTrigger aria-label="Country">
               <SelectValue placeholder="🇧🇩 Bangladesh" />
@@ -242,7 +243,9 @@ function ProjectsHeader() {
                 <UserCircle />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setAppInformationDialogOpen(true)}>
+              <DropdownMenuItem
+                onClick={() => setAppInformationDialogOpen(true)}
+              >
                 <Info />
                 App information
               </DropdownMenuItem>
