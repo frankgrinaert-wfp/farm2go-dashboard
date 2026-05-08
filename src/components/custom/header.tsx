@@ -11,6 +11,11 @@ import {
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { AppInformationDialog } from "@/components/custom/app-information-dialog";
+import {
+  EditProfileSheet,
+  type CountryOption,
+} from "@/components/custom/edit-profile-sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,7 +69,7 @@ const Languages = [
   { value: "es", label: "Spanish (Español)" },
 ];
 
-const Countries = [
+const Countries: CountryOption[] = [
   { value: "🇧🇩 Bangladesh", label: "🇧🇩 Bangladesh" },
   { value: "🇨🇺 Cuba", label: "🇨🇺 Cuba" },
   { value: "🇲🇼 Malawi", label: "🇲🇼 Malawi" },
@@ -75,6 +80,8 @@ const Countries = [
 
 function ProjectsHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileSheetOpen, setProfileSheetOpen] = useState(false);
+  const [appInformationDialogOpen, setAppInformationDialogOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 h-14 bg-background px-4 shadow-md">
@@ -223,7 +230,7 @@ function ProjectsHeader() {
                 <div className="flex flex-col space-y-1">
                   <p className="font-semibold text-sm">John Doe</p>
                   <p className="truncate text-muted-foreground text-xs">
-                    john.doe@example.com
+                    john.doe@wfp.com
                   </p>
                   <p className="truncate text-muted-foreground text-xs">
                     Manager
@@ -231,11 +238,11 @@ function ProjectsHeader() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setProfileSheetOpen(true)}>
                 <UserCircle />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setAppInformationDialogOpen(true)}>
                 <Info />
                 App information
               </DropdownMenuItem>
@@ -256,6 +263,15 @@ function ProjectsHeader() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <EditProfileSheet
+            open={profileSheetOpen}
+            onOpenChange={setProfileSheetOpen}
+            countries={Countries}
+          />
+          <AppInformationDialog
+            open={appInformationDialogOpen}
+            onOpenChange={setAppInformationDialogOpen}
+          />
         </div>
       </div>
     </header>
