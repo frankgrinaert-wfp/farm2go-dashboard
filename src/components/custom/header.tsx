@@ -33,6 +33,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -42,6 +49,19 @@ const ResourceMenuItems = [
   { name: "Team members", href: "#" },
   { name: "Budget", href: "#" },
   { name: "Tools & equipment", href: "#" },
+];
+
+const Languages = [
+  { value: "bn", label: "Bengali (বাংলা)" },
+  { value: "ht", label: "Creole (kreyòl)" },
+  { value: "en", label: "English" },
+  { value: "fil", label: "Filipino" },
+  { value: "fr", label: "French (français)" },
+  { value: "rw", label: "Kinyarwanda" },
+  { value: "pt", label: "Portuguese (Português)" },
+  { value: "sn", label: "Shona" },
+  { value: "so", label: "Somali (Soomaaliga)" },
+  { value: "es", label: "Spanish (Español)" },
 ];
 
 function ProjectsHeader() {
@@ -137,6 +157,22 @@ function ProjectsHeader() {
           </NavigationMenu>
         </div>
         <div className="flex items-center gap-2">
+          <Select defaultValue="en">
+            <SelectTrigger aria-label="Language">
+              <SelectValue placeholder="English" />
+            </SelectTrigger>
+            <SelectContent>
+              {Languages.map((language) => (
+                <SelectItem
+                  key={language.value}
+                  value={language.value}
+                  className="whitespace-nowrap"
+                >
+                  {language.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Help">
