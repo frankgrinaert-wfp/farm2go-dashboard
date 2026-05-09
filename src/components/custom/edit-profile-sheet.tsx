@@ -99,7 +99,7 @@ function EditProfileSheet({
                 <ComboboxTrigger className="ml-auto" />
               </ComboboxChips>
               <ComboboxContent anchor={countriesAnchor}>
-                <ComboboxList>
+                <ComboboxList className="pointer-events-auto">
                   <ComboboxEmpty>No countries found.</ComboboxEmpty>
                   {countries.map((country) => (
                     <ComboboxItem
