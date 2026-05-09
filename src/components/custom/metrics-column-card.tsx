@@ -95,7 +95,7 @@ function MetricsColumnCard({
   return (
     <Card className="p-0 gap-0">
       <CardHeader className="p-0! border-b gap-0">
-        <Item>
+        <Item className="border-none">
           <ItemMedia
             className={`${TITLE_ICON_BASE_CLASSNAME} ${iconStyles.title}`}
           >
@@ -112,7 +112,7 @@ function MetricsColumnCard({
           {metrics.map((metric, index) => (
             <div key={metric.label}>
               {index > 0 ? <ItemSeparator /> : null}
-              <Item className="items-start">
+              <Item className="items-start border-none">
                 <ItemMedia className="self-start">
                   <metric.icon className={`size-5 ml-1 ${iconStyles.metric}`} />
                 </ItemMedia>
