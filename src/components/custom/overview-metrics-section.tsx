@@ -58,6 +58,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         value: "1000",
         byline: "by 20 Farmers",
         icon: Package,
+        detailSlug: "deposits-created",
       },
       {
         label: "Farmers with produce added to an offer",
@@ -96,12 +97,14 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         value: "1200",
         byline: "by 20 Aggregation Centres",
         icon: UserPlus,
+        detailSlug: "farmer-registrations-created",
       },
       {
         label: "Farmer commodity events created",
         value: "800",
         byline: "by 20 Aggregation Centres",
         icon: Timeline,
+        detailSlug: "farmer-commodity-events-created",
       },
       {
         label: "Farmer harvests created",
@@ -114,6 +117,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         value: "900",
         byline: "by 20 Aggregation Centres",
         icon: Package,
+        detailSlug: "deposits-created",
       },
       {
         label: "Offers received",

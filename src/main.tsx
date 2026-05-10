@@ -1,8 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { MainPage } from "@/pages";
 import { Layout } from "@/layout";
+import { MainPage } from "@/pages";
+import { MetricDetailPage } from "@/pages/metric-detail-page";
 
 import "@fontsource/open-sans/400.css";
 import "@fontsource/open-sans/600.css";
@@ -11,8 +13,13 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Layout>
-      <MainPage />
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/overview/metrics/:slug" element={<MetricDetailPage />} />
+        </Routes>
+      </Layout>
+    </BrowserRouter>
   </StrictMode>,
 );

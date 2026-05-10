@@ -1,4 +1,8 @@
 import type { LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import type { MetricDetailSlug } from "@/config/metric-detail-config";
+import { metricDetailRoute } from "@/config/metric-detail-config";
 import {
   Card,
   CardContent,
@@ -21,6 +25,7 @@ type MetricItem = {
   value: string;
   byline: string;
   icon: LucideIcon;
+  detailSlug?: MetricDetailSlug;
 };
 
 type CategoryColor =
@@ -109,10 +114,9 @@ function MetricsColumnCard({
       </CardHeader>
       <CardContent className="px-0">
         <ItemGroup>
-          {metrics.map((metric, index) => (
-            <div key={metric.label}>
-              {index > 0 ? <ItemSeparator /> : null}
-              <Item className="items-start border-none">
+          {metrics.map((metric, index) => {
+            const row = (
+              <>
                 <ItemMedia className="self-start">
                   <metric.icon className={`size-5 ml-1 ${iconStyles.metric}`} />
                 </ItemMedia>
@@ -129,9 +133,22 @@ function MetricsColumnCard({
                     </ItemDescription>
                   </div>
                 </ItemContent>
-              </Item>
-            </div>
-          ))}
+              </>
+            );
+
+            return (
+              <div key={metric.label}>
+                {index > 0 ? <ItemSeparator /> : null}
+                {metric.detailSlug ? (
+                  <Item asChild className="items-start border-none">
+                    <Link to={metricDetailRoute(metric.detailSlug)}>{row}</Link>
+                  </Item>
+                ) : (
+                  <Item className="items-start border-none">{row}</Item>
+                )}
+              </div>
+            );
+          })}
         </ItemGroup>
       </CardContent>
     </Card>
