@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { List, Package, UserPlus } from "lucide-react";
+import { Package, Timeline, UserPlus } from "lucide-react";
 
 const METRIC_DETAIL_SLUGS = [
   "deposits-created",
@@ -15,7 +15,6 @@ type ColumnDef = {
   id: string;
   label: string;
   format: "text" | "link" | "comma-links" | "icon-only";
-  icon?: LucideIcon;
 };
 
 type FilterDef = {
@@ -26,6 +25,8 @@ type FilterDef = {
 
 type MetricDetailPageConfig = {
   slug: MetricDetailSlug;
+  /** Same icon as the overview metric row; used for the table’s row icon column. */
+  listIcon: LucideIcon;
   title: string;
   summary: string;
   filters: FilterDef[];
@@ -56,6 +57,7 @@ function repeatRows<T>(factory: (i: number) => T, count = 10): T[] {
 const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
   "deposits-created": {
     slug: "deposits-created",
+    listIcon: Package,
     title: "Deposits created",
     summary: "1000 Deposits, by 20 Farmers",
     filters: [
@@ -71,7 +73,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
       },
     ],
     columns: [
-      { id: "depositIcon", label: "", format: "icon-only", icon: Package },
+      { id: "depositIcon", label: "", format: "icon-only" },
       { id: "deposit", label: "Deposit", format: "text" },
       {
         id: "depositedBy",
@@ -94,6 +96,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
   },
   "farmer-registrations-created": {
     slug: "farmer-registrations-created",
+    listIcon: UserPlus,
     title: "Farmer registrations created",
     summary: "1000 Farmers, by 20 Aggregation Centres",
     filters: [
@@ -104,7 +107,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
       },
     ],
     columns: [
-      { id: "farmerIcon", label: "", format: "icon-only", icon: UserPlus },
+      { id: "farmerIcon", label: "", format: "icon-only" },
       { id: "farmer", label: "Farmer", format: "text" },
       {
         id: "registeredBy",
@@ -121,6 +124,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
   },
   "farmer-commodity-events-created": {
     slug: "farmer-commodity-events-created",
+    listIcon: Timeline,
     title: "Farmer commodity events created",
     summary: "1000 Events, by 20 Aggregation Centres",
     filters: [
@@ -131,7 +135,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
       },
     ],
     columns: [
-      { id: "kind", label: "", format: "icon-only", icon: List },
+      { id: "kind", label: "", format: "icon-only" },
       { id: "event", label: "Event", format: "link" },
       { id: "commodity", label: "Commodity", format: "link" },
       { id: "farmer", label: "Farmer", format: "link" },
@@ -155,10 +159,15 @@ function getMetricDetailConfig(
   return METRIC_DETAIL_PAGES[slug];
 }
 
+function getMetricDetailListIcon(slug: MetricDetailSlug): LucideIcon {
+  return METRIC_DETAIL_PAGES[slug].listIcon;
+}
+
 export {
   type MetricDetailSlug,
   type ColumnDef,
   metricDetailRoute,
   isMetricDetailSlug,
   getMetricDetailConfig,
+  getMetricDetailListIcon,
 };

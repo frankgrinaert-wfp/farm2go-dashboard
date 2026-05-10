@@ -58,10 +58,13 @@ function PlaceholderLink({ children }: { children: React.ReactNode }) {
   );
 }
 
-function renderCell(column: ColumnDef, value: Cell | undefined) {
+function renderCell(
+  column: ColumnDef,
+  value: Cell | undefined,
+  listIcon: LucideIcon,
+) {
   if (column.format === "icon-only") {
-    const Icon = column.icon;
-    return Icon ? <RowIcon Icon={Icon} /> : null;
+    return <RowIcon Icon={listIcon} />;
   }
 
   if (column.format === "link") {
@@ -160,7 +163,11 @@ function MetricDetailPage() {
                   key={col.id}
                   className={cn(col.format === "icon-only" && "w-px")}
                 >
-                  {renderCell(col, row[col.id] as Cell | undefined)}
+                  {renderCell(
+                    col,
+                    row[col.id] as Cell | undefined,
+                    config.listIcon,
+                  )}
                 </TableCell>
               ))}
             </TableRow>

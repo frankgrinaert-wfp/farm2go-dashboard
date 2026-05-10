@@ -7,13 +7,10 @@ import {
   Handshake,
   Mail,
   MessagesSquare,
-  Package,
   ShoppingBasket,
   Sprout,
   Store,
-  Timeline,
   User,
-  UserPlus,
   Users,
   MailOpen,
   Forward,
@@ -25,6 +22,7 @@ import {
   type CategoryColor,
   type MetricItem,
 } from "@/components/custom/metrics-column-card";
+import { getMetricDetailListIcon } from "@/config/metric-detail-config";
 
 type MetricsColumn = {
   title: string;
@@ -57,7 +55,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Deposits created",
         value: "1000",
         byline: "by 20 Farmers",
-        icon: Package,
+        icon: getMetricDetailListIcon("deposits-created"),
         detailSlug: "deposits-created",
       },
       {
@@ -96,14 +94,14 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Farmer registrations created",
         value: "1200",
         byline: "by 20 Aggregation Centres",
-        icon: UserPlus,
+        icon: getMetricDetailListIcon("farmer-registrations-created"),
         detailSlug: "farmer-registrations-created",
       },
       {
         label: "Farmer commodity events created",
         value: "800",
         byline: "by 20 Aggregation Centres",
-        icon: Timeline,
+        icon: getMetricDetailListIcon("farmer-commodity-events-created"),
         detailSlug: "farmer-commodity-events-created",
       },
       {
@@ -116,7 +114,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Deposits created",
         value: "900",
         byline: "by 20 Aggregation Centres",
-        icon: Package,
+        icon: getMetricDetailListIcon("deposits-created"),
         detailSlug: "deposits-created",
       },
       {
