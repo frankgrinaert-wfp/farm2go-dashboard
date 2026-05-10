@@ -221,7 +221,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
 
 function OverviewMetricsSection() {
   return (
-    <section className="grid items-start gap-8 lg:grid-cols-3">
+    <section className="grid items-start gap-7 lg:grid-cols-3">
       {METRICS_COLUMNS.map((column) => (
         <MetricsColumnCard
           key={column.title}
