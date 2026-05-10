@@ -154,9 +154,7 @@ function ProjectsHeader() {
                 <NavigationMenuLink href="#">Farmers</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#">
-                  Aggregators
-                </NavigationMenuLink>
+                <NavigationMenuLink href="#">Aggregators</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">Buyers</NavigationMenuLink>
@@ -209,14 +207,6 @@ function ProjectsHeader() {
               ))}
             </SelectContent>
           </Select>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Help">
-                <HelpCircle />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Help</TooltipContent>
-          </Tooltip>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
