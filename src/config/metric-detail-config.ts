@@ -74,7 +74,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     ],
     columns: [
       { id: "depositIcon", label: "", format: "icon-only" },
-      { id: "deposit", label: "Deposit", format: "text" },
+      { id: "deposit", label: "Deposit", format: "link" },
       {
         id: "depositedBy",
         label: "Deposited by",
@@ -108,7 +108,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     ],
     columns: [
       { id: "farmerIcon", label: "", format: "icon-only" },
-      { id: "farmer", label: "Farmer", format: "text" },
+      { id: "farmer", label: "Farmer", format: "link" },
       {
         id: "registeredBy",
         label: "Registered by",
