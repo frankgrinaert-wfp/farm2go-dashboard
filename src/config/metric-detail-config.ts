@@ -43,7 +43,7 @@ function isMetricDetailSlug(slug: string): slug is MetricDetailSlug {
 }
 
 const FILTER_PLACEHOLDER_OPTIONS = [
-  { value: "all", label: "All" },
+  { value: "all", label: "Filter" },
   { value: "one", label: "Example A" },
   { value: "two", label: "Example B" },
 ];
@@ -166,6 +166,7 @@ function getMetricDetailListIcon(slug: MetricDetailSlug): LucideIcon {
 export {
   type MetricDetailSlug,
   type ColumnDef,
+  type FilterDef,
   metricDetailRoute,
   isMetricDetailSlug,
   getMetricDetailConfig,

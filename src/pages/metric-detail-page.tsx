@@ -1,8 +1,10 @@
 import type { LucideIcon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import * as React from "react";
 import { Link as RouterLink, Navigate, useParams } from "react-router-dom";
 
 import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
+import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -11,8 +13,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Link } from "@/components/ui/link";
-import type { ColumnDef } from "@/config/metric-detail-config";
+import type { ColumnDef, FilterDef } from "@/config/metric-detail-config";
 import { getMetricDetailConfig } from "@/config/metric-detail-config";
 import {
   Pagination,
@@ -23,13 +31,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -90,6 +91,35 @@ function renderCell(
   return text;
 }
 
+function MetricDetailFilterMenu({ filter }: { filter: FilterDef }) {
+  const [value, setValue] = React.useState<string | null>(null);
+  const displayLabel =
+    value === null
+      ? filter.label
+      : (filter.options.find((o) => o.value === value)?.label ?? filter.label);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline">
+          <span className="truncate">{displayLabel}</span>
+          <ChevronDownIcon />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-[10.5rem]">
+        {filter.options.map((opt) => (
+          <DropdownMenuItem
+            key={opt.value}
+            onSelect={() => setValue(opt.value)}
+          >
+            {opt.label}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
 function MetricDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const config = slug ? getMetricDetailConfig(slug) : undefined;
@@ -114,27 +144,14 @@ function MetricDetailPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div>
-        <h1 className="font-bold text-3xl">{config.title}</h1>
-        <div className="mt-4 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <p className="text-muted-foreground text-sm">{config.summary}</p>
-          <div className="flex flex-wrap items-center justify-end gap-2 md:max-w-[60%]">
-            {config.filters.map((filter) => (
-              <Select key={filter.id}>
-                <SelectTrigger size="sm" className="min-w-[10.5rem]">
-                  <SelectValue placeholder={filter.label} />
-                </SelectTrigger>
-                <SelectContent>
-                  {filter.options.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ))}
-            <TimeRangeTabs />
-          </div>
+      <h1 className="font-bold text-3xl">{config.title}</h1>
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <p className="text-muted-foreground text-sm">{config.summary}</p>
+        <div className="flex flex-wrap items-center justify-end gap-3 md:max-w-[60%]">
+          {config.filters.map((filter) => (
+            <MetricDetailFilterMenu key={filter.id} filter={filter} />
+          ))}
+          <TimeRangeTabs />
         </div>
       </div>
 
