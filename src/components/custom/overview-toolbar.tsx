@@ -1,13 +1,6 @@
 import { SquareArrowOutUpRight } from "lucide-react";
+import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-const FILTERS = [
-  { value: "one-day", label: "1 day" },
-  { value: "seven-days", label: "7 days" },
-  { value: "thirty-days", label: "30 days" },
-  { value: "all-time", label: "All time" },
-] as const;
 
 type OverviewToolbarProps = {
   title: string;
@@ -25,15 +18,7 @@ function OverviewToolbar({ title, reportsUrl }: OverviewToolbarProps) {
             <SquareArrowOutUpRight />
           </a>
         </Button>
-        <Tabs defaultValue="all-time">
-          <TabsList>
-            {FILTERS.map((filter) => (
-              <TabsTrigger key={filter.value} value={filter.value}>
-                {filter.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        <TimeRangeTabs />
       </div>
     </div>
   );

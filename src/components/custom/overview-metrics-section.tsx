@@ -7,13 +7,10 @@ import {
   Handshake,
   Mail,
   MessagesSquare,
-  Package,
   ShoppingBasket,
   Sprout,
   Store,
-  Timeline,
   User,
-  UserPlus,
   Users,
   MailOpen,
   Forward,
@@ -25,6 +22,7 @@ import {
   type CategoryColor,
   type MetricItem,
 } from "@/components/custom/metrics-column-card";
+import { getMetricDetailListIcon } from "@/config/metric-detail-config";
 
 type MetricsColumn = {
   title: string;
@@ -57,36 +55,41 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Deposits created",
         value: "1000",
         byline: "by 20 Farmers",
-        icon: Package,
+        icon: getMetricDetailListIcon("deposits-created"),
+        detailSlug: "deposits-created",
       },
       {
         label: "Farmers with produce added to an offer",
         value: "1000",
         byline: "by 20 Farmers",
         icon: FilePenLine,
+        hideByline: true,
       },
       {
         label: "Farmers with produce exchanged",
         value: "1000",
         byline: "by 20 Farmers",
         icon: ArrowLeftRight,
+        hideByline: true,
       },
       {
         label: "Farmers that received payments",
         value: "1000",
         byline: "by 20 Farmers",
         icon: HandCoins,
+        hideByline: true,
       },
       {
         label: "Farmers linked to Agro-Advisory content",
         value: "1000",
         byline: "by 20 Farmers",
         icon: Mail,
+        hideByline: true,
       },
     ],
   },
   {
-    title: "Aggregation Centres",
+    title: "Aggregators",
     total: "1000 total",
     icon: Users,
     categoryColor: "orange",
@@ -94,79 +97,82 @@ const METRICS_COLUMNS: MetricsColumn[] = [
       {
         label: "Farmer registrations created",
         value: "1200",
-        byline: "by 20 Aggregation Centres",
-        icon: UserPlus,
+        byline: "by 20 Aggregators",
+        icon: getMetricDetailListIcon("farmer-registrations-created"),
+        detailSlug: "farmer-registrations-created",
       },
       {
         label: "Farmer commodity events created",
         value: "800",
-        byline: "by 20 Aggregation Centres",
-        icon: Timeline,
+        byline: "by 20 Aggregators",
+        icon: getMetricDetailListIcon("farmer-commodity-events-created"),
+        detailSlug: "farmer-commodity-events-created",
       },
       {
         label: "Farmer harvests created",
         value: "700",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: ShoppingBasket,
       },
       {
         label: "Deposits created",
         value: "900",
-        byline: "by 20 Aggregation Centres",
-        icon: Package,
+        byline: "by 20 Aggregators",
+        icon: getMetricDetailListIcon("deposits-created"),
+        detailSlug: "deposits-created",
       },
       {
         label: "Offers received",
         value: "1500",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: MessagesSquare,
       },
       {
         label: "Offers accepted",
         value: "1100",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: Handshake,
       },
       {
         label: "Offers rejected",
         value: "400",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: Ban,
       },
       {
         label: "Exchanges completed",
         value: "650",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: ArrowLeftRight,
       },
       {
         label: "Farmer payments marked as done",
         value: "950",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: Banknote,
       },
       {
         label: "Agro-Advisory messages received",
         value: "1800",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: Mail,
       },
       {
         label: "Agro-Advisory messages read",
         value: "1600",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: MailOpen,
       },
       {
         label: "Agro-Advisory messages shared",
         value: "500",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: Forward,
       },
       {
         label: "App login (mobile)",
         value: "3000",
-        byline: "by 20 Aggregation Centres",
+        byline: "by 20 Aggregators",
         icon: LogIn,
       },
     ],
@@ -219,7 +225,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
 
 function OverviewMetricsSection() {
   return (
-    <section className="grid items-start gap-8 lg:grid-cols-3">
+    <section className="grid items-start gap-7 lg:grid-cols-3">
       {METRICS_COLUMNS.map((column) => (
         <MetricsColumnCard
           key={column.title}

@@ -1,4 +1,8 @@
 import type { LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+
+import type { MetricDetailSlug } from "@/config/metric-detail-config";
+import { metricDetailRoute } from "@/config/metric-detail-config";
 import {
   Card,
   CardContent,
@@ -21,6 +25,9 @@ type MetricItem = {
   value: string;
   byline: string;
   icon: LucideIcon;
+  detailSlug?: MetricDetailSlug;
+  /** When true, the byline is not shown (value only). */
+  hideByline?: boolean;
 };
 
 type CategoryColor =
@@ -93,7 +100,7 @@ function MetricsColumnCard({
   const iconStyles = CATEGORY_ICON_STYLES[categoryColor];
 
   return (
-    <Card className="p-0 gap-0">
+    <Card className="p-0 gap-0 border-none">
       <CardHeader className="p-0! border-b gap-0">
         <Item className="border-none">
           <ItemMedia
@@ -109,10 +116,9 @@ function MetricsColumnCard({
       </CardHeader>
       <CardContent className="px-0">
         <ItemGroup>
-          {metrics.map((metric, index) => (
-            <div key={metric.label}>
-              {index > 0 ? <ItemSeparator /> : null}
-              <Item className="items-start border-none">
+          {metrics.map((metric, index) => {
+            const row = (
+              <>
                 <ItemMedia className="self-start">
                   <metric.icon className={`size-5 ml-1 ${iconStyles.metric}`} />
                 </ItemMedia>
@@ -120,18 +126,37 @@ function MetricsColumnCard({
                   <ItemDescription className="font-semibold">
                     {metric.label}
                   </ItemDescription>
-                  <div className="flex items-baseline justify-between gap-4">
+                  {metric.hideByline ? (
                     <ItemTitle className="text-base font-semibold">
                       {metric.value}
                     </ItemTitle>
-                    <ItemDescription className="text-xs">
-                      {metric.byline}
-                    </ItemDescription>
-                  </div>
+                  ) : (
+                    <div className="flex items-baseline justify-between gap-4">
+                      <ItemTitle className="text-base font-semibold">
+                        {metric.value}
+                      </ItemTitle>
+                      <ItemDescription className="text-xs">
+                        {metric.byline}
+                      </ItemDescription>
+                    </div>
+                  )}
                 </ItemContent>
-              </Item>
-            </div>
-          ))}
+              </>
+            );
+
+            return (
+              <div key={metric.label}>
+                {index > 0 ? <ItemSeparator /> : null}
+                {metric.detailSlug ? (
+                  <Item asChild className="items-start border-none">
+                    <Link to={metricDetailRoute(metric.detailSlug)}>{row}</Link>
+                  </Item>
+                ) : (
+                  <Item className="items-start border-none">{row}</Item>
+                )}
+              </div>
+            );
+          })}
         </ItemGroup>
       </CardContent>
     </Card>
