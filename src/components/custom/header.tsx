@@ -9,6 +9,7 @@ import {
   ScrollText,
 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { AppInformationDialog } from "@/components/custom/app-information-dialog";
@@ -134,18 +135,20 @@ function ProjectsHeader() {
             </SheetContent>
           </Sheet>
 
-          <a href="#" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img
               src="/public/logos/farm2go.svg"
               alt="WFP Logo"
               className="size-6"
             />
             <span className="font-bold text-base text-wfp-blue">Farm2Go</span>
-          </a>
+          </Link>
           <NavigationMenu className="hidden md:flex" viewport={false}>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#">Overview</NavigationMenuLink>
+                <NavigationMenuLink asChild>
+                  <Link to="/">Overview</Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">Farmers</NavigationMenuLink>
