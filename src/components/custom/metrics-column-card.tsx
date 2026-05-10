@@ -26,6 +26,8 @@ type MetricItem = {
   byline: string;
   icon: LucideIcon;
   detailSlug?: MetricDetailSlug;
+  /** When true, the byline is not shown (value only). */
+  hideByline?: boolean;
 };
 
 type CategoryColor =
@@ -124,14 +126,20 @@ function MetricsColumnCard({
                   <ItemDescription className="font-semibold">
                     {metric.label}
                   </ItemDescription>
-                  <div className="flex items-baseline justify-between gap-4">
+                  {metric.hideByline ? (
                     <ItemTitle className="text-base font-semibold">
                       {metric.value}
                     </ItemTitle>
-                    <ItemDescription className="text-xs">
-                      {metric.byline}
-                    </ItemDescription>
-                  </div>
+                  ) : (
+                    <div className="flex items-baseline justify-between gap-4">
+                      <ItemTitle className="text-base font-semibold">
+                        {metric.value}
+                      </ItemTitle>
+                      <ItemDescription className="text-xs">
+                        {metric.byline}
+                      </ItemDescription>
+                    </div>
+                  )}
                 </ItemContent>
               </>
             );
