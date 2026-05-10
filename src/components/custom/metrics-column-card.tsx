@@ -100,7 +100,7 @@ function MetricsColumnCard({
   const iconStyles = CATEGORY_ICON_STYLES[categoryColor];
 
   return (
-    <Card className="p-0 gap-0">
+    <Card className="p-0 gap-0 border-none">
       <CardHeader className="p-0! border-b gap-0">
         <Item className="border-none">
           <ItemMedia
