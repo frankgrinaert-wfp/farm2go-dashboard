@@ -198,16 +198,16 @@ function MetricDetailPage() {
             <PaginationPrevious href="#" onClick={(e) => e.preventDefault()} />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink href="#" onClick={(e) => e.preventDefault()}>
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
             <PaginationLink
               href="#"
               isActive
               onClick={(e) => e.preventDefault()}
             >
+              1
+            </PaginationLink>
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink href="#" onClick={(e) => e.preventDefault()}>
               2
             </PaginationLink>
           </PaginationItem>
