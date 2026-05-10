@@ -152,7 +152,7 @@ function ProjectsHeader() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">
-                  Aggregation Centres
+                  Aggregators
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>

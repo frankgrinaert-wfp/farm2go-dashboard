@@ -62,8 +62,8 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     summary: "1000 Deposits, by 20 Farmers",
     filters: [
       {
-        id: "aggregation-centre",
-        label: "Aggregation Centre",
+        id: "aggregator",
+        label: "Aggregator",
         options: FILTER_PLACEHOLDER_OPTIONS,
       },
       {
@@ -89,7 +89,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     ],
     rows: repeatRows(() => ({
       deposit: "Eggplant 130 kg (G2)",
-      depositedBy: "Aggregation Centre Name",
+      depositedBy: "Aggregator Name",
       farmers: ["Farmer Name", "Farmer Name"],
       date: dateCell,
     })),
@@ -98,11 +98,11 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     slug: "farmer-registrations-created",
     listIcon: UserPlus,
     title: "Farmer registrations created",
-    summary: "1000 Farmers, by 20 Aggregation Centres",
+    summary: "1000 Farmers, by 20 Aggregators",
     filters: [
       {
-        id: "aggregation-centre",
-        label: "Aggregation Centre",
+        id: "aggregator",
+        label: "Aggregator",
         options: FILTER_PLACEHOLDER_OPTIONS,
       },
     ],
@@ -118,7 +118,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     ],
     rows: repeatRows(() => ({
       farmer: "Farmer Name",
-      registeredBy: "Aggregation Centre Name",
+      registeredBy: "Aggregator Name",
       date: dateCell,
     })),
   },
@@ -126,7 +126,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
     slug: "farmer-commodity-events-created",
     listIcon: Timeline,
     title: "Farmer commodity events created",
-    summary: "1000 Events, by 20 Aggregation Centres",
+    summary: "1000 Events, by 20 Aggregators",
     filters: [
       {
         id: "farmer",
