@@ -1,8 +1,13 @@
 import type { LucideIcon } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { MetricStatusBadge } from "@/components/custom/metric-status-badge";
+import { MetricTrend } from "@/components/custom/metric-trend";
 import type { MetricDetailSlug } from "@/config/metric-detail-config";
 import { metricDetailRoute } from "@/config/metric-detail-config";
+import type { MetricStatus } from "@/data/overview-dashboard-data";
 import {
   Card,
   CardContent,
@@ -10,6 +15,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Item,
   ItemContent,
@@ -19,6 +29,7 @@ import {
   ItemSeparator,
   ItemTitle,
 } from "@/components/ui/item";
+import { cn } from "@/lib/utils";
 
 type MetricItem = {
   label: string;
@@ -26,8 +37,10 @@ type MetricItem = {
   byline: string;
   icon: LucideIcon;
   detailSlug?: MetricDetailSlug;
-  /** When true, the byline is not shown (value only). */
   hideByline?: boolean;
+  percentage?: string;
+  status?: MetricStatus;
+  trend?: { direction: "up" | "down"; value: string };
 };
 
 type CategoryColor =
@@ -43,10 +56,11 @@ type CategoryColor =
 
 type MetricsColumnCardProps = {
   title: string;
-  total: string;
+  subtitle: string;
   icon: LucideIcon;
   categoryColor: CategoryColor;
-  metrics: MetricItem[];
+  defaultMetrics: MetricItem[];
+  expandedMetrics?: MetricItem[];
 };
 
 const TITLE_ICON_BASE_CLASSNAME = "size-10 rounded-lg p-2";
@@ -90,74 +104,117 @@ const CATEGORY_ICON_STYLES = {
   },
 } as const;
 
+function MetricRow({
+  metric,
+  iconStyles,
+}: {
+  metric: MetricItem;
+  iconStyles: (typeof CATEGORY_ICON_STYLES)[CategoryColor];
+}) {
+  const row = (
+    <>
+      <ItemMedia className="self-start">
+        <metric.icon className={`ml-1 size-5 ${iconStyles.metric}`} />
+      </ItemMedia>
+      <ItemContent className="gap-1">
+        <ItemDescription className="font-semibold">{metric.label}</ItemDescription>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <ItemTitle className="text-base font-semibold">{metric.value}</ItemTitle>
+          {metric.percentage && !metric.hideByline ? (
+            <span className="text-muted-foreground text-xs tabular-nums">
+              {metric.percentage}
+            </span>
+          ) : null}
+        </div>
+        {!metric.hideByline && metric.byline ? (
+          <ItemDescription className="text-xs">{metric.byline}</ItemDescription>
+        ) : null}
+        {metric.status ? <MetricStatusBadge status={metric.status} /> : null}
+        {metric.trend ? (
+          <MetricTrend
+            direction={metric.trend.direction}
+            value={metric.trend.value}
+          />
+        ) : null}
+      </ItemContent>
+    </>
+  );
+
+  if (metric.detailSlug) {
+    return (
+      <Item asChild className="items-start border-none">
+        <Link to={metricDetailRoute(metric.detailSlug)}>{row}</Link>
+      </Item>
+    );
+  }
+
+  return <Item className="items-start border-none">{row}</Item>;
+}
+
 function MetricsColumnCard({
   title,
-  total,
+  subtitle,
   icon: TitleIcon,
   categoryColor,
-  metrics,
+  defaultMetrics,
+  expandedMetrics = [],
 }: MetricsColumnCardProps) {
+  const [open, setOpen] = useState(false);
   const iconStyles = CATEGORY_ICON_STYLES[categoryColor];
+  const hasExpanded = expandedMetrics.length > 0;
 
   return (
-    <Card className="p-0 gap-0 border-none">
-      <CardHeader className="p-0! border-b gap-0">
-        <Item className="border-none">
+    <Card className="gap-0 border p-0 shadow-sm">
+      <CardHeader className="border-b px-4 py-3">
+        <Item className="border-none p-0">
           <ItemMedia
             className={`${TITLE_ICON_BASE_CLASSNAME} ${iconStyles.title}`}
           >
             <TitleIcon className="size-full" />
           </ItemMedia>
           <ItemContent className="gap-0">
-            <CardTitle className="text-lg">{title}</CardTitle>
-            <CardDescription className="text-xs">{total}</CardDescription>
+            <CardTitle className="text-base">{title}</CardTitle>
+            <CardDescription className="text-xs">{subtitle}</CardDescription>
           </ItemContent>
         </Item>
       </CardHeader>
-      <CardContent className="px-0">
+      <CardContent className="px-0 py-0">
         <ItemGroup>
-          {metrics.map((metric, index) => {
-            const row = (
-              <>
-                <ItemMedia className="self-start">
-                  <metric.icon className={`size-5 ml-1 ${iconStyles.metric}`} />
-                </ItemMedia>
-                <ItemContent className="gap-1">
-                  <ItemDescription className="font-semibold">
-                    {metric.label}
-                  </ItemDescription>
-                  {metric.hideByline ? (
-                    <ItemTitle className="text-base font-semibold">
-                      {metric.value}
-                    </ItemTitle>
-                  ) : (
-                    <div className="flex items-baseline justify-between gap-4">
-                      <ItemTitle className="text-base font-semibold">
-                        {metric.value}
-                      </ItemTitle>
-                      <ItemDescription className="text-xs">
-                        {metric.byline}
-                      </ItemDescription>
-                    </div>
-                  )}
-                </ItemContent>
-              </>
-            );
-
-            return (
-              <div key={metric.label}>
-                {index > 0 ? <ItemSeparator /> : null}
-                {metric.detailSlug ? (
-                  <Item asChild className="items-start border-none">
-                    <Link to={metricDetailRoute(metric.detailSlug)}>{row}</Link>
-                  </Item>
-                ) : (
-                  <Item className="items-start border-none">{row}</Item>
-                )}
-              </div>
-            );
-          })}
+          {defaultMetrics.map((metric, index) => (
+            <div key={metric.label}>
+              {index > 0 ? <ItemSeparator /> : null}
+              <MetricRow metric={metric} iconStyles={iconStyles} />
+            </div>
+          ))}
         </ItemGroup>
+
+        {hasExpanded ? (
+          <Collapsible open={open} onOpenChange={setOpen}>
+            <CollapsibleContent>
+              <ItemGroup className="border-t">
+                {expandedMetrics.map((metric, index) => (
+                  <div key={metric.label}>
+                    {index > 0 || defaultMetrics.length > 0 ? (
+                      <ItemSeparator />
+                    ) : null}
+                    <MetricRow metric={metric} iconStyles={iconStyles} />
+                  </div>
+                ))}
+              </ItemGroup>
+            </CollapsibleContent>
+            <CollapsibleTrigger
+              className={cn(
+                "flex w-full items-center justify-center gap-1.5 border-t px-4 py-2.5 text-muted-foreground text-xs transition-colors hover:bg-muted/50 hover:text-foreground",
+              )}
+            >
+              <span>{open ? "Show less" : "View details"}</span>
+              <ChevronDown
+                className={cn("size-3.5 transition-transform", open && "rotate-180")}
+                aria-hidden
+              />
+            </CollapsibleTrigger>
+          </Collapsible>
+        ) : null}
       </CardContent>
     </Card>
   );
