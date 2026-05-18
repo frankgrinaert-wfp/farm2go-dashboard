@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  HelpCircle,
-  LogOut,
-  Menu,
-  Info,
-  UserCircle,
-  ScrollText,
-} from "lucide-react";
+import { LogOut, Menu, Info, UserCircle, ScrollText } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -45,11 +38,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 const ResourceMenuItems = [
   { name: "Team members", href: "#" },
@@ -135,13 +123,14 @@ function ProjectsHeader() {
             </SheetContent>
           </Sheet>
 
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-1.5">
             <img
               src="/public/logos/farm2go.svg"
               alt="WFP Logo"
               className="size-6"
             />
-            <span className="font-bold text-base text-wfp-blue">Farm2Go</span>
+            <p className="font-bold text-base text-wfp-blue">Farm2Go</p>
+            <p className="text-base text-muted-foreground">Dashboard</p>
           </Link>
           <NavigationMenu className="hidden md:flex" viewport={false}>
             <NavigationMenuList>
