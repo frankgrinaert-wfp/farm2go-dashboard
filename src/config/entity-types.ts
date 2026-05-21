@@ -81,7 +81,7 @@ export const ENTITY_TYPES: Record<EntityTypeId, EntityType> = {
     singular: "Farmer",
     plural: "Farmers",
     icon: User,
-    color: "green",
+    color: "orange",
     listPath: "/farmers",
   },
   aggregator: {
@@ -97,7 +97,7 @@ export const ENTITY_TYPES: Record<EntityTypeId, EntityType> = {
     singular: "Buyer",
     plural: "Buyers",
     icon: Store,
-    color: "blue",
+    color: "green",
     listPath: "/buyers",
   },
 };
