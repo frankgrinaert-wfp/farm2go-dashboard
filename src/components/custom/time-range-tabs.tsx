@@ -1,9 +1,12 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TIME_RANGE_FILTERS } from "@/constants/time-range";
+import {
+  DEFAULT_TIME_RANGE,
+  TIME_RANGE_FILTERS,
+} from "@/constants/time-range";
 
 function TimeRangeTabs() {
   return (
-    <Tabs defaultValue="all-time">
+    <Tabs defaultValue={DEFAULT_TIME_RANGE}>
       <TabsList>
         {TIME_RANGE_FILTERS.map((filter) => (
           <TabsTrigger key={filter.value} value={filter.value}>

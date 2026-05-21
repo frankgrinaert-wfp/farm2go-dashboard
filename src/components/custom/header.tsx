@@ -148,10 +148,22 @@ function ProjectsHeader() {
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#">Aggregators</NavigationMenuLink>
+                <NavigationMenuLink asChild>
+                  <Link
+                    to={
+                      getRoleCategory("aggregator").listPath ?? "/aggregators"
+                    }
+                  >
+                    {getRoleCategory("aggregator").label}
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#">Buyers</NavigationMenuLink>
+                <NavigationMenuLink asChild>
+                  <Link to={getRoleCategory("buyer").listPath ?? "/buyers"}>
+                    {getRoleCategory("buyer").label}
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">Deposits</NavigationMenuLink>

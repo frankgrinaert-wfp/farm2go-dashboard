@@ -5,6 +5,8 @@ const TIME_RANGE_FILTERS = [
   { value: "all-time", label: "All time" },
 ] as const;
 
+const DEFAULT_TIME_RANGE = "all-time" satisfies TimeRangeValue;
+
 type TimeRangeValue = (typeof TIME_RANGE_FILTERS)[number]["value"];
 
-export { TIME_RANGE_FILTERS, type TimeRangeValue };
+export { TIME_RANGE_FILTERS, DEFAULT_TIME_RANGE, type TimeRangeValue };

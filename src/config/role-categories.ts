@@ -89,12 +89,14 @@ const ROLE_CATEGORIES: Record<RoleCategoryId, RoleCategory> = {
     label: "Aggregators",
     icon: Users,
     categoryColor: "orange",
+    listPath: "/aggregators",
   },
   buyer: {
     id: "buyer",
     label: "Buyers",
     icon: Store,
     categoryColor: "blue",
+    listPath: "/buyers",
   },
 };
 
