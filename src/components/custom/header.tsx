@@ -3,6 +3,7 @@
 import { LogOut, Menu, Info, UserCircle, ScrollText } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { getRoleCategory } from "@/config/role-categories";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { AppInformationDialog } from "@/components/custom/app-information-dialog";
@@ -140,7 +141,11 @@ function ProjectsHeader() {
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="#">Farmers</NavigationMenuLink>
+                <NavigationMenuLink asChild>
+                  <Link to={getRoleCategory("farmer").listPath ?? "/farmers"}>
+                    {getRoleCategory("farmer").label}
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink href="#">Aggregators</NavigationMenuLink>

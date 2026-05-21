@@ -9,9 +9,6 @@ import {
   MessagesSquare,
   ShoppingBasket,
   Sprout,
-  Store,
-  User,
-  Users,
   MailOpen,
   Forward,
   LogIn,
@@ -19,25 +16,21 @@ import {
 } from "lucide-react";
 import {
   MetricsColumnCard,
-  type CategoryColor,
   type MetricItem,
 } from "@/components/custom/metrics-column-card";
 import { getMetricDetailListIcon } from "@/config/metric-detail-config";
+import type { RoleCategoryId } from "@/config/role-categories";
 
 type MetricsColumn = {
-  title: string;
+  role: RoleCategoryId;
   total: string;
-  icon: typeof Users;
-  categoryColor: CategoryColor;
   metrics: MetricItem[];
 };
 
 const METRICS_COLUMNS: MetricsColumn[] = [
   {
-    title: "Farmers",
+    role: "farmer",
     total: "1000 total",
-    icon: User,
-    categoryColor: "green",
     metrics: [
       {
         label: "Farmer produces created",
@@ -89,10 +82,8 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     ],
   },
   {
-    title: "Aggregators",
+    role: "aggregator",
     total: "1000 total",
-    icon: Users,
-    categoryColor: "orange",
     metrics: [
       {
         label: "Farmer registrations created",
@@ -178,10 +169,8 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     ],
   },
   {
-    title: "Buyers",
+    role: "buyer",
     total: "1000 total",
-    icon: Store,
-    categoryColor: "blue",
     metrics: [
       {
         label: "App login (web)",
@@ -228,11 +217,9 @@ function OverviewMetricsSection() {
     <section className="grid items-start gap-7 lg:grid-cols-3">
       {METRICS_COLUMNS.map((column) => (
         <MetricsColumnCard
-          key={column.title}
-          title={column.title}
+          key={column.role}
+          role={column.role}
           total={column.total}
-          icon={column.icon}
-          categoryColor={column.categoryColor}
           metrics={column.metrics}
         />
       ))}
