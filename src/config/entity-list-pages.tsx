@@ -417,53 +417,52 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
   },
 ];
 
-function getEntityListPageConfig(
-  role: RoleCategoryId,
-): EntityListPageConfig<FarmerRow | AggregatorRow | BuyerRow> {
-  switch (role) {
-    case "farmer":
-      return {
-        role,
-        rows: FARMER_ROWS,
-        columns: FARMER_COLUMNS,
-        searchAriaLabel: "Search farmers",
-        renderRowActions: (row) => defaultRowActions(row.name),
-      };
-    case "aggregator":
-      return {
-        role,
-        rows: AGGREGATOR_ROWS,
-        columns: AGGREGATOR_COLUMNS,
-        searchAriaLabel: "Search aggregators",
-        header: {
-          showTableau: true,
-          tableauUrl: TABLEAU_URL,
-          tableauLabel: "View last 30d in Tableau",
-          showAdd: true,
-          addLabel: "Aggregator",
-        },
-        renderRowActions: aggregatorRowActions,
-      };
-    case "buyer":
-      return {
-        role,
-        rows: BUYER_ROWS,
-        columns: BUYER_COLUMNS,
-        searchAriaLabel: "Search buyers",
-        header: {
-          showTableau: true,
-          tableauUrl: TABLEAU_URL,
-          tableauLabel: "View last 30d in Tableau",
-          showAdd: true,
-          addLabel: "Buyer",
-        },
-        renderRowActions: (row) => defaultRowActions(row.name),
-      };
-    default: {
-      const _exhaustive: never = role;
-      return _exhaustive;
-    }
-  }
+const ENTITY_LIST_PAGES: {
+  farmer: EntityListPageConfig<FarmerRow>;
+  aggregator: EntityListPageConfig<AggregatorRow>;
+  buyer: EntityListPageConfig<BuyerRow>;
+} = {
+  farmer: {
+    role: "farmer",
+    rows: FARMER_ROWS,
+    columns: FARMER_COLUMNS,
+    searchAriaLabel: "Search farmers",
+    renderRowActions: (row) => defaultRowActions(row.name),
+  },
+  aggregator: {
+    role: "aggregator",
+    rows: AGGREGATOR_ROWS,
+    columns: AGGREGATOR_COLUMNS,
+    searchAriaLabel: "Search aggregators",
+    header: {
+      showTableau: true,
+      tableauUrl: TABLEAU_URL,
+      tableauLabel: "View last 30d in Tableau",
+      showAdd: true,
+      addLabel: "Aggregator",
+    },
+    renderRowActions: aggregatorRowActions,
+  },
+  buyer: {
+    role: "buyer",
+    rows: BUYER_ROWS,
+    columns: BUYER_COLUMNS,
+    searchAriaLabel: "Search buyers",
+    header: {
+      showTableau: true,
+      tableauUrl: TABLEAU_URL,
+      tableauLabel: "View last 30d in Tableau",
+      showAdd: true,
+      addLabel: "Buyer",
+    },
+    renderRowActions: (row) => defaultRowActions(row.name),
+  },
+};
+
+function getEntityListPageConfig<R extends RoleCategoryId>(
+  role: R,
+): (typeof ENTITY_LIST_PAGES)[R] {
+  return ENTITY_LIST_PAGES[role];
 }
 
-export { getEntityListPageConfig, Plus };
+export { ENTITY_LIST_PAGES, getEntityListPageConfig, Plus };

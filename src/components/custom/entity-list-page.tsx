@@ -10,6 +10,7 @@ import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  ENTITY_LIST_PAGES,
   ENTITY_LIST_PRESENTATION,
   getEntityListPageConfig,
   Plus,
@@ -38,12 +39,86 @@ type EntityListPageProps = {
   role: RoleCategoryId;
 };
 
-function EntityListPage({ role }: EntityListPageProps) {
-  const config = getEntityListPageConfig(role) as EntityListPageConfig<{
-    id: string;
-  }>;
+function EntityListTable<TRow extends { id: string }>({
+  config,
+  role,
+}: {
+  config: EntityListPageConfig<TRow>;
+  role: RoleCategoryId;
+}) {
   const roleCategory = getRoleCategory(role);
   const presentation = ENTITY_LIST_PRESENTATION;
+
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className={presentation.tableIconColumnClassName}>
+            <span className="sr-only">{roleCategory.label}</span>
+          </TableHead>
+          {config.columns.map((column) => (
+            <TableHead key={column.id} className={column.headerClassName}>
+              {column.header}
+            </TableHead>
+          ))}
+          {config.renderRowActions ? (
+            <TableHead className={presentation.actionsColumnClassName}>
+              <span className="sr-only">Actions</span>
+            </TableHead>
+          ) : null}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {config.rows.map((row) => (
+          <TableRow key={row.id}>
+            <TableCell className={presentation.tableIconColumnClassName}>
+              <RoleCategoryIcon role={role} />
+            </TableCell>
+            {config.columns.map((column) => (
+              <TableCell key={column.id} className={column.cellClassName}>
+                {column.render(row)}
+              </TableCell>
+            ))}
+            {config.renderRowActions ? (
+              <TableCell className={presentation.actionsColumnClassName}>
+                <div className={presentation.rowActionsClassName}>
+                  {config.renderRowActions(row)}
+                </div>
+              </TableCell>
+            ) : null}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+function EntityListPage({ role }: EntityListPageProps) {
+  const config = getEntityListPageConfig(role);
+  const roleCategory = getRoleCategory(role);
+  const presentation = ENTITY_LIST_PRESENTATION;
+
+  const table = (() => {
+    switch (role) {
+      case "farmer":
+        return (
+          <EntityListTable config={ENTITY_LIST_PAGES.farmer} role={role} />
+        );
+      case "aggregator":
+        return (
+          <EntityListTable
+            config={ENTITY_LIST_PAGES.aggregator}
+            role={role}
+          />
+        );
+      case "buyer":
+        return <EntityListTable config={ENTITY_LIST_PAGES.buyer} role={role} />;
+      default: {
+        const _exhaustive: never = role;
+        return _exhaustive;
+      }
+    }
+  })();
 
   return (
     <main className={presentation.main}>
@@ -99,46 +174,7 @@ function EntityListPage({ role }: EntityListPageProps) {
         <TimeRangeTabs />
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className={presentation.tableIconColumnClassName}>
-              <span className="sr-only">{roleCategory.label}</span>
-            </TableHead>
-            {config.columns.map((column) => (
-              <TableHead key={column.id} className={column.headerClassName}>
-                {column.header}
-              </TableHead>
-            ))}
-            {config.renderRowActions ? (
-              <TableHead className={presentation.actionsColumnClassName}>
-                <span className="sr-only">Actions</span>
-              </TableHead>
-            ) : null}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {config.rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell className={presentation.tableIconColumnClassName}>
-                <RoleCategoryIcon role={role} />
-              </TableCell>
-              {config.columns.map((column) => (
-                <TableCell key={column.id} className={column.cellClassName}>
-                  {column.render(row)}
-                </TableCell>
-              ))}
-              {config.renderRowActions ? (
-                <TableCell className={presentation.actionsColumnClassName}>
-                  <div className={presentation.rowActionsClassName}>
-                    {config.renderRowActions(row)}
-                  </div>
-                </TableCell>
-              ) : null}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      {table}
 
       <Pagination>
         <PaginationContent>
