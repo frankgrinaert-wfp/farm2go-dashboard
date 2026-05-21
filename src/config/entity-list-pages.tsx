@@ -224,8 +224,7 @@ function rowActionButtons(entityLabel: string) {
     <>
       <Button
         variant="outline"
-        size="icon"
-        className="size-8"
+        size="icon-sm"
         aria-label="More options"
         onClick={(e) => e.preventDefault()}
       >
@@ -233,8 +232,7 @@ function rowActionButtons(entityLabel: string) {
       </Button>
       <Button
         variant="outline"
-        size="icon"
-        className="size-8"
+        size="icon-sm"
         aria-label={`View ${entityLabel}`}
         onClick={(e) => e.preventDefault()}
       >
