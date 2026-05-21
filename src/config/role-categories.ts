@@ -45,14 +45,14 @@ const CATEGORY_ICON_STYLES: Record<
     row: "text-orange-600 bg-orange-100",
   },
   brown: {
-    title: "text-brown-700 bg-brown-100",
-    metric: "text-brown-600",
-    row: "text-brown-700 bg-brown-100",
+    title: "text-brown-600 bg-brown-100",
+    metric: "text-brown-500",
+    row: "text-brown-600 bg-brown-100",
   },
   ivory: {
-    title: "text-ivory-700 bg-ivory-100",
-    metric: "text-ivory-600",
-    row: "text-ivory-700 bg-ivory-100",
+    title: "text-ivory-600 bg-ivory-100",
+    metric: "text-ivory-500",
+    row: "text-ivory-600 bg-ivory-100",
   },
   green: {
     title: "text-green-600 bg-green-100",

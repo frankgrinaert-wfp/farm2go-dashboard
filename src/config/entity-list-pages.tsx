@@ -56,7 +56,7 @@ export function getMetricTone(value: number): MetricTone {
 
 export const METRIC_TONE_CLASS: Record<MetricTone, string> = {
   default: "text-foreground",
-  warning: "text-warning-700",
+  warning: "text-warning-600",
   danger: "text-danger-600",
 };
 
