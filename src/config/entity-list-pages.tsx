@@ -98,9 +98,6 @@ export type EntityListColumn<TRow> = {
 };
 
 export type EntityListPageHeaderConfig = {
-  showTableau?: boolean;
-  tableauUrl?: string;
-  tableauLabel?: string;
   showAdd?: boolean;
   addLabel?: string;
 };
@@ -223,9 +220,6 @@ const BUYER_ROWS: BuyerRow[] = Array.from({ length: 20 }, (_, i) => ({
   exchanges: 10,
   activity: "Active" as const,
 }));
-
-const TABLEAU_URL =
-  "https://analytics.wfp.org/views/Farm2GoDashboard_17737548909260/HomePage";
 
 function rowActionButtons(entityLabel: string) {
   return (
@@ -435,9 +429,6 @@ const ENTITY_LIST_PAGES: {
     columns: AGGREGATOR_COLUMNS,
     searchAriaLabel: "Search aggregators",
     header: {
-      showTableau: true,
-      tableauUrl: TABLEAU_URL,
-      tableauLabel: "View last 30d in Tableau",
       showAdd: true,
       addLabel: "Aggregator",
     },
@@ -449,9 +440,6 @@ const ENTITY_LIST_PAGES: {
     columns: BUYER_COLUMNS,
     searchAriaLabel: "Search buyers",
     header: {
-      showTableau: true,
-      tableauUrl: TABLEAU_URL,
-      tableauLabel: "View last 30d in Tableau",
       showAdd: true,
       addLabel: "Buyer",
     },

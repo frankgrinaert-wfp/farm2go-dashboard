@@ -1,9 +1,4 @@
-import {
-  ArrowUpDown,
-  ListFilter,
-  Search,
-  SquareArrowOutUpRight,
-} from "lucide-react";
+import { ArrowUpDown, ListFilter, Search } from "lucide-react";
 
 import { RoleCategoryIcon } from "@/components/custom/role-category-icon";
 import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
@@ -124,26 +119,12 @@ function EntityListPage({ role }: EntityListPageProps) {
     <main className={presentation.main}>
       <div className={presentation.pageHeader}>
         <h1 className={presentation.title}>{roleCategory.label}</h1>
-        {config.header?.showTableau || config.header?.showAdd ? (
+        {config.header?.showAdd ? (
           <div className={presentation.headerActions}>
-            {config.header.showTableau && config.header.tableauUrl ? (
-              <Button variant="outline" asChild>
-                <a
-                  href={config.header.tableauUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {config.header.tableauLabel ?? "View in Tableau"}
-                  <SquareArrowOutUpRight />
-                </a>
-              </Button>
-            ) : null}
-            {config.header.showAdd ? (
-              <Button onClick={(e) => e.preventDefault()}>
-                <Plus />
-                {config.header.addLabel ?? roleCategory.label.slice(0, -1)}
-              </Button>
-            ) : null}
+            <Button onClick={(e) => e.preventDefault()}>
+              <Plus />
+              {config.header.addLabel ?? roleCategory.label.slice(0, -1)}
+            </Button>
           </div>
         ) : null}
       </div>
