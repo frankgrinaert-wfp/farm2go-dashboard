@@ -19,17 +19,17 @@ import {
   type MetricItem,
 } from "@/components/custom/metrics-column-card";
 import { getMetricDetailListIcon } from "@/config/metric-detail-config";
-import type { RoleCategoryId } from "@/config/role-categories";
+import type { EntityTypeId } from "@/config/entity-types";
 
 type MetricsColumn = {
-  role: RoleCategoryId;
+  entityType: EntityTypeId;
   total: string;
   metrics: MetricItem[];
 };
 
 const METRICS_COLUMNS: MetricsColumn[] = [
   {
-    role: "farmer",
+    entityType: "farmer",
     total: "1000 total",
     metrics: [
       {
@@ -82,7 +82,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     ],
   },
   {
-    role: "aggregator",
+    entityType: "aggregator",
     total: "1000 total",
     metrics: [
       {
@@ -169,7 +169,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
     ],
   },
   {
-    role: "buyer",
+    entityType: "buyer",
     total: "1000 total",
     metrics: [
       {
@@ -217,8 +217,8 @@ function OverviewMetricsSection() {
     <section className="grid items-start gap-7 lg:grid-cols-3">
       {METRICS_COLUMNS.map((column) => (
         <MetricsColumnCard
-          key={column.role}
-          role={column.role}
+          key={column.entityType}
+          entityType={column.entityType}
           total={column.total}
           metrics={column.metrics}
         />

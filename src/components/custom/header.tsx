@@ -3,7 +3,7 @@
 import { LogOut, Menu, Info, UserCircle, ScrollText } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getRoleCategory } from "@/config/role-categories";
+import { getEntityType } from "@/config/entity-types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { AppInformationDialog } from "@/components/custom/app-information-dialog";
@@ -142,26 +142,22 @@ function ProjectsHeader() {
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to={getRoleCategory("farmer").listPath ?? "/farmers"}>
-                    {getRoleCategory("farmer").label}
+                  <Link to={getEntityType("farmer").listPath}>
+                    {getEntityType("farmer").plural}
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link
-                    to={
-                      getRoleCategory("aggregator").listPath ?? "/aggregators"
-                    }
-                  >
-                    {getRoleCategory("aggregator").label}
+                  <Link to={getEntityType("aggregator").listPath}>
+                    {getEntityType("aggregator").plural}
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to={getRoleCategory("buyer").listPath ?? "/buyers"}>
-                    {getRoleCategory("buyer").label}
+                  <Link to={getEntityType("buyer").listPath}>
+                    {getEntityType("buyer").plural}
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>

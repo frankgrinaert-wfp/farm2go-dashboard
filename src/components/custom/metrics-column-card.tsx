@@ -4,12 +4,12 @@ import { Link as RouterLink } from "react-router-dom";
 import type { MetricDetailSlug } from "@/config/metric-detail-config";
 import { metricDetailRoute } from "@/config/metric-detail-config";
 import {
-  getCategoryIconStyles,
-  getRoleCategory,
-  type CategoryColor,
-  type RoleCategoryId,
-} from "@/config/role-categories";
-import { RoleCategoryIcon } from "@/components/custom/role-category-icon";
+  getEntityColorStyles,
+  getEntityType,
+  type EntityColor,
+  type EntityTypeId,
+} from "@/config/entity-types";
+import { EntityTypeIcon } from "@/components/custom/entity-type-icon";
 import {
   Card,
   CardContent,
@@ -40,30 +40,34 @@ type MetricItem = {
 };
 
 type MetricsColumnCardProps = {
-  role: RoleCategoryId;
+  entityType: EntityTypeId;
   total: string;
   metrics: MetricItem[];
 };
 
-function MetricsColumnCard({ role, total, metrics }: MetricsColumnCardProps) {
-  const roleCategory = getRoleCategory(role);
-  const iconStyles = getCategoryIconStyles(roleCategory.categoryColor);
+function MetricsColumnCard({
+  entityType,
+  total,
+  metrics,
+}: MetricsColumnCardProps) {
+  const entity = getEntityType(entityType);
+  const iconStyles = getEntityColorStyles(entity.color);
 
   return (
     <Card className="p-0 gap-0 border-none">
       <CardHeader className="p-0! border-b gap-0">
         <Item className="w-full items-center border-none">
           <ItemMedia>
-            <RoleCategoryIcon role={role} size="title" />
+            <EntityTypeIcon entityType={entityType} size="title" />
           </ItemMedia>
           <ItemContent className="min-w-0 flex-1 gap-0">
-            <CardTitle className="text-lg">{roleCategory.label}</CardTitle>
+            <CardTitle className="text-lg">{entity.plural}</CardTitle>
             <CardDescription className="text-xs">{total}</CardDescription>
           </ItemContent>
-          {roleCategory.listPath ? (
+          {entity.listPath ? (
             <ItemActions className="shrink-0">
               <Button variant="link" asChild>
-                <RouterLink to={roleCategory.listPath}>View all</RouterLink>
+                <RouterLink to={entity.listPath}>View all</RouterLink>
               </Button>
             </ItemActions>
           ) : null}
@@ -120,5 +124,5 @@ function MetricsColumnCard({ role, total, metrics }: MetricsColumnCardProps) {
   );
 }
 
-export type { CategoryColor, MetricItem };
+export type { EntityColor, MetricItem };
 export { MetricsColumnCard };

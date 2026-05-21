@@ -1,6 +1,6 @@
 import { ArrowUpDown, ListFilter, Search } from "lucide-react";
 
-import { RoleCategoryIcon } from "@/components/custom/role-category-icon";
+import { EntityTypeIcon } from "@/components/custom/entity-type-icon";
 import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,7 +11,11 @@ import {
   Plus,
   type EntityListPageConfig,
 } from "@/config/entity-list-pages";
-import { getRoleCategory, type RoleCategoryId } from "@/config/role-categories";
+import {
+  entitySearchAriaLabel,
+  getEntityType,
+  type EntityTypeId,
+} from "@/config/entity-types";
 import {
   Pagination,
   PaginationContent,
@@ -31,17 +35,17 @@ import {
 } from "@/components/ui/table";
 
 type EntityListPageProps = {
-  role: RoleCategoryId;
+  entityType: EntityTypeId;
 };
 
 function EntityListTable<TRow extends { id: string }>({
   config,
-  role,
+  entityType,
 }: {
   config: EntityListPageConfig<TRow>;
-  role: RoleCategoryId;
+  entityType: EntityTypeId;
 }) {
-  const roleCategory = getRoleCategory(role);
+  const entity = getEntityType(entityType);
   const presentation = ENTITY_LIST_PRESENTATION;
 
   return (
@@ -49,7 +53,7 @@ function EntityListTable<TRow extends { id: string }>({
       <TableHeader>
         <TableRow>
           <TableHead className={presentation.tableIconColumnClassName}>
-            <span className="sr-only">{roleCategory.label}</span>
+              <span className="sr-only">{entity.plural}</span>
           </TableHead>
           {config.columns.map((column) => (
             <TableHead key={column.id} className={column.headerClassName}>
@@ -67,7 +71,7 @@ function EntityListTable<TRow extends { id: string }>({
         {config.rows.map((row) => (
           <TableRow key={row.id}>
             <TableCell className={presentation.tableIconColumnClassName}>
-              <RoleCategoryIcon role={role} />
+                <EntityTypeIcon entityType={entityType} />
             </TableCell>
             {config.columns.map((column) => (
               <TableCell key={column.id} className={column.cellClassName}>
@@ -88,28 +92,36 @@ function EntityListTable<TRow extends { id: string }>({
   );
 }
 
-function EntityListPage({ role }: EntityListPageProps) {
-  const config = getEntityListPageConfig(role);
-  const roleCategory = getRoleCategory(role);
+function EntityListPage({ entityType }: EntityListPageProps) {
+  const config = getEntityListPageConfig(entityType);
+  const entity = getEntityType(entityType);
   const presentation = ENTITY_LIST_PRESENTATION;
 
   const table = (() => {
-    switch (role) {
+    switch (entityType) {
       case "farmer":
         return (
-          <EntityListTable config={ENTITY_LIST_PAGES.farmer} role={role} />
+          <EntityListTable
+            config={ENTITY_LIST_PAGES.farmer}
+            entityType={entityType}
+          />
         );
       case "aggregator":
         return (
           <EntityListTable
             config={ENTITY_LIST_PAGES.aggregator}
-            role={role}
+            entityType={entityType}
           />
         );
       case "buyer":
-        return <EntityListTable config={ENTITY_LIST_PAGES.buyer} role={role} />;
+        return (
+          <EntityListTable
+            config={ENTITY_LIST_PAGES.buyer}
+            entityType={entityType}
+          />
+        );
       default: {
-        const _exhaustive: never = role;
+        const _exhaustive: never = entityType;
         return _exhaustive;
       }
     }
@@ -118,12 +130,12 @@ function EntityListPage({ role }: EntityListPageProps) {
   return (
     <main className={presentation.main}>
       <div className={presentation.pageHeader}>
-        <h1 className={presentation.title}>{roleCategory.label}</h1>
+        <h1 className={presentation.title}>{entity.plural}</h1>
         {config.header?.showAdd ? (
           <div className={presentation.headerActions}>
             <Button onClick={(e) => e.preventDefault()}>
               <Plus />
-              {config.header.addLabel ?? roleCategory.label.slice(0, -1)}
+              {entity.singular}
             </Button>
           </div>
         ) : null}
@@ -140,7 +152,7 @@ function EntityListPage({ role }: EntityListPageProps) {
               type="search"
               placeholder="Search"
               className={presentation.searchInput}
-              aria-label={config.searchAriaLabel}
+              aria-label={entitySearchAriaLabel(entityType)}
             />
           </div>
           <Button variant="outline">

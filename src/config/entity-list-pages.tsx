@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
-import type { RoleCategoryId } from "@/config/role-categories";
+import { getEntityType, type EntityTypeId } from "@/config/entity-types";
 
 /** Tweak layout, spacing, and shared table chrome in one place. */
 export const ENTITY_LIST_PRESENTATION = {
@@ -99,14 +99,12 @@ export type EntityListColumn<TRow> = {
 
 export type EntityListPageHeaderConfig = {
   showAdd?: boolean;
-  addLabel?: string;
 };
 
 export type EntityListPageConfig<TRow extends { id: string }> = {
-  role: RoleCategoryId;
+  entityType: EntityTypeId;
   rows: TRow[];
   columns: EntityListColumn<TRow>[];
-  searchAriaLabel: string;
   header?: EntityListPageHeaderConfig;
   renderRowActions?: (row: TRow) => ReactNode;
 };
@@ -297,7 +295,7 @@ const FARMER_COLUMNS: EntityListColumn<FarmerRow>[] = [
   },
   {
     id: "aggregationCentre",
-    header: "Aggregator",
+    header: getEntityType("aggregator").singular,
     cellClassName: "max-w-[10rem]",
     render: (row) => (
       <PlaceholderEntityLink className="block truncate">
@@ -343,7 +341,7 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   },
   {
     id: "farmers",
-    header: "Farmers",
+    header: getEntityType("farmer").plural,
     render: (row) => (
       <PlaceholderEntityLink className="tabular-nums">
         {row.farmers}
@@ -417,40 +415,31 @@ const ENTITY_LIST_PAGES: {
   buyer: EntityListPageConfig<BuyerRow>;
 } = {
   farmer: {
-    role: "farmer",
+    entityType: "farmer",
     rows: FARMER_ROWS,
     columns: FARMER_COLUMNS,
-    searchAriaLabel: "Search farmers",
     renderRowActions: (row) => defaultRowActions(row.name),
   },
   aggregator: {
-    role: "aggregator",
+    entityType: "aggregator",
     rows: AGGREGATOR_ROWS,
     columns: AGGREGATOR_COLUMNS,
-    searchAriaLabel: "Search aggregators",
-    header: {
-      showAdd: true,
-      addLabel: "Aggregator",
-    },
+    header: { showAdd: true },
     renderRowActions: aggregatorRowActions,
   },
   buyer: {
-    role: "buyer",
+    entityType: "buyer",
     rows: BUYER_ROWS,
     columns: BUYER_COLUMNS,
-    searchAriaLabel: "Search buyers",
-    header: {
-      showAdd: true,
-      addLabel: "Buyer",
-    },
+    header: { showAdd: true },
     renderRowActions: (row) => defaultRowActions(row.name),
   },
 };
 
-function getEntityListPageConfig<R extends RoleCategoryId>(
-  role: R,
+function getEntityListPageConfig<R extends EntityTypeId>(
+  entityType: R,
 ): (typeof ENTITY_LIST_PAGES)[R] {
-  return ENTITY_LIST_PAGES[role];
+  return ENTITY_LIST_PAGES[entityType];
 }
 
 export { ENTITY_LIST_PAGES, getEntityListPageConfig, Plus };

@@ -1,8 +1,8 @@
 import type { LucideIcon } from "lucide-react";
 import { Store, User, Users } from "lucide-react";
 
-/** Tailwind palette keys used for role and metric accents. */
-type CategoryColor =
+/** Tailwind palette keys used for entity icons and metric accents. */
+export type EntityColor =
   | "purple"
   | "red"
   | "orange"
@@ -13,20 +13,19 @@ type CategoryColor =
   | "blue"
   | "neutral";
 
-type RoleCategoryId = "farmer" | "aggregator" | "buyer";
+export type EntityTypeId = "farmer" | "aggregator" | "buyer";
 
-type RoleCategory = {
-  id: RoleCategoryId;
-  /** Display name (nav, page titles, overview cards). */
-  label: string;
+export type EntityType = {
+  id: EntityTypeId;
+  singular: string;
+  plural: string;
   icon: LucideIcon;
-  categoryColor: CategoryColor;
-  /** Primary list route for this role, when available. */
-  listPath?: string;
+  color: EntityColor;
+  listPath: string;
 };
 
-const CATEGORY_ICON_STYLES: Record<
-  CategoryColor,
+const ENTITY_ICON_STYLES: Record<
+  EntityColor,
   { title: string; metric: string; row: string }
 > = {
   purple: {
@@ -45,14 +44,14 @@ const CATEGORY_ICON_STYLES: Record<
     row: "text-orange-600 bg-orange-100",
   },
   brown: {
-    title: "text-brown-600 bg-brown-100",
-    metric: "text-brown-500",
-    row: "text-brown-600 bg-brown-100",
+    title: "text-brown-700 bg-brown-100",
+    metric: "text-brown-600",
+    row: "text-brown-700 bg-brown-100",
   },
   ivory: {
-    title: "text-ivory-600 bg-ivory-100",
-    metric: "text-ivory-500",
-    row: "text-ivory-600 bg-ivory-100",
+    title: "text-ivory-700 bg-ivory-100",
+    metric: "text-ivory-600",
+    row: "text-ivory-700 bg-ivory-100",
   },
   green: {
     title: "text-green-600 bg-green-100",
@@ -76,49 +75,51 @@ const CATEGORY_ICON_STYLES: Record<
   },
 };
 
-const ROLE_CATEGORIES: Record<RoleCategoryId, RoleCategory> = {
+export const ENTITY_TYPES: Record<EntityTypeId, EntityType> = {
   farmer: {
     id: "farmer",
-    label: "Farmers",
+    singular: "Farmer",
+    plural: "Farmers",
     icon: User,
-    categoryColor: "green",
+    color: "green",
     listPath: "/farmers",
   },
   aggregator: {
     id: "aggregator",
-    label: "Aggregators",
+    singular: "Aggregator",
+    plural: "Aggregators",
     icon: Users,
-    categoryColor: "orange",
+    color: "orange",
     listPath: "/aggregators",
   },
   buyer: {
     id: "buyer",
-    label: "Buyers",
+    singular: "Buyer",
+    plural: "Buyers",
     icon: Store,
-    categoryColor: "blue",
+    color: "blue",
     listPath: "/buyers",
   },
 };
 
-const TITLE_ICON_BASE_CLASSNAME = "size-10 rounded-lg p-2";
-const ROW_ICON_BASE_CLASSNAME = "size-8 rounded-md p-1.5";
+export const TITLE_ICON_BASE_CLASSNAME = "size-10 rounded-lg p-2";
+export const ROW_ICON_BASE_CLASSNAME = "size-8 rounded-md p-1.5";
 
-function getRoleCategory(id: RoleCategoryId): RoleCategory {
-  return ROLE_CATEGORIES[id];
+function getEntityType(id: EntityTypeId): EntityType {
+  return ENTITY_TYPES[id];
 }
 
-function getCategoryIconStyles(categoryColor: CategoryColor) {
-  return CATEGORY_ICON_STYLES[categoryColor];
+function getEntityColorStyles(color: EntityColor) {
+  return ENTITY_ICON_STYLES[color];
+}
+
+function entitySearchAriaLabel(id: EntityTypeId): string {
+  return `Search ${getEntityType(id).plural.toLowerCase()}`;
 }
 
 export {
-  type CategoryColor,
-  type RoleCategory,
-  type RoleCategoryId,
-  CATEGORY_ICON_STYLES,
-  ROLE_CATEGORIES,
-  TITLE_ICON_BASE_CLASSNAME,
-  ROW_ICON_BASE_CLASSNAME,
-  getRoleCategory,
-  getCategoryIconStyles,
+  ENTITY_ICON_STYLES,
+  getEntityType,
+  getEntityColorStyles,
+  entitySearchAriaLabel,
 };

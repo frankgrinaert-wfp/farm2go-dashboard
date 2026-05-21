@@ -1,39 +1,40 @@
 import type { LucideIcon } from "lucide-react";
 
 import {
-  getCategoryIconStyles,
-  getRoleCategory,
+  getEntityColorStyles,
+  getEntityType,
   ROW_ICON_BASE_CLASSNAME,
   TITLE_ICON_BASE_CLASSNAME,
-  type CategoryColor,
-  type RoleCategoryId,
-} from "@/config/role-categories";
+  type EntityColor,
+  type EntityTypeId,
+} from "@/config/entity-types";
 import { cn } from "@/lib/utils";
 
-type RoleCategoryIconProps =
+type EntityTypeIconProps =
   | {
-      role: RoleCategoryId;
+      entityType: EntityTypeId;
       size?: "title" | "row";
       className?: string;
     }
   | {
       icon: LucideIcon;
-      categoryColor: CategoryColor;
+      color: EntityColor;
       size?: "title" | "row";
       className?: string;
     };
 
-function RoleCategoryIcon(props: RoleCategoryIconProps) {
+function EntityTypeIcon(props: EntityTypeIconProps) {
   const size = props.size ?? "row";
   const isTitle = size === "title";
 
-  const Icon = "role" in props ? getRoleCategory(props.role).icon : props.icon;
-  const categoryColor =
-    "role" in props
-      ? getRoleCategory(props.role).categoryColor
-      : props.categoryColor;
+  const Icon =
+    "entityType" in props ? getEntityType(props.entityType).icon : props.icon;
+  const color =
+    "entityType" in props
+      ? getEntityType(props.entityType).color
+      : props.color;
 
-  const styles = getCategoryIconStyles(categoryColor);
+  const styles = getEntityColorStyles(color);
   const colorClass = isTitle ? styles.title : styles.row;
 
   return (
@@ -50,4 +51,4 @@ function RoleCategoryIcon(props: RoleCategoryIconProps) {
   );
 }
 
-export { RoleCategoryIcon };
+export { EntityTypeIcon };
