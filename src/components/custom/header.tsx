@@ -126,7 +126,7 @@ function ProjectsHeader() {
 
           <Link to="/" className="flex items-center gap-1.5">
             <img
-              src="/public/logos/farm2go.svg"
+              src={`${import.meta.env.BASE_URL}logos/farm2go.svg`}
               alt="WFP Logo"
               className="size-6"
             />

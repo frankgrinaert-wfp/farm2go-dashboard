@@ -14,9 +14,11 @@ import "@fontsource/open-sans/600.css";
 import "@fontsource/open-sans/700.css";
 import "./index.css";
 
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <Layout>
         <Routes>
           <Route path="/" element={<MainPage />} />

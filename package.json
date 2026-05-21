@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview --base /farm2go-dashboard/"
   },
   "dependencies": {
     "@base-ui/react": "^1.4.1",
