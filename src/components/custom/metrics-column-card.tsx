@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 import type { MetricDetailSlug } from "@/config/metric-detail-config";
 import { metricDetailRoute } from "@/config/metric-detail-config";
@@ -17,8 +17,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Item,
+  ItemActions,
   ItemContent,
   ItemDescription,
   ItemGroup,
@@ -50,14 +52,21 @@ function MetricsColumnCard({ role, total, metrics }: MetricsColumnCardProps) {
   return (
     <Card className="p-0 gap-0 border-none">
       <CardHeader className="p-0! border-b gap-0">
-        <Item className="border-none">
+        <Item className="w-full items-center border-none">
           <ItemMedia>
             <RoleCategoryIcon role={role} size="title" />
           </ItemMedia>
-          <ItemContent className="gap-0">
+          <ItemContent className="min-w-0 flex-1 gap-0">
             <CardTitle className="text-lg">{roleCategory.label}</CardTitle>
             <CardDescription className="text-xs">{total}</CardDescription>
           </ItemContent>
+          {roleCategory.listPath ? (
+            <ItemActions className="shrink-0">
+              <Button variant="link" asChild>
+                <RouterLink to={roleCategory.listPath}>View all</RouterLink>
+              </Button>
+            </ItemActions>
+          ) : null}
         </Item>
       </CardHeader>
       <CardContent className="px-0">
@@ -95,7 +104,9 @@ function MetricsColumnCard({ role, total, metrics }: MetricsColumnCardProps) {
                 {index > 0 ? <ItemSeparator /> : null}
                 {metric.detailSlug ? (
                   <Item asChild className="items-start border-none">
-                    <Link to={metricDetailRoute(metric.detailSlug)}>{row}</Link>
+                    <RouterLink to={metricDetailRoute(metric.detailSlug)}>
+                      {row}
+                    </RouterLink>
                   </Item>
                 ) : (
                   <Item className="items-start border-none">{row}</Item>
