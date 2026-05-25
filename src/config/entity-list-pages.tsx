@@ -131,6 +131,29 @@ function LastActiveCell({ lastActive }: { lastActive: string | null }) {
   );
 }
 
+function areaShortLabel(area: string): string {
+  const commaIndex = area.indexOf(",");
+  return commaIndex === -1 ? area.trim() : area.slice(0, commaIndex).trim();
+}
+
+function AggregatorAreaCell({ area }: { area: string }) {
+  const shortLabel = areaShortLabel(area);
+  const hasHierarchy = area.includes(",");
+
+  if (!hasHierarchy) {
+    return <span className="line-clamp-2">{shortLabel}</span>;
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span className="line-clamp-2 cursor-default">{shortLabel}</span>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-xs">{area}</TooltipContent>
+    </Tooltip>
+  );
+}
+
 function PlaceholderEntityLink({
   children,
   className,
@@ -538,7 +561,7 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     id: "area",
     header: "Area",
     cellClassName: "max-w-[11rem] text-sm",
-    render: (row) => <span className="line-clamp-2">{row.area}</span>,
+    render: (row) => <AggregatorAreaCell area={row.area} />,
   },
   {
     id: "farmers",
