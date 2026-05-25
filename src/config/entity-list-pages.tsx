@@ -288,8 +288,10 @@ export type AggregatorRow = {
   area: string;
   farmers: number;
   deposits: number;
+  offersReceived: number;
   offersAccepted: number;
   exchanges: number;
+  farmerPayments: number;
   /** Display date string, or null if never active. */
   lastActive: string | null;
   latestMobileApp: { using: number; total: number };
@@ -317,8 +319,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 87,
     deposits: 42,
+    offersReceived: 56,
     offersAccepted: 18,
     exchanges: 12,
+    farmerPayments: 38,
     lastActive: "19 May 2026",
     latestMobileApp: { using: 3, total: 3 },
   },
@@ -327,8 +331,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 64,
     deposits: 7,
+    offersReceived: 14,
     offersAccepted: 6,
     exchanges: 4,
+    farmerPayments: 9,
     lastActive: "8 Apr 2026",
     latestMobileApp: { using: 2, total: 3 },
   },
@@ -337,8 +343,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 52,
     deposits: 5,
+    offersReceived: 11,
     offersAccepted: 4,
     exchanges: 2,
+    farmerPayments: 7,
     lastActive: "15 Mar 2026",
     latestMobileApp: { using: 1, total: 4 },
   },
@@ -347,8 +355,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 41,
     deposits: 0,
+    offersReceived: 0,
     offersAccepted: 0,
     exchanges: 0,
+    farmerPayments: 0,
     lastActive: null,
     latestMobileApp: { using: 0, total: 2 },
   },
@@ -357,8 +367,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     area: "Teknaf, Cox's Bazar, Chittagong",
     farmers: 28,
     deposits: 12,
+    offersReceived: 8,
     offersAccepted: 2,
     exchanges: 1,
+    farmerPayments: 5,
     lastActive: "2 Feb 2026",
     latestMobileApp: { using: 2, total: 2 },
   },
@@ -608,6 +620,11 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     render: (row) => <MetricValue value={row.deposits} />,
   },
   {
+    id: "offersReceived",
+    header: "Offers received",
+    render: (row) => <EmptyZeroCell value={row.offersReceived} />,
+  },
+  {
     id: "offersAccepted",
     header: "Offers accepted",
     render: (row) => <MetricValue value={row.offersAccepted} />,
@@ -616,6 +633,11 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     id: "exchanges",
     header: "Exchanges",
     render: (row) => <MetricValue value={row.exchanges} />,
+  },
+  {
+    id: "farmerPayments",
+    header: "Farmer payments",
+    render: (row) => <EmptyZeroCell value={row.farmerPayments} />,
   },
   {
     id: "lastActive",
