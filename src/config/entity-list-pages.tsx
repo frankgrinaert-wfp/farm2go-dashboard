@@ -572,7 +572,7 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   },
   {
     id: "latestMobileApp",
-    header: "Using latest mobile app",
+    header: "Latest mobile app",
     cellClassName: "whitespace-nowrap",
     render: (row) => <LatestMobileAppCell {...row.latestMobileApp} />,
   },
