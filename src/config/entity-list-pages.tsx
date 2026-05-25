@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
 import { getEntityType, type EntityTypeId } from "@/config/entity-types";
+import { cn } from "@/lib/utils";
 
 /** Tweak layout, spacing, and shared table chrome in one place. */
 export const ENTITY_LIST_PRESENTATION = {
@@ -66,11 +67,67 @@ function ActivityStatusBadge({ status }: { status: ActivityStatus }) {
   );
 }
 
+function EmptyZeroCell({ value }: { value: number }) {
+  if (value === 0) {
+    return <span className="text-muted-foreground">—</span>;
+  }
+  return <span className="tabular-nums">{value}</span>;
+}
+
 function MetricValue({ value, tone }: { value: number; tone?: MetricTone }) {
+  if (value === 0) {
+    return <span className="text-muted-foreground">—</span>;
+  }
   const resolved = tone ?? getMetricTone(value);
   return (
     <span className={`tabular-nums ${METRIC_TONE_CLASS[resolved]}`}>
       {value}
+    </span>
+  );
+}
+
+function LinkedCountCell({ value }: { value: number }) {
+  if (value === 0) {
+    return <span className="text-muted-foreground">—</span>;
+  }
+  return (
+    <PlaceholderEntityLink className="tabular-nums">
+      {value}
+    </PlaceholderEntityLink>
+  );
+}
+
+function parseDisplayDate(value: string): Date | null {
+  const parsed = new Date(value);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
+
+function daysSince(date: Date): number {
+  const ms = Date.now() - date.getTime();
+  return Math.floor(ms / (1000 * 60 * 60 * 24));
+}
+
+function isLastActiveStale(lastActive: string | null): boolean {
+  if (lastActive === null) return false;
+  const date = parseDisplayDate(lastActive);
+  return date !== null && daysSince(date) >= 30;
+}
+
+function LastActiveCell({ lastActive }: { lastActive: string | null }) {
+  if (lastActive === null) {
+    return <span className="text-muted-foreground">—</span>;
+  }
+
+  const stale = isLastActiveStale(lastActive);
+
+  return (
+    <span
+      className={cn(
+        "whitespace-nowrap tabular-nums",
+        stale && "text-warning-600",
+      )}
+    >
+      {lastActive}
     </span>
   );
 }
@@ -141,7 +198,8 @@ export type AggregatorRow = {
   deposits: number;
   offersAccepted: number;
   exchanges: number;
-  activity: ActivityStatus;
+  /** Display date string, or null if never active. */
+  lastActive: string | null;
 };
 
 const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
@@ -152,7 +210,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     deposits: 42,
     offersAccepted: 18,
     exchanges: 12,
-    activity: "Active",
+    lastActive: "19 May 2026",
   },
   {
     name: "Balukhali Field Aggregation Unit",
@@ -161,7 +219,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     deposits: 7,
     offersAccepted: 6,
     exchanges: 4,
-    activity: "Low activity",
+    lastActive: "8 Apr 2026",
   },
   {
     name: "Jamtoli Cooperative Society",
@@ -170,7 +228,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     deposits: 5,
     offersAccepted: 4,
     exchanges: 2,
-    activity: "Low activity",
+    lastActive: "15 Mar 2026",
   },
   {
     name: "Thaingkhali Station Aggregator",
@@ -179,7 +237,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     deposits: 0,
     offersAccepted: 0,
     exchanges: 0,
-    activity: "Inactive",
+    lastActive: null,
   },
   {
     name: "Nayapara Legacy Cooperative",
@@ -188,7 +246,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     deposits: 12,
     offersAccepted: 2,
     exchanges: 1,
-    activity: "Archived",
+    lastActive: "2 Feb 2026",
   },
 ];
 
@@ -208,7 +266,8 @@ export type BuyerRow = {
   demandOffers: number;
   offersAccepted: number;
   exchanges: number;
-  activity: ActivityStatus;
+  /** Display date string, or null if never active. */
+  lastActive: string | null;
 };
 
 const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
@@ -220,7 +279,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 50,
     offersAccepted: 30,
     exchanges: 10,
-    activity: "Active",
+    lastActive: "20 May 2026",
   },
   {
     name: "Balukhali Retail Market",
@@ -230,7 +289,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 38,
     offersAccepted: 24,
     exchanges: 8,
-    activity: "Active",
+    lastActive: "14 May 2026",
   },
   {
     name: "Cox's Bazar Primary School",
@@ -240,7 +299,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 22,
     offersAccepted: 12,
     exchanges: 4,
-    activity: "Low activity",
+    lastActive: "22 Mar 2026",
   },
   {
     name: "Teknaf Community Store",
@@ -250,7 +309,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 28,
     offersAccepted: 16,
     exchanges: 5,
-    activity: "Active",
+    lastActive: "6 May 2026",
   },
   {
     name: "Jamaluddin Wholesale",
@@ -260,7 +319,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 45,
     offersAccepted: 28,
     exchanges: 11,
-    activity: "Active",
+    lastActive: "17 May 2026",
   },
   {
     name: "Shamlapur High School",
@@ -270,7 +329,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 15,
     offersAccepted: 6,
     exchanges: 2,
-    activity: "Inactive",
+    lastActive: null,
   },
   {
     name: "Rohingya Relief Retail Co-op",
@@ -280,7 +339,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 31,
     offersAccepted: 14,
     exchanges: 6,
-    activity: "Low activity",
+    lastActive: "28 Mar 2026",
   },
   {
     name: "Bay of Bengal Trading",
@@ -290,7 +349,7 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 40,
     offersAccepted: 22,
     exchanges: 9,
-    activity: "Active",
+    lastActive: "11 May 2026",
   },
 ];
 
@@ -327,15 +386,18 @@ function defaultRowActions(entityLabel: string) {
 }
 
 function aggregatorRowActions(row: AggregatorRow) {
+  const stale = isLastActiveStale(row.lastActive);
+  const neverActive = row.lastActive === null;
+
   return (
     <>
-      {row.activity === "Low activity" ? (
+      {stale ? (
         <Button variant="outline" size="sm" onClick={(e) => e.preventDefault()}>
           <MessageCircle />
           Contact
         </Button>
       ) : null}
-      {row.activity === "Inactive" ? (
+      {neverActive ? (
         <Button variant="outline" size="sm" onClick={(e) => e.preventDefault()}>
           <Archive />
           Archive
@@ -420,11 +482,7 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   {
     id: "farmers",
     header: getEntityType("farmer").plural,
-    render: (row) => (
-      <PlaceholderEntityLink className="tabular-nums">
-        {row.farmers}
-      </PlaceholderEntityLink>
-    ),
+    render: (row) => <LinkedCountCell value={row.farmers} />,
   },
   {
     id: "deposits",
@@ -442,9 +500,10 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     render: (row) => <MetricValue value={row.exchanges} />,
   },
   {
-    id: "activity",
-    header: "Activity status",
-    render: (row) => <ActivityStatusBadge status={row.activity} />,
+    id: "lastActive",
+    header: "Last active",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => <LastActiveCell lastActive={row.lastActive} />,
   },
 ];
 
@@ -469,27 +528,28 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
   {
     id: "directOffers",
     header: "Direct offers",
-    render: (row) => <span className="tabular-nums">{row.directOffers}</span>,
+    render: (row) => <EmptyZeroCell value={row.directOffers} />,
   },
   {
     id: "demandOffers",
     header: "Demand offers",
-    render: (row) => <span className="tabular-nums">{row.demandOffers}</span>,
+    render: (row) => <EmptyZeroCell value={row.demandOffers} />,
   },
   {
     id: "offersAccepted",
     header: "Offers accepted",
-    render: (row) => <span className="tabular-nums">{row.offersAccepted}</span>,
+    render: (row) => <EmptyZeroCell value={row.offersAccepted} />,
   },
   {
     id: "exchanges",
     header: "Exchanges",
-    render: (row) => <span className="tabular-nums">{row.exchanges}</span>,
+    render: (row) => <EmptyZeroCell value={row.exchanges} />,
   },
   {
-    id: "activity",
-    header: "Activity status",
-    render: (row) => <ActivityStatusBadge status={row.activity} />,
+    id: "lastActive",
+    header: "Last active",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => <LastActiveCell lastActive={row.lastActive} />,
   },
 ];
 
