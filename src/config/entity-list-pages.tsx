@@ -537,12 +537,8 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   {
     id: "area",
     header: "Area",
-    cellClassName: "max-w-[11rem]",
-    render: (row) => (
-      <PlaceholderEntityLink className="line-clamp-2 text-sm">
-        {row.area}
-      </PlaceholderEntityLink>
-    ),
+    cellClassName: "max-w-[11rem] text-sm",
+    render: (row) => <span className="line-clamp-2">{row.area}</span>,
   },
   {
     id: "farmers",
