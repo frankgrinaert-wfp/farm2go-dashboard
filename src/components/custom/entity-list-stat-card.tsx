@@ -7,16 +7,12 @@ import { cn } from "@/lib/utils";
 export type EntityListStatCardConfig = {
   id: string;
   metric: string;
-  /** Absolute count shown as the primary number (e.g. total aggregators). */
+  /** Primary count shown on the card. */
   number?: number;
-  /** Percentage shown as the primary number (e.g. 62%). */
-  percent?: number;
-  /** Absolute count shown in the View link when `captionLink` is set. */
-  count?: number;
   caption?: string;
-  /** When true, shows “View {count}” beside the number (placeholder for future filters). */
+  /** When true, shows a “View” link beside the number (placeholder for future filters). */
   captionLink?: boolean;
-  /** Change in the last 30 days (positive = up, negative = down). */
+  /** Percentage-point change in the last 30 days (positive = up, negative = down). */
   trend30d: number;
   /** When true, an increase is bad (danger) and a decrease is good (success). */
   invertTrendColors?: boolean;
@@ -26,18 +22,16 @@ type EntityListStatCardProps = EntityListStatCardConfig;
 
 function StatCardTrend({
   change,
-  asPercent,
   invertTrendColors,
 }: {
   change: number;
-  asPercent?: boolean;
   invertTrendColors?: boolean;
 }) {
   if (change === 0) return null;
 
   const isUp = change > 0;
   const Icon = isUp ? ArrowUp : ArrowDown;
-  const valueLabel = `${change}${asPercent ? "%" : ""}`;
+  const valueLabel = `${change}%`;
   const trendIsPositive = invertTrendColors ? !isUp : isUp;
   const trendColor = trendIsPositive
     ? "text-success-600"
@@ -58,16 +52,13 @@ function StatCardTrend({
 
 function EntityListStatCard({
   number,
-  percent,
-  count,
   metric,
   caption,
   captionLink,
   trend30d,
   invertTrendColors,
 }: EntityListStatCardProps) {
-  const primaryValue =
-    percent !== undefined ? `${percent}%` : (number?.toString() ?? "");
+  const primaryValue = number?.toString() ?? "";
 
   return (
     <Card className="gap-0 py-4 shadow-xs">
@@ -77,20 +68,19 @@ function EntityListStatCard({
           <p className="font-semibold text-2xl text-foreground tabular-nums">
             {primaryValue}
           </p>
-          {captionLink && count !== undefined ? (
+          {captionLink ? (
             <Button
               variant="link"
               size="sm"
               onClick={(e) => e.preventDefault()}
-              aria-label={`View ${count}`}
+              aria-label={`View ${metric.toLowerCase()}`}
             >
-              View {count}
+              View
             </Button>
           ) : null}
         </div>
         <StatCardTrend
           change={trend30d}
-          asPercent={percent !== undefined}
           invertTrendColors={invertTrendColors}
         />
         {caption ? (

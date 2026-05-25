@@ -1,4 +1,5 @@
 import { ProjectsHeader } from "@/components/custom/header";
+import { AdminCountryProvider } from "@/contexts/admin-country-context";
 import type { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -12,10 +13,14 @@ function Layout({ children }: IProps) {
   const hasMutedBackground = mutedBackgroundRoutes.has(pathname);
 
   return (
-    <div className={hasMutedBackground ? "min-h-screen bg-muted" : "min-h-screen"}>
-      <ProjectsHeader />
-      {children}
-    </div>
+    <AdminCountryProvider>
+      <div
+        className={hasMutedBackground ? "min-h-screen bg-muted" : "min-h-screen"}
+      >
+        <ProjectsHeader />
+        {children}
+      </div>
+    </AdminCountryProvider>
   );
 }
 
