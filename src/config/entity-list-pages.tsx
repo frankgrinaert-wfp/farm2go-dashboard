@@ -1,11 +1,5 @@
 import type { ReactNode } from "react";
-import {
-  Archive,
-  ChevronRight,
-  MessageCircle,
-  MoreHorizontal,
-  Plus,
-} from "lucide-react";
+import { Archive, ChevronRight, MessageCircle, Plus } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -26,7 +20,7 @@ export const ENTITY_LIST_PRESENTATION = {
   searchWrapper: "relative min-w-[12rem] flex-1 max-w-xs",
   searchInput: "pl-9",
   actionsColumnClassName: "w-px text-right",
-  rowActionsClassName: "flex items-center justify-end gap-1",
+  rowActionsClassName: "flex items-center justify-end gap-2",
 } as const;
 
 export type ActivityStatus =
@@ -360,24 +354,15 @@ const BUYER_ROWS: BuyerRow[] = Array.from({ length: 20 }, (_, i) => ({
 
 function rowActionButtons(entityLabel: string) {
   return (
-    <>
-      <Button
-        variant="outline"
-        size="icon-sm"
-        aria-label="More options"
-        onClick={(e) => e.preventDefault()}
-      >
-        <MoreHorizontal />
-      </Button>
-      <Button
-        variant="outline"
-        size="icon-sm"
-        aria-label={`View ${entityLabel}`}
-        onClick={(e) => e.preventDefault()}
-      >
-        <ChevronRight />
-      </Button>
-    </>
+    <Button
+      variant="outline"
+      size="sm"
+      aria-label={`View ${entityLabel}`}
+      onClick={(e) => e.preventDefault()}
+    >
+      View
+      <ChevronRight />
+    </Button>
   );
 }
 
