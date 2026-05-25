@@ -177,16 +177,14 @@ export const AGGREGATOR_STAT_CARDS = [
   },
   {
     id: "active",
-    percent: 62,
-    count: 124,
+    number: 124,
     metric: "Currently active",
     captionLink: true,
     trend30d: 4,
   },
   {
     id: "recently-inactive",
-    percent: 26,
-    count: 52,
+    number: 52,
     metric: "Recently inactive",
     captionLink: true,
     trend30d: 3,
@@ -194,8 +192,7 @@ export const AGGREGATOR_STAT_CARDS = [
   },
   {
     id: "never-active",
-    percent: 12,
-    count: 24,
+    number: 24,
     metric: "Never active",
     captionLink: true,
     trend30d: -2,
@@ -212,16 +209,14 @@ export const BUYER_STAT_CARDS = [
   },
   {
     id: "active",
-    percent: 62,
-    count: 124,
+    number: 124,
     metric: "Currently active",
     captionLink: true,
     trend30d: 4,
   },
   {
     id: "recently-inactive",
-    percent: 26,
-    count: 52,
+    number: 52,
     metric: "Recently inactive",
     captionLink: true,
     trend30d: 3,
@@ -229,8 +224,7 @@ export const BUYER_STAT_CARDS = [
   },
   {
     id: "never-active",
-    percent: 12,
-    count: 24,
+    number: 24,
     metric: "Never active",
     captionLink: true,
     trend30d: -2,
@@ -273,24 +267,7 @@ export type AggregatorRow = {
   exchanges: number;
   farmerPayments: number;
   lastActive: AggregatorLastActive;
-  latestMobileApp: { using: number; total: number };
 };
-
-function LatestMobileAppCell({
-  using,
-  total,
-}: AggregatorRow["latestMobileApp"]) {
-  return (
-    <span
-      className={cn(
-        "whitespace-nowrap tabular-nums",
-        using < total && "text-warning-600",
-      )}
-    >
-      {using} of {total}
-    </span>
-  );
-}
 
 const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   {
@@ -306,7 +283,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
       activity: "Exchange recorded",
       at: mockLastActiveAt.hoursAgo(2),
     },
-    latestMobileApp: { using: 3, total: 3 },
   },
   {
     name: "Balukhali Field Aggregation Unit",
@@ -321,7 +297,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
       activity: "Offer responded",
       at: mockLastActiveAt.daysAgo(1, { hours: 8, minutes: 54 }),
     },
-    latestMobileApp: { using: 2, total: 3 },
   },
   {
     name: "Jamtoli Cooperative Society",
@@ -336,7 +311,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
       activity: "Deposit collected",
       at: mockLastActiveAt.daysAgo(2, { hours: 14, minutes: 10 }),
     },
-    latestMobileApp: { using: 1, total: 4 },
   },
   {
     name: "Thaingkhali Station Aggregator",
@@ -348,7 +322,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     exchanges: 0,
     farmerPayments: 0,
     lastActive: null,
-    latestMobileApp: { using: 0, total: 2 },
   },
   {
     name: "Nayapara Legacy Cooperative",
@@ -363,7 +336,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
       activity: "Farmer payment recorded",
       at: mockLastActiveAt.staleDaysAgo(42),
     },
-    latestMobileApp: { using: 2, total: 2 },
   },
 ];
 
@@ -655,12 +627,6 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     header: "Last active",
     cellClassName: "whitespace-nowrap",
     render: (row) => <LastActiveCell lastActive={row.lastActive} />,
-  },
-  {
-    id: "latestMobileApp",
-    header: "Latest mobile app",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => <LatestMobileAppCell {...row.latestMobileApp} />,
   },
 ];
 
