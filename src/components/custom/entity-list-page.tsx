@@ -40,21 +40,15 @@ type EntityListPageProps = {
 
 function EntityListTable<TRow extends { id: string }>({
   config,
-  entityType,
 }: {
   config: EntityListPageConfig<TRow>;
-  entityType: EntityTypeId;
 }) {
-  const entity = getEntityType(entityType);
   const presentation = ENTITY_LIST_PRESENTATION;
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className={presentation.tableIconColumnClassName}>
-              <span className="sr-only">{entity.plural}</span>
-          </TableHead>
           {config.columns.map((column) => (
             <TableHead key={column.id} className={column.headerClassName}>
               {column.header}
@@ -70,9 +64,6 @@ function EntityListTable<TRow extends { id: string }>({
       <TableBody>
         {config.rows.map((row) => (
           <TableRow key={row.id}>
-            <TableCell className={presentation.tableIconColumnClassName}>
-                <EntityTypeIcon entityType={entityType} />
-            </TableCell>
             {config.columns.map((column) => (
               <TableCell key={column.id} className={column.cellClassName}>
                 {column.render(row)}
@@ -100,26 +91,11 @@ function EntityListPage({ entityType }: EntityListPageProps) {
   const table = (() => {
     switch (entityType) {
       case "farmer":
-        return (
-          <EntityListTable
-            config={ENTITY_LIST_PAGES.farmer}
-            entityType={entityType}
-          />
-        );
+        return <EntityListTable config={ENTITY_LIST_PAGES.farmer} />;
       case "aggregator":
-        return (
-          <EntityListTable
-            config={ENTITY_LIST_PAGES.aggregator}
-            entityType={entityType}
-          />
-        );
+        return <EntityListTable config={ENTITY_LIST_PAGES.aggregator} />;
       case "buyer":
-        return (
-          <EntityListTable
-            config={ENTITY_LIST_PAGES.buyer}
-            entityType={entityType}
-          />
-        );
+        return <EntityListTable config={ENTITY_LIST_PAGES.buyer} />;
       default: {
         const _exhaustive: never = entityType;
         return _exhaustive;
@@ -130,7 +106,10 @@ function EntityListPage({ entityType }: EntityListPageProps) {
   return (
     <main className={presentation.main}>
       <div className={presentation.pageHeader}>
-        <h1 className={presentation.title}>{entity.plural}</h1>
+        <div className={presentation.pageTitleGroup}>
+          <EntityTypeIcon entityType={entityType} size="title" />
+          <h1 className={presentation.title}>{entity.plural}</h1>
+        </div>
         {config.header?.showAdd ? (
           <div className={presentation.headerActions}>
             <Button onClick={(e) => e.preventDefault()}>
