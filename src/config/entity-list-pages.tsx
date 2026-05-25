@@ -10,7 +10,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import type { AggregatorLastActive, BuyerLastActive } from "@/config/last-active";
+import type {
+  AggregatorLastActive,
+  BuyerLastActive,
+} from "@/config/last-active";
 import { mockLastActiveAt } from "@/config/mock-last-active-at";
 import { getEntityType, type EntityTypeId } from "@/config/entity-types";
 import { isLastActiveStale } from "@/lib/format-last-active-at";
@@ -70,16 +73,22 @@ function ActivityStatusBadge({ status }: { status: ActivityStatus }) {
   );
 }
 
+const ZERO_VALUE_EMDASH_CLASS = "text-neutral-alpha-300";
+
+function ZeroValueEmDash() {
+  return <span className={ZERO_VALUE_EMDASH_CLASS}>—</span>;
+}
+
 function EmptyZeroCell({ value }: { value: number }) {
   if (value === 0) {
-    return <span className="text-muted-foreground">—</span>;
+    return <ZeroValueEmDash />;
   }
   return <span className="tabular-nums">{value}</span>;
 }
 
 function MetricValue({ value, tone }: { value: number; tone?: MetricTone }) {
   if (value === 0) {
-    return <span className="text-muted-foreground">—</span>;
+    return <ZeroValueEmDash />;
   }
   const resolved = tone ?? getMetricTone(value);
   return (
@@ -91,7 +100,7 @@ function MetricValue({ value, tone }: { value: number; tone?: MetricTone }) {
 
 function LinkedCountCell({ value }: { value: number }) {
   if (value === 0) {
-    return <span className="text-muted-foreground">—</span>;
+    return <ZeroValueEmDash />;
   }
   return (
     <PlaceholderEntityLink className="tabular-nums">

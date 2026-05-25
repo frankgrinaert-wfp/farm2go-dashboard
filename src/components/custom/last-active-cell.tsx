@@ -1,10 +1,13 @@
 import type { LastActive } from "@/config/last-active";
-import { formatLastActiveAt, isLastActiveStale } from "@/lib/format-last-active-at";
+import {
+  formatLastActiveAt,
+  isLastActiveStale,
+} from "@/lib/format-last-active-at";
 import { cn } from "@/lib/utils";
 
 function LastActiveCell({ lastActive }: { lastActive: LastActive }) {
   if (lastActive === null) {
-    return <span className="text-muted-foreground">—</span>;
+    return <span className="text-neutral-alpha-300">—</span>;
   }
 
   const stale = isLastActiveStale(lastActive);
