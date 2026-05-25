@@ -1,10 +1,12 @@
 import { ArrowUpDown, ListFilter, Search } from "lucide-react";
 
+import { EntityListStatCardsRow } from "@/components/custom/entity-list-stat-card";
 import { EntityTypeIcon } from "@/components/custom/entity-type-icon";
 import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
+  AGGREGATOR_STAT_CARDS,
+  BUYER_STAT_CARDS,
   ENTITY_LIST_PAGES,
   ENTITY_LIST_PRESENTATION,
   getEntityListPageConfig,
@@ -33,6 +35,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "../ui/input-group";
 
 type EntityListPageProps = {
   entityType: EntityTypeId;
@@ -40,21 +47,15 @@ type EntityListPageProps = {
 
 function EntityListTable<TRow extends { id: string }>({
   config,
-  entityType,
 }: {
   config: EntityListPageConfig<TRow>;
-  entityType: EntityTypeId;
 }) {
-  const entity = getEntityType(entityType);
   const presentation = ENTITY_LIST_PRESENTATION;
 
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead className={presentation.tableIconColumnClassName}>
-              <span className="sr-only">{entity.plural}</span>
-          </TableHead>
           {config.columns.map((column) => (
             <TableHead key={column.id} className={column.headerClassName}>
               {column.header}
@@ -70,9 +71,6 @@ function EntityListTable<TRow extends { id: string }>({
       <TableBody>
         {config.rows.map((row) => (
           <TableRow key={row.id}>
-            <TableCell className={presentation.tableIconColumnClassName}>
-                <EntityTypeIcon entityType={entityType} />
-            </TableCell>
             {config.columns.map((column) => (
               <TableCell key={column.id} className={column.cellClassName}>
                 {column.render(row)}
@@ -100,26 +98,11 @@ function EntityListPage({ entityType }: EntityListPageProps) {
   const table = (() => {
     switch (entityType) {
       case "farmer":
-        return (
-          <EntityListTable
-            config={ENTITY_LIST_PAGES.farmer}
-            entityType={entityType}
-          />
-        );
+        return <EntityListTable config={ENTITY_LIST_PAGES.farmer} />;
       case "aggregator":
-        return (
-          <EntityListTable
-            config={ENTITY_LIST_PAGES.aggregator}
-            entityType={entityType}
-          />
-        );
+        return <EntityListTable config={ENTITY_LIST_PAGES.aggregator} />;
       case "buyer":
-        return (
-          <EntityListTable
-            config={ENTITY_LIST_PAGES.buyer}
-            entityType={entityType}
-          />
-        );
+        return <EntityListTable config={ENTITY_LIST_PAGES.buyer} />;
       default: {
         const _exhaustive: never = entityType;
         return _exhaustive;
@@ -130,7 +113,10 @@ function EntityListPage({ entityType }: EntityListPageProps) {
   return (
     <main className={presentation.main}>
       <div className={presentation.pageHeader}>
-        <h1 className={presentation.title}>{entity.plural}</h1>
+        <div className={presentation.pageTitleGroup}>
+          <EntityTypeIcon entityType={entityType} size="title" />
+          <h1 className={presentation.title}>{entity.plural}</h1>
+        </div>
         {config.header?.showAdd ? (
           <div className={presentation.headerActions}>
             <Button onClick={(e) => e.preventDefault()}>
@@ -141,20 +127,25 @@ function EntityListPage({ entityType }: EntityListPageProps) {
         ) : null}
       </div>
 
+      {entityType === "aggregator" ? (
+        <EntityListStatCardsRow cards={[...AGGREGATOR_STAT_CARDS]} />
+      ) : null}
+      {entityType === "buyer" ? (
+        <EntityListStatCardsRow cards={[...BUYER_STAT_CARDS]} />
+      ) : null}
+
       <div className={presentation.toolbar}>
         <div className={presentation.toolbarStart}>
-          <div className={presentation.searchWrapper}>
-            <Search
-              className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-              aria-hidden
-            />
-            <Input
+          <InputGroup className="flex-1 w-2xs">
+            <InputGroupAddon>
+              <Search />
+            </InputGroupAddon>
+            <InputGroupInput
               type="search"
-              placeholder="Search"
-              className={presentation.searchInput}
+              placeholder={entity.searchPlaceholder}
               aria-label={entitySearchAriaLabel(entityType)}
             />
-          </div>
+          </InputGroup>
           <Button variant="outline">
             <ListFilter />
             Filter

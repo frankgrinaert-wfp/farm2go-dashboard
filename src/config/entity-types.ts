@@ -22,6 +22,7 @@ export type EntityType = {
   icon: LucideIcon;
   color: EntityColor;
   listPath: string;
+  searchPlaceholder: string;
 };
 
 const ENTITY_ICON_STYLES: Record<
@@ -83,6 +84,7 @@ export const ENTITY_TYPES: Record<EntityTypeId, EntityType> = {
     icon: User,
     color: "orange",
     listPath: "/farmers",
+    searchPlaceholder: "Search by name",
   },
   aggregator: {
     id: "aggregator",
@@ -91,6 +93,7 @@ export const ENTITY_TYPES: Record<EntityTypeId, EntityType> = {
     icon: Users,
     color: "orange",
     listPath: "/aggregators",
+    searchPlaceholder: "Search by name, admin, email",
   },
   buyer: {
     id: "buyer",
@@ -99,6 +102,7 @@ export const ENTITY_TYPES: Record<EntityTypeId, EntityType> = {
     icon: Store,
     color: "green",
     listPath: "/buyers",
+    searchPlaceholder: "Search by name, email",
   },
 };
 
@@ -114,7 +118,7 @@ function getEntityColorStyles(color: EntityColor) {
 }
 
 function entitySearchAriaLabel(id: EntityTypeId): string {
-  return `Search ${getEntityType(id).plural.toLowerCase()}`;
+  return getEntityType(id).searchPlaceholder;
 }
 
 export {
