@@ -76,7 +76,7 @@ function EntityListStatCard({
     percent !== undefined ? `${percent}%` : (number?.toString() ?? "");
 
   return (
-    <Card className="gap-0 py-4 shadow-sm">
+    <Card className="gap-0 py-4 shadow-xs">
       <CardContent className="flex flex-col gap-1.5 px-4">
         <p className="text-muted-foreground text-sm font-medium">{metric}</p>
         <div className="flex flex-wrap gap-1">
