@@ -160,6 +160,41 @@ export type EntityListPageConfig<TRow extends { id: string }> = {
   renderRowActions?: (row: TRow) => ReactNode;
 };
 
+export const AGGREGATOR_STAT_CARDS = [
+  {
+    id: "total",
+    number: 200,
+    metric: "Total aggregators",
+    trend30d: 18,
+  },
+  {
+    id: "active",
+    percent: 62,
+    count: 124,
+    metric: "Currently active",
+    captionLink: true,
+    trend30d: 4,
+  },
+  {
+    id: "recently-inactive",
+    percent: 26,
+    count: 52,
+    metric: "Recently inactive",
+    captionLink: true,
+    trend30d: 3,
+    invertTrendColors: true,
+  },
+  {
+    id: "never-active",
+    percent: 12,
+    count: 24,
+    metric: "Never active",
+    captionLink: true,
+    trend30d: -2,
+    invertTrendColors: true,
+  },
+] as const;
+
 // --- Row types & mock data ---
 
 export type FarmerRow = {

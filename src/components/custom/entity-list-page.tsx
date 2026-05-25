@@ -1,10 +1,12 @@
 import { ArrowUpDown, ListFilter, Search } from "lucide-react";
 
+import { EntityListStatCardsRow } from "@/components/custom/entity-list-stat-card";
 import { EntityTypeIcon } from "@/components/custom/entity-type-icon";
 import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  AGGREGATOR_STAT_CARDS,
   ENTITY_LIST_PAGES,
   ENTITY_LIST_PRESENTATION,
   getEntityListPageConfig,
@@ -119,6 +121,10 @@ function EntityListPage({ entityType }: EntityListPageProps) {
           </div>
         ) : null}
       </div>
+
+      {entityType === "aggregator" ? (
+        <EntityListStatCardsRow cards={[...AGGREGATOR_STAT_CARDS]} />
+      ) : null}
 
       <div className={presentation.toolbar}>
         <div className={presentation.toolbarStart}>
