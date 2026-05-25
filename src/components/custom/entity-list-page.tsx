@@ -4,7 +4,6 @@ import { EntityListStatCardsRow } from "@/components/custom/entity-list-stat-car
 import { EntityTypeIcon } from "@/components/custom/entity-type-icon";
 import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   AGGREGATOR_STAT_CARDS,
   ENTITY_LIST_PAGES,
@@ -35,6 +34,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "../ui/input-group";
 
 type EntityListPageProps = {
   entityType: EntityTypeId;
@@ -128,18 +132,16 @@ function EntityListPage({ entityType }: EntityListPageProps) {
 
       <div className={presentation.toolbar}>
         <div className={presentation.toolbarStart}>
-          <div className={presentation.searchWrapper}>
-            <Search
-              className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-              aria-hidden
-            />
-            <Input
+          <InputGroup className="flex-1 w-2xs">
+            <InputGroupAddon>
+              <Search />
+            </InputGroupAddon>
+            <InputGroupInput
               type="search"
               placeholder="Search"
-              className={presentation.searchInput}
               aria-label={entitySearchAriaLabel(entityType)}
             />
-          </div>
+          </InputGroup>
           <Button variant="outline">
             <ListFilter />
             Filter
