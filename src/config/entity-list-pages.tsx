@@ -229,7 +229,24 @@ export type AggregatorRow = {
   exchanges: number;
   /** Display date string, or null if never active. */
   lastActive: string | null;
+  latestMobileApp: { using: number; total: number };
 };
+
+function LatestMobileAppCell({
+  using,
+  total,
+}: AggregatorRow["latestMobileApp"]) {
+  return (
+    <span
+      className={cn(
+        "whitespace-nowrap tabular-nums",
+        using < total && "text-warning-600",
+      )}
+    >
+      {using} of {total}
+    </span>
+  );
+}
 
 const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   {
@@ -240,6 +257,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 18,
     exchanges: 12,
     lastActive: "19 May 2026",
+    latestMobileApp: { using: 3, total: 3 },
   },
   {
     name: "Balukhali Field Aggregation Unit",
@@ -249,6 +267,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 6,
     exchanges: 4,
     lastActive: "8 Apr 2026",
+    latestMobileApp: { using: 2, total: 3 },
   },
   {
     name: "Jamtoli Cooperative Society",
@@ -258,6 +277,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 4,
     exchanges: 2,
     lastActive: "15 Mar 2026",
+    latestMobileApp: { using: 1, total: 4 },
   },
   {
     name: "Thaingkhali Station Aggregator",
@@ -267,6 +287,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 0,
     exchanges: 0,
     lastActive: null,
+    latestMobileApp: { using: 0, total: 2 },
   },
   {
     name: "Nayapara Legacy Cooperative",
@@ -276,6 +297,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 2,
     exchanges: 1,
     lastActive: "2 Feb 2026",
+    latestMobileApp: { using: 2, total: 2 },
   },
 ];
 
@@ -524,6 +546,12 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     header: "Last active",
     cellClassName: "whitespace-nowrap",
     render: (row) => <LastActiveCell lastActive={row.lastActive} />,
+  },
+  {
+    id: "latestMobileApp",
+    header: "Using latest mobile app",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => <LatestMobileAppCell {...row.latestMobileApp} />,
   },
 ];
 
