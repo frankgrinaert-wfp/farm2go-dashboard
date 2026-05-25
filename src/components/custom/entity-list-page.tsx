@@ -6,6 +6,7 @@ import { TimeRangeTabs } from "@/components/custom/time-range-tabs";
 import { Button } from "@/components/ui/button";
 import {
   AGGREGATOR_STAT_CARDS,
+  BUYER_STAT_CARDS,
   ENTITY_LIST_PAGES,
   ENTITY_LIST_PRESENTATION,
   getEntityListPageConfig,
@@ -128,6 +129,9 @@ function EntityListPage({ entityType }: EntityListPageProps) {
 
       {entityType === "aggregator" ? (
         <EntityListStatCardsRow cards={[...AGGREGATOR_STAT_CARDS]} />
+      ) : null}
+      {entityType === "buyer" ? (
+        <EntityListStatCardsRow cards={[...BUYER_STAT_CARDS]} />
       ) : null}
 
       <div className={presentation.toolbar}>
