@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Archive, ChevronRight, MessageCircle, Plus } from "lucide-react";
 
+import { LastActiveCell } from "@/components/custom/last-active-cell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
@@ -9,7 +10,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import type { AggregatorLastActive, BuyerLastActive } from "@/config/last-active";
+import { mockLastActiveAt } from "@/config/mock-last-active-at";
 import { getEntityType, type EntityTypeId } from "@/config/entity-types";
+import { isLastActiveStale } from "@/lib/format-last-active-at";
 import { cn } from "@/lib/utils";
 
 /** Tweak layout, spacing, and shared table chrome in one place. */
@@ -93,41 +97,6 @@ function LinkedCountCell({ value }: { value: number }) {
     <PlaceholderEntityLink className="tabular-nums">
       {value}
     </PlaceholderEntityLink>
-  );
-}
-
-function parseDisplayDate(value: string): Date | null {
-  const parsed = new Date(value);
-  return Number.isNaN(parsed.getTime()) ? null : parsed;
-}
-
-function daysSince(date: Date): number {
-  const ms = Date.now() - date.getTime();
-  return Math.floor(ms / (1000 * 60 * 60 * 24));
-}
-
-function isLastActiveStale(lastActive: string | null): boolean {
-  if (lastActive === null) return false;
-  const date = parseDisplayDate(lastActive);
-  return date !== null && daysSince(date) >= 30;
-}
-
-function LastActiveCell({ lastActive }: { lastActive: string | null }) {
-  if (lastActive === null) {
-    return <span className="text-muted-foreground">—</span>;
-  }
-
-  const stale = isLastActiveStale(lastActive);
-
-  return (
-    <span
-      className={cn(
-        "whitespace-nowrap tabular-nums",
-        stale && "text-warning-600",
-      )}
-    >
-      {lastActive}
-    </span>
   );
 }
 
@@ -292,8 +261,7 @@ export type AggregatorRow = {
   offersAccepted: number;
   exchanges: number;
   farmerPayments: number;
-  /** Display date string, or null if never active. */
-  lastActive: string | null;
+  lastActive: AggregatorLastActive;
   latestMobileApp: { using: number; total: number };
 };
 
@@ -323,7 +291,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 18,
     exchanges: 12,
     farmerPayments: 38,
-    lastActive: "19 May 2026",
+    lastActive: {
+      activity: "Exchange recorded",
+      at: mockLastActiveAt.hoursAgo(2),
+    },
     latestMobileApp: { using: 3, total: 3 },
   },
   {
@@ -335,7 +306,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 6,
     exchanges: 4,
     farmerPayments: 9,
-    lastActive: "8 Apr 2026",
+    lastActive: {
+      activity: "Offer responded",
+      at: mockLastActiveAt.daysAgo(1, { hours: 8, minutes: 54 }),
+    },
     latestMobileApp: { using: 2, total: 3 },
   },
   {
@@ -347,7 +321,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 4,
     exchanges: 2,
     farmerPayments: 7,
-    lastActive: "15 Mar 2026",
+    lastActive: {
+      activity: "Deposit collected",
+      at: mockLastActiveAt.daysAgo(2, { hours: 14, minutes: 10 }),
+    },
     latestMobileApp: { using: 1, total: 4 },
   },
   {
@@ -371,7 +348,10 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 2,
     exchanges: 1,
     farmerPayments: 5,
-    lastActive: "2 Feb 2026",
+    lastActive: {
+      activity: "Farmer payment recorded",
+      at: mockLastActiveAt.staleDaysAgo(42),
+    },
     latestMobileApp: { using: 2, total: 2 },
   },
 ];
@@ -392,8 +372,7 @@ export type BuyerRow = {
   demandOffers: number;
   offersAccepted: number;
   exchanges: number;
-  /** Display date string, or null if never active. */
-  lastActive: string | null;
+  lastActive: BuyerLastActive;
 };
 
 const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
@@ -405,7 +384,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 50,
     offersAccepted: 30,
     exchanges: 10,
-    lastActive: "20 May 2026",
+    lastActive: {
+      activity: "Offer accepted",
+      at: mockLastActiveAt.hoursAgo(1),
+    },
   },
   {
     name: "Balukhali Retail Market",
@@ -415,7 +397,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 38,
     offersAccepted: 24,
     exchanges: 8,
-    lastActive: "14 May 2026",
+    lastActive: {
+      activity: "Negotiation",
+      at: mockLastActiveAt.todayAt(13, 37),
+    },
   },
   {
     name: "Cox's Bazar Primary School",
@@ -425,7 +410,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 22,
     offersAccepted: 12,
     exchanges: 4,
-    lastActive: "22 Mar 2026",
+    lastActive: {
+      activity: "Demand offer",
+      at: mockLastActiveAt.monthsAgo(1),
+    },
   },
   {
     name: "Teknaf Community Store",
@@ -435,7 +423,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 28,
     offersAccepted: 16,
     exchanges: 5,
-    lastActive: "6 May 2026",
+    lastActive: {
+      activity: "Direct offer",
+      at: mockLastActiveAt.daysAgo(1, { hours: 17, minutes: 12 }),
+    },
   },
   {
     name: "Jamaluddin Wholesale",
@@ -445,7 +436,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 45,
     offersAccepted: 28,
     exchanges: 11,
-    lastActive: "17 May 2026",
+    lastActive: {
+      activity: "Bid created",
+      at: mockLastActiveAt.daysAgo(2, { hours: 9, minutes: 30 }),
+    },
   },
   {
     name: "Shamlapur High School",
@@ -465,7 +459,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 31,
     offersAccepted: 14,
     exchanges: 6,
-    lastActive: "28 Mar 2026",
+    lastActive: {
+      activity: "Negotiation",
+      at: mockLastActiveAt.daysAgo(5, { hours: 16, minutes: 0 }),
+    },
   },
   {
     name: "Bay of Bengal Trading",
@@ -475,7 +472,10 @@ const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
     demandOffers: 40,
     offersAccepted: 22,
     exchanges: 9,
-    lastActive: "11 May 2026",
+    lastActive: {
+      activity: "Offer accepted",
+      at: mockLastActiveAt.staleDaysAgo(38),
+    },
   },
 ];
 
