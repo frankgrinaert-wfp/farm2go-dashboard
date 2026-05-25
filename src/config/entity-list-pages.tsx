@@ -149,7 +149,7 @@ function AggregatorAreaCell({ area }: { area: string }) {
       <TooltipTrigger asChild>
         <span className="line-clamp-2 cursor-default">{shortLabel}</span>
       </TooltipTrigger>
-      <TooltipContent className="max-w-xs">{area}</TooltipContent>
+      <TooltipContent>{area}</TooltipContent>
     </Tooltip>
   );
 }
@@ -524,7 +524,6 @@ const FARMER_COLUMNS: EntityListColumn<FarmerRow>[] = [
   {
     id: "aggregationCentre",
     header: getEntityType("aggregator").singular,
-    cellClassName: "max-w-[10rem]",
     render: (row) => (
       <PlaceholderEntityLink className="block truncate">
         {row.aggregationCentre}
@@ -554,13 +553,13 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   {
     id: "name",
     header: "Name",
-    cellClassName: "max-w-[14rem] font-medium",
+    cellClassName: "font-medium",
     render: (row) => <span className="line-clamp-2">{row.name}</span>,
   },
   {
     id: "area",
     header: "Area",
-    cellClassName: "max-w-[11rem] text-sm",
+    cellClassName: "text-sm",
     render: (row) => <AggregatorAreaCell area={row.area} />,
   },
   {
