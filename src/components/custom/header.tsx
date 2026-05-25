@@ -3,6 +3,8 @@
 import { LogOut, Menu, Info, UserCircle, ScrollText } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ADMIN_COUNTRIES } from "@/constants/admin-country";
+import { useAdminCountry } from "@/contexts/admin-country-context";
 import { getEntityType } from "@/config/entity-types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -59,16 +61,8 @@ const Languages = [
   { value: "es", label: "Spanish (Español)" },
 ];
 
-const Countries: CountryOption[] = [
-  { value: "🇧🇩 Bangladesh", label: "🇧🇩 Bangladesh" },
-  { value: "🇨🇺 Cuba", label: "🇨🇺 Cuba" },
-  { value: "🇲🇼 Malawi", label: "🇲🇼 Malawi" },
-  { value: "🇲🇿 Mozambique", label: "🇲🇿 Mozambique" },
-  { value: "🇸🇩 Sudan", label: "🇸🇩 Sudan" },
-  { value: "🇿🇼 Zimbabwe", label: "🇿🇼 Zimbabwe" },
-];
-
 function ProjectsHeader() {
+  const { country, setCountryValue } = useAdminCountry();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileSheetOpen, setProfileSheetOpen] = useState(false);
   const [appInformationDialogOpen, setAppInformationDialogOpen] =
@@ -177,18 +171,18 @@ function ProjectsHeader() {
           </NavigationMenu>
         </div>
         <div className="flex items-center gap-3">
-          <Select defaultValue="🇧🇩 Bangladesh">
+          <Select value={country.value} onValueChange={setCountryValue}>
             <SelectTrigger aria-label="Country" className="border-border">
-              <SelectValue placeholder="🇧🇩 Bangladesh" />
+              <SelectValue placeholder={country.label} />
             </SelectTrigger>
             <SelectContent>
-              {Countries.map((country) => (
+              {ADMIN_COUNTRIES.map((option) => (
                 <SelectItem
-                  key={country.value}
-                  value={country.value}
+                  key={option.value}
+                  value={option.value}
                   className="whitespace-nowrap"
                 >
-                  {country.label}
+                  {option.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -264,7 +258,7 @@ function ProjectsHeader() {
           <EditProfileSheet
             open={profileSheetOpen}
             onOpenChange={setProfileSheetOpen}
-            countries={Countries}
+            countries={ADMIN_COUNTRIES}
           />
           <AppInformationDialog
             open={appInformationDialogOpen}

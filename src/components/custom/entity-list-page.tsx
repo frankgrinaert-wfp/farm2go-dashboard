@@ -18,6 +18,7 @@ import {
   getEntityType,
   type EntityTypeId,
 } from "@/config/entity-types";
+import { useAdminCountry } from "@/contexts/admin-country-context";
 import {
   Pagination,
   PaginationContent,
@@ -93,6 +94,7 @@ function EntityListTable<TRow extends { id: string }>({
 function EntityListPage({ entityType }: EntityListPageProps) {
   const config = getEntityListPageConfig(entityType);
   const entity = getEntityType(entityType);
+  const { country } = useAdminCountry();
   const presentation = ENTITY_LIST_PRESENTATION;
 
   const table = (() => {
@@ -115,7 +117,12 @@ function EntityListPage({ entityType }: EntityListPageProps) {
       <div className={presentation.pageHeader}>
         <div className={presentation.pageTitleGroup}>
           <EntityTypeIcon entityType={entityType} size="title" />
-          <h1 className={presentation.title}>{entity.plural}</h1>
+          <div className={presentation.titleGroup}>
+            <h1 className={presentation.title}>{entity.plural}</h1>
+            <span className={presentation.titleCountry}>
+              in {country.name}
+            </span>
+          </div>
         </div>
         {config.header?.showAdd ? (
           <div className={presentation.headerActions}>
