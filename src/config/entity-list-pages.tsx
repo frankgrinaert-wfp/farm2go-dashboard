@@ -197,9 +197,12 @@ const AGGREGATOR_ROWS: AggregatorRow[] = Array.from({ length: 20 }, (_, i) => ({
   ...AGGREGATOR_ROW_TEMPLATES[i % AGGREGATOR_ROW_TEMPLATES.length],
 }));
 
+export type BuyerType = "Retailer" | "Trader" | "School";
+
 export type BuyerRow = {
   id: string;
   name: string;
+  type: BuyerType;
   area: string;
   directOffers: number;
   demandOffers: number;
@@ -208,15 +211,92 @@ export type BuyerRow = {
   activity: ActivityStatus;
 };
 
+const BUYER_ROW_TEMPLATES: Omit<BuyerRow, "id">[] = [
+  {
+    name: "Kibria Traders Ltd",
+    type: "Trader",
+    area: "Thaingkhali Station",
+    directOffers: 50,
+    demandOffers: 50,
+    offersAccepted: 30,
+    exchanges: 10,
+    activity: "Active",
+  },
+  {
+    name: "Balukhali Retail Market",
+    type: "Retailer",
+    area: "Ukhiya, Cox's Bazar",
+    directOffers: 42,
+    demandOffers: 38,
+    offersAccepted: 24,
+    exchanges: 8,
+    activity: "Active",
+  },
+  {
+    name: "Cox's Bazar Primary School",
+    type: "School",
+    area: "Kutupalong, Ukhiya",
+    directOffers: 18,
+    demandOffers: 22,
+    offersAccepted: 12,
+    exchanges: 4,
+    activity: "Low activity",
+  },
+  {
+    name: "Teknaf Community Store",
+    type: "Retailer",
+    area: "Teknaf, Cox's Bazar",
+    directOffers: 35,
+    demandOffers: 28,
+    offersAccepted: 16,
+    exchanges: 5,
+    activity: "Active",
+  },
+  {
+    name: "Jamaluddin Wholesale",
+    type: "Trader",
+    area: "Nayapara, Teknaf",
+    directOffers: 61,
+    demandOffers: 45,
+    offersAccepted: 28,
+    exchanges: 11,
+    activity: "Active",
+  },
+  {
+    name: "Shamlapur High School",
+    type: "School",
+    area: "Shamlapur, Teknaf",
+    directOffers: 12,
+    demandOffers: 15,
+    offersAccepted: 6,
+    exchanges: 2,
+    activity: "Inactive",
+  },
+  {
+    name: "Rohingya Relief Retail Co-op",
+    type: "Retailer",
+    area: "Balukhali, Ukhiya",
+    directOffers: 29,
+    demandOffers: 31,
+    offersAccepted: 14,
+    exchanges: 6,
+    activity: "Low activity",
+  },
+  {
+    name: "Bay of Bengal Trading",
+    type: "Trader",
+    area: "Inani, Cox's Bazar",
+    directOffers: 55,
+    demandOffers: 40,
+    offersAccepted: 22,
+    exchanges: 9,
+    activity: "Active",
+  },
+];
+
 const BUYER_ROWS: BuyerRow[] = Array.from({ length: 20 }, (_, i) => ({
   id: String(i + 1),
-  name: "Kibria Traders Ltd",
-  area: "Thaingkhali Station",
-  directOffers: 50,
-  demandOffers: 50,
-  offersAccepted: 30,
-  exchanges: 10,
-  activity: "Active" as const,
+  ...BUYER_ROW_TEMPLATES[i % BUYER_ROW_TEMPLATES.length],
 }));
 
 function rowActionButtons(entityLabel: string) {
@@ -374,6 +454,12 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
     header: "Name",
     cellClassName: "whitespace-nowrap font-medium",
     render: (row) => row.name,
+  },
+  {
+    id: "type",
+    header: "Type",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => row.type,
   },
   {
     id: "area",
