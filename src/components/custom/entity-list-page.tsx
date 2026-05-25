@@ -128,7 +128,7 @@ function EntityListPage({ entityType }: EntityListPageProps) {
           <div className={presentation.headerActions}>
             <Button onClick={(e) => e.preventDefault()}>
               <Plus />
-              {entity.singular}
+              New {entity.singular}
             </Button>
           </div>
         ) : null}
