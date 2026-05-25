@@ -37,17 +37,11 @@ function StatCardTrend({
 
   const isUp = change > 0;
   const Icon = isUp ? ArrowUp : ArrowDown;
-  const suffix = asPercent ? "%" : "";
-  const valueLabel = isUp ? `+${change}${suffix}` : `${change}${suffix}`;
-
-  const trendColor =
-    invertTrendColors === true
-      ? isUp
-        ? "text-danger-600"
-        : "text-success-600"
-      : isUp
-        ? "text-success-600"
-        : "text-danger-600";
+  const valueLabel = `${change}${asPercent ? "%" : ""}`;
+  const trendIsPositive = invertTrendColors ? !isUp : isUp;
+  const trendColor = trendIsPositive
+    ? "text-success-600"
+    : "text-danger-600";
 
   return (
     <p
