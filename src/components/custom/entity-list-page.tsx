@@ -142,7 +142,7 @@ function EntityListPage({ entityType }: EntityListPageProps) {
             </InputGroupAddon>
             <InputGroupInput
               type="search"
-              placeholder="Search"
+              placeholder={entity.searchPlaceholder}
               aria-label={entitySearchAriaLabel(entityType)}
             />
           </InputGroup>
