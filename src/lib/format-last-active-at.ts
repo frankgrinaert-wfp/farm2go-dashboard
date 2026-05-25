@@ -1,47 +1,22 @@
-import {
-  differenceInDays,
-  differenceInHours,
-  differenceInMonths,
-  format,
-  formatDistanceToNow,
-  isToday,
-  isYesterday,
-  parseISO,
-} from "date-fns";
+import { format, isToday, isYesterday, parseISO } from "date-fns";
 
-/** Within this window, show relative distance (e.g. "2 hours ago"). */
-const RECENT_HOURS_THRESHOLD = 6;
+const FULL_DATE_TIME_FORMAT = "d MMM yyyy, H:mm";
 
-function formatLastActiveAt(isoDate: string, now = new Date()): string {
+function formatLastActiveAt(isoDate: string): string {
   const date = parseISO(isoDate);
   if (Number.isNaN(date.getTime())) {
     return isoDate;
   }
 
-  const hoursAgo = differenceInHours(now, date);
-  if (hoursAgo >= 0 && hoursAgo < RECENT_HOURS_THRESHOLD) {
-    return formatDistanceToNow(date, { addSuffix: true });
-  }
-
   if (isToday(date)) {
-    return format(date, "HH:mm");
+    return format(date, "'Today,' H:mm");
   }
 
   if (isYesterday(date)) {
-    return format(date, "'Yesterday,' HH:mm");
+    return format(date, "'Yesterday,' H:mm");
   }
 
-  const daysAgo = differenceInDays(now, date);
-  if (daysAgo >= 2 && daysAgo < 30) {
-    return formatDistanceToNow(date, { addSuffix: true });
-  }
-
-  const monthsAgo = differenceInMonths(now, date);
-  if (monthsAgo >= 1) {
-    return monthsAgo === 1 ? "Last month" : format(date, "MMM yyyy");
-  }
-
-  return format(date, "d MMM");
+  return format(date, FULL_DATE_TIME_FORMAT);
 }
 
 function parseLastActiveAt(isoDate: string): Date | null {
