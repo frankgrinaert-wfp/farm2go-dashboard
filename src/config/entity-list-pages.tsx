@@ -4,6 +4,11 @@ import { Archive, ChevronRight, MessageCircle, Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/components/ui/link";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { getEntityType, type EntityTypeId } from "@/config/entity-types";
 import { cn } from "@/lib/utils";
 
@@ -427,6 +432,30 @@ function defaultRowActions(entityLabel: string) {
   return rowActionButtons(entityLabel);
 }
 
+function AggregatorIconActionButton({
+  label,
+  icon: Icon,
+}: {
+  label: string;
+  icon: typeof MessageCircle;
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon-sm"
+          aria-label={label}
+          onClick={(e) => e.preventDefault()}
+        >
+          <Icon />
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  );
+}
+
 function aggregatorRowActions(row: AggregatorRow) {
   const stale = isLastActiveStale(row.lastActive);
   const neverActive = row.lastActive === null;
@@ -434,16 +463,10 @@ function aggregatorRowActions(row: AggregatorRow) {
   return (
     <>
       {stale ? (
-        <Button variant="outline" size="sm" onClick={(e) => e.preventDefault()}>
-          <MessageCircle />
-          Contact
-        </Button>
+        <AggregatorIconActionButton label="Contact" icon={MessageCircle} />
       ) : null}
       {neverActive ? (
-        <Button variant="outline" size="sm" onClick={(e) => e.preventDefault()}>
-          <Archive />
-          Archive
-        </Button>
+        <AggregatorIconActionButton label="Archive" icon={Archive} />
       ) : null}
       {rowActionButtons(row.name)}
     </>
