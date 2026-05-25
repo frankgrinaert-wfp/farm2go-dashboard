@@ -3,12 +3,7 @@ import { Link as RouterLink } from "react-router-dom";
 
 import type { MetricDetailSlug } from "@/config/metric-detail-config";
 import { metricDetailRoute } from "@/config/metric-detail-config";
-import {
-  getEntityColorStyles,
-  getEntityType,
-  type EntityColor,
-  type EntityTypeId,
-} from "@/config/entity-types";
+import { getEntityType, type EntityTypeId } from "@/config/entity-types";
 import { EntityTypeIcon } from "@/components/custom/entity-type-icon";
 import {
   Card,
@@ -51,7 +46,6 @@ function MetricsColumnCard({
   metrics,
 }: MetricsColumnCardProps) {
   const entity = getEntityType(entityType);
-  const iconStyles = getEntityColorStyles(entity.color);
 
   return (
     <Card className="p-0 gap-0 border-none">
@@ -79,7 +73,7 @@ function MetricsColumnCard({
             const row = (
               <>
                 <ItemMedia className="self-start">
-                  <metric.icon className={`ml-1 size-5 ${iconStyles.metric}`} />
+                  <metric.icon className="ml-1 size-5 text-neutral-500" />
                 </ItemMedia>
                 <ItemContent className="gap-1">
                   <ItemDescription className="font-semibold">
@@ -124,5 +118,5 @@ function MetricsColumnCard({
   );
 }
 
-export type { EntityColor, MetricItem };
+export type { MetricItem };
 export { MetricsColumnCard };
