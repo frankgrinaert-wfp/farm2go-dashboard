@@ -255,9 +255,12 @@ const FARMER_ROWS: FarmerRow[] = Array.from({ length: 20 }, (_, i) => ({
   activity: "Active" as const,
 }));
 
+export type AggregatorType = "Farmer organization" | "Cooperative";
+
 export type AggregatorRow = {
   id: string;
   name: string;
+  type: AggregatorType;
   area: string;
   farmers: number;
   deposits: number;
@@ -271,6 +274,7 @@ export type AggregatorRow = {
 const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   {
     name: "Kutupalong Agricultural Production Cooperative",
+    type: "Cooperative",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 87,
     deposits: 42,
@@ -285,6 +289,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   },
   {
     name: "Balukhali Field Aggregation Unit",
+    type: "Farmer organization",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 64,
     deposits: 7,
@@ -299,6 +304,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   },
   {
     name: "Jamtoli Cooperative Society",
+    type: "Cooperative",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 52,
     deposits: 5,
@@ -313,6 +319,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   },
   {
     name: "Thaingkhali Station Aggregator",
+    type: "Farmer organization",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 41,
     deposits: 0,
@@ -324,6 +331,7 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
   },
   {
     name: "Nayapara Legacy Cooperative",
+    type: "Cooperative",
     area: "Teknaf, Cox's Bazar, Chittagong",
     farmers: 28,
     deposits: 12,
@@ -584,6 +592,12 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     header: "Name",
     cellClassName: "font-medium",
     render: (row) => <span className="line-clamp-2">{row.name}</span>,
+  },
+  {
+    id: "type",
+    header: "Type",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => row.type,
   },
   {
     id: "area",
