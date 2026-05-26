@@ -9,10 +9,7 @@ import { getEntityType } from "@/config/entity-types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { AppInformationDialog } from "@/components/custom/app-information-dialog";
-import {
-  EditProfileSheet,
-  type CountryOption,
-} from "@/components/custom/edit-profile-sheet";
+import { EditProfileSheet } from "@/components/custom/edit-profile-sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,

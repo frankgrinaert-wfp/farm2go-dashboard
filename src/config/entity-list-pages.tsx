@@ -17,7 +17,6 @@ import type {
 import { mockLastActiveAt } from "@/config/mock-last-active-at";
 import { getEntityType, type EntityTypeId } from "@/config/entity-types";
 import { isLastActiveStale } from "@/lib/format-last-active-at";
-import { cn } from "@/lib/utils";
 
 /** Tweak layout, spacing, and shared table chrome in one place. */
 export const ENTITY_LIST_PRESENTATION = {

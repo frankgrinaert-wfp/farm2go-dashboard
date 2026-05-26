@@ -20,6 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/configure-pages@v5
+
       - uses: pnpm/action-setup@v4
         with:
           version: 10.25.0
@@ -32,6 +34,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - run: pnpm run build
+
+      - name: Verify production bundle
+        run: |
+          grep -q '/farm2go-dashboard/assets/' dist/index.html
+          ! grep -q 'src/main.tsx' dist/index.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
