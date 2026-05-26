@@ -268,8 +268,6 @@ export type AggregatorRow = {
   offersAccepted: number;
   exchanges: number;
   farmerPayments: number;
-  eventsCreated: number;
-  harvestsCreated: number;
   lastActive: AggregatorLastActive;
 };
 
@@ -284,8 +282,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 18,
     exchanges: 12,
     farmerPayments: 38,
-    eventsCreated: 124,
-    harvestsCreated: 89,
     lastActive: {
       activity: "Exchange recorded",
       at: mockLastActiveAt.hoursAgo(2),
@@ -301,8 +297,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 6,
     exchanges: 4,
     farmerPayments: 9,
-    eventsCreated: 47,
-    harvestsCreated: 31,
     lastActive: {
       activity: "Offer responded",
       at: mockLastActiveAt.daysAgo(1, { hours: 8, minutes: 54 }),
@@ -318,8 +312,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 4,
     exchanges: 2,
     farmerPayments: 7,
-    eventsCreated: 18,
-    harvestsCreated: 12,
     lastActive: {
       activity: "Deposit collected",
       at: mockLastActiveAt.daysAgo(2, { hours: 14, minutes: 10 }),
@@ -335,8 +327,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 0,
     exchanges: 0,
     farmerPayments: 0,
-    eventsCreated: 0,
-    harvestsCreated: 0,
     lastActive: null,
   },
   {
@@ -349,8 +339,6 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     offersAccepted: 2,
     exchanges: 1,
     farmerPayments: 5,
-    eventsCreated: 9,
-    harvestsCreated: 6,
     lastActive: {
       activity: "Farmer payment recorded",
       at: mockLastActiveAt.staleDaysAgo(42),
@@ -602,14 +590,12 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   {
     id: "name",
     header: "Name",
-    cellClassName: "font-medium",
-    render: (row) => <span className="line-clamp-2">{row.name}</span>,
-  },
-  {
-    id: "type",
-    header: "Type",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => row.type,
+    render: (row) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="line-clamp-2 font-medium">{row.name}</span>
+        <span className="text-muted-foreground text-xs">{row.type}</span>
+      </div>
+    ),
   },
   {
     id: "area",
@@ -621,16 +607,6 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     id: "farmers",
     header: getEntityType("farmer").plural,
     render: (row) => <LinkedCountCell value={row.farmers} />,
-  },
-  {
-    id: "eventsCreated",
-    header: "Events created",
-    render: (row) => row.eventsCreated,
-  },
-  {
-    id: "harvestsCreated",
-    header: "Harvests created",
-    render: (row) => row.harvestsCreated,
   },
   {
     id: "deposits",
@@ -669,19 +645,18 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
   {
     id: "name",
     header: "Name",
-    cellClassName: "whitespace-nowrap font-medium",
-    render: (row) => row.name,
-  },
-  {
-    id: "type",
-    header: "Type",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => row.type,
+    render: (row) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="line-clamp-2 font-medium">{row.name}</span>
+        <span className="text-muted-foreground text-xs">{row.type}</span>
+      </div>
+    ),
   },
   {
     id: "area",
     header: "Area",
-    render: (row) => row.area,
+    cellClassName: "text-sm",
+    render: (row) => <AggregatorAreaCell area={row.area} />,
   },
   {
     id: "directOffers",
