@@ -1,5 +1,13 @@
 import type { LucideIcon } from "lucide-react";
-import { Store, User, Users } from "lucide-react";
+import {
+  ArrowLeftRight,
+  HandCoins,
+  MessagesSquare,
+  ShoppingBasket,
+  Store,
+  User,
+  Users,
+} from "lucide-react";
 
 /** Tailwind palette keys used for entity icons and metric accents. */
 export type EntityColor =
@@ -23,6 +31,16 @@ export type EntityType = {
   color: EntityColor;
   listPath: string;
   searchPlaceholder: string;
+};
+
+export type MetricIconId = "farmer" | "deposit" | "offer" | "exchange" | "payment";
+
+export const METRIC_ICONS: Record<MetricIconId, LucideIcon> = {
+  farmer: User,
+  deposit: ShoppingBasket,
+  offer: MessagesSquare,
+  exchange: ArrowLeftRight,
+  payment: HandCoins,
 };
 
 const ENTITY_ICON_STYLES: Record<

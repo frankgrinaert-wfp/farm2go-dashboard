@@ -15,7 +15,7 @@ import type {
   BuyerLastActive,
 } from "@/config/last-active";
 import { mockLastActiveAt } from "@/config/mock-last-active-at";
-import { getEntityType, type EntityTypeId } from "@/config/entity-types";
+import { getEntityType, type EntityTypeId, type MetricIconId } from "@/config/entity-types";
 import { isLastActiveStale } from "@/lib/format-last-active-at";
 
 /** Tweak layout, spacing, and shared table chrome in one place. */
@@ -348,6 +348,71 @@ const AGGREGATOR_ROWS: AggregatorRow[] = Array.from({ length: 20 }, (_, i) => ({
   id: String(i + 1),
   ...AGGREGATOR_ROW_TEMPLATES[i % AGGREGATOR_ROW_TEMPLATES.length],
 }));
+
+type AggregatorMetricItem = {
+  id: string;
+  iconId: MetricIconId;
+  label: string;
+  value: number;
+};
+
+const AGGREGATOR_METRIC_TOTALS = AGGREGATOR_ROWS.reduce(
+  (acc, row) => ({
+    farmers: acc.farmers + row.farmers,
+    deposits: acc.deposits + row.deposits,
+    offersReceived: acc.offersReceived + row.offersReceived,
+    offersAccepted: acc.offersAccepted + row.offersAccepted,
+    exchanges: acc.exchanges + row.exchanges,
+    farmerPayments: acc.farmerPayments + row.farmerPayments,
+  }),
+  {
+    farmers: 0,
+    deposits: 0,
+    offersReceived: 0,
+    offersAccepted: 0,
+    exchanges: 0,
+    farmerPayments: 0,
+  },
+);
+
+export const AGGREGATOR_METRIC_ITEMS: AggregatorMetricItem[] = [
+  {
+    id: "farmers-registered",
+    iconId: "farmer",
+    label: "farmers registered",
+    value: AGGREGATOR_METRIC_TOTALS.farmers,
+  },
+  {
+    id: "deposits-created",
+    iconId: "deposit",
+    label: "deposits created",
+    value: AGGREGATOR_METRIC_TOTALS.deposits,
+  },
+  {
+    id: "offers-received",
+    iconId: "offer",
+    label: "offers received",
+    value: AGGREGATOR_METRIC_TOTALS.offersReceived,
+  },
+  {
+    id: "offers-accepted",
+    iconId: "offer",
+    label: "offers accepted",
+    value: AGGREGATOR_METRIC_TOTALS.offersAccepted,
+  },
+  {
+    id: "exchanges",
+    iconId: "exchange",
+    label: "exchanges",
+    value: AGGREGATOR_METRIC_TOTALS.exchanges,
+  },
+  {
+    id: "farmer-payments",
+    iconId: "payment",
+    label: "farmer payments",
+    value: AGGREGATOR_METRIC_TOTALS.farmerPayments,
+  },
+];
 
 export type BuyerType = "Retailer" | "Trader" | "School";
 
