@@ -590,14 +590,12 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   {
     id: "name",
     header: "Name",
-    cellClassName: "font-medium",
-    render: (row) => <span className="line-clamp-2">{row.name}</span>,
-  },
-  {
-    id: "type",
-    header: "Type",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => row.type,
+    render: (row) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="line-clamp-2 font-medium">{row.name}</span>
+        <span className="text-muted-foreground text-xs">{row.type}</span>
+      </div>
+    ),
   },
   {
     id: "area",
@@ -647,19 +645,18 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
   {
     id: "name",
     header: "Name",
-    cellClassName: "whitespace-nowrap font-medium",
-    render: (row) => row.name,
-  },
-  {
-    id: "type",
-    header: "Type",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => row.type,
+    render: (row) => (
+      <div className="flex flex-col gap-0.5">
+        <span className="line-clamp-2 font-medium">{row.name}</span>
+        <span className="text-muted-foreground text-xs">{row.type}</span>
+      </div>
+    ),
   },
   {
     id: "area",
     header: "Area",
-    render: (row) => row.area,
+    cellClassName: "text-sm",
+    render: (row) => <AggregatorAreaCell area={row.area} />,
   },
   {
     id: "directOffers",
