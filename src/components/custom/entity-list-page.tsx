@@ -119,14 +119,15 @@ function EntityListPage({ entityType }: EntityListPageProps) {
           <EntityTypeIcon entityType={entityType} size="title" />
           <h1 className={presentation.title}>{entity.plural}</h1>
         </div>
-        {config.header?.showAdd ? (
-          <div className={presentation.headerActions}>
+        <div className={presentation.headerActions}>
+          <TimeRangeTabs />
+          {config.header?.showAdd ? (
             <Button onClick={(e) => e.preventDefault()}>
               <Plus />
               New {entity.singular}
             </Button>
-          </div>
-        ) : null}
+          ) : null}
+        </div>
       </div>
 
       {entityType === "aggregator" ? (
@@ -160,7 +161,6 @@ function EntityListPage({ entityType }: EntityListPageProps) {
             Sort
           </Button>
         </div>
-        <TimeRangeTabs />
       </div>
 
       {table}

@@ -15,7 +15,11 @@ import type {
   BuyerLastActive,
 } from "@/config/last-active";
 import { mockLastActiveAt } from "@/config/mock-last-active-at";
-import { getEntityType, type EntityTypeId, type MetricIconId } from "@/config/entity-types";
+import {
+  getEntityType,
+  type EntityTypeId,
+  type MetricIconId,
+} from "@/config/entity-types";
 import { isLastActiveStale } from "@/lib/format-last-active-at";
 
 /** Tweak layout, spacing, and shared table chrome in one place. */
@@ -25,7 +29,7 @@ export const ENTITY_LIST_PRESENTATION = {
     "flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between",
   pageTitleGroup: "flex items-center gap-3",
   title: "font-bold text-3xl",
-  headerActions: "flex flex-wrap items-center gap-2",
+  headerActions: "flex flex-wrap items-center gap-3",
   toolbar: "flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between",
   toolbarStart: "flex flex-wrap items-center gap-2",
   searchWrapper: "relative min-w-[12rem] flex-1 max-w-xs",
