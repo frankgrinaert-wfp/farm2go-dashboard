@@ -24,9 +24,7 @@ export const ENTITY_LIST_PRESENTATION = {
   pageHeader:
     "flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between",
   pageTitleGroup: "flex items-center gap-3",
-  titleGroup: "flex flex-wrap items-baseline gap-2",
   title: "font-bold text-3xl",
-  titleCountry: "text-sm text-muted-foreground font-normal",
   headerActions: "flex flex-wrap items-center gap-2",
   toolbar: "flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between",
   toolbarStart: "flex flex-wrap items-center gap-2",
