@@ -9,7 +9,6 @@ import {
   AGGREGATOR_STAT_CARDS,
   BUYER_STAT_CARDS,
   ENTITY_LIST_PAGES,
-  ENTITY_LIST_PRESENTATION,
   AGGREGATOR_METRIC_ITEMS,
   getEntityListPageConfig,
   Plus,
@@ -52,8 +51,6 @@ function EntityListTable<TRow extends { id: string }>({
 }: {
   config: EntityListPageConfig<TRow>;
 }) {
-  const presentation = ENTITY_LIST_PRESENTATION;
-
   return (
     <Table>
       <TableHeader>
@@ -64,7 +61,7 @@ function EntityListTable<TRow extends { id: string }>({
             </TableHead>
           ))}
           {config.renderRowActions ? (
-            <TableHead className={presentation.actionsColumnClassName}>
+            <TableHead className="w-px text-right">
               <span className="sr-only">Actions</span>
             </TableHead>
           ) : null}
@@ -79,8 +76,8 @@ function EntityListTable<TRow extends { id: string }>({
               </TableCell>
             ))}
             {config.renderRowActions ? (
-              <TableCell className={presentation.actionsColumnClassName}>
-                <div className={presentation.rowActionsClassName}>
+              <TableCell className="w-px text-right">
+                <div className="flex items-center justify-end gap-2">
                   {config.renderRowActions(row)}
                 </div>
               </TableCell>
@@ -95,7 +92,6 @@ function EntityListTable<TRow extends { id: string }>({
 function EntityListPage({ entityType }: EntityListPageProps) {
   const config = getEntityListPageConfig(entityType);
   const entity = getEntityType(entityType);
-  const presentation = ENTITY_LIST_PRESENTATION;
 
   const table = (() => {
     switch (entityType) {
@@ -113,13 +109,13 @@ function EntityListPage({ entityType }: EntityListPageProps) {
   })();
 
   return (
-    <main className={presentation.main}>
-      <div className={presentation.pageHeader}>
-        <div className={presentation.pageTitleGroup}>
+    <main className="flex flex-col gap-6 py-4 px-6 sm:py-6 sm:px-8 md:py-8 md:px-10">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="flex items-center gap-3">
           <EntityTypeIcon entityType={entityType} size="title" />
-          <h1 className={presentation.title}>{entity.plural}</h1>
+          <h1 className="font-bold text-3xl">{entity.plural}</h1>
         </div>
-        <div className={presentation.headerActions}>
+        <div className="flex flex-wrap items-center gap-3">
           <TimeRangeTabs />
           {config.header?.showAdd ? (
             <Button onClick={(e) => e.preventDefault()}>
@@ -140,8 +136,8 @@ function EntityListPage({ entityType }: EntityListPageProps) {
         <EntityListStatCardsRow cards={[...BUYER_STAT_CARDS]} />
       ) : null}
 
-      <div className={presentation.toolbar}>
-        <div className={presentation.toolbarStart}>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-wrap items-center gap-2">
           <InputGroup className="flex-1 w-2xs">
             <InputGroupAddon>
               <Search />

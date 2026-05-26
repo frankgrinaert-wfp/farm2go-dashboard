@@ -22,22 +22,6 @@ import {
 } from "@/config/entity-types";
 import { isLastActiveStale } from "@/lib/format-last-active-at";
 
-/** Tweak layout, spacing, and shared table chrome in one place. */
-export const ENTITY_LIST_PRESENTATION = {
-  main: "flex flex-col gap-6 py-4 px-6 sm:py-6 sm:px-8 md:py-8 md:px-10",
-  pageHeader:
-    "flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between",
-  pageTitleGroup: "flex items-center gap-3",
-  title: "font-bold text-3xl",
-  headerActions: "flex flex-wrap items-center gap-3",
-  toolbar: "flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between",
-  toolbarStart: "flex flex-wrap items-center gap-2",
-  searchWrapper: "relative min-w-[12rem] flex-1 max-w-xs",
-  searchInput: "pl-9",
-  actionsColumnClassName: "w-px text-right",
-  rowActionsClassName: "flex items-center justify-end gap-2",
-} as const;
-
 export type ActivityStatus =
   | "Active"
   | "Low activity"
