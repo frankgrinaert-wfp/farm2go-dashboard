@@ -249,6 +249,8 @@ export type AggregatorRow = {
   type: AggregatorType;
   area: string;
   farmers: number;
+  eventsCreated: number;
+  harvestsCreated: number;
   deposits: number;
   offersReceived: number;
   offersAccepted: number;
@@ -263,6 +265,8 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     type: "Cooperative",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 87,
+    eventsCreated: 124,
+    harvestsCreated: 89,
     deposits: 42,
     offersReceived: 56,
     offersAccepted: 18,
@@ -278,6 +282,8 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     type: "Farmer organization",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 64,
+    eventsCreated: 47,
+    harvestsCreated: 31,
     deposits: 7,
     offersReceived: 14,
     offersAccepted: 6,
@@ -293,6 +299,8 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     type: "Cooperative",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 52,
+    eventsCreated: 18,
+    harvestsCreated: 12,
     deposits: 5,
     offersReceived: 11,
     offersAccepted: 4,
@@ -308,6 +316,8 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     type: "Farmer organization",
     area: "Ukhiya, Cox's Bazar, Chittagong",
     farmers: 41,
+    eventsCreated: 0,
+    harvestsCreated: 0,
     deposits: 0,
     offersReceived: 0,
     offersAccepted: 0,
@@ -320,6 +330,8 @@ const AGGREGATOR_ROW_TEMPLATES: Omit<AggregatorRow, "id">[] = [
     type: "Cooperative",
     area: "Teknaf, Cox's Bazar, Chittagong",
     farmers: 28,
+    eventsCreated: 9,
+    harvestsCreated: 6,
     deposits: 12,
     offersReceived: 8,
     offersAccepted: 2,
@@ -347,6 +359,8 @@ type AggregatorMetricItem = {
 const AGGREGATOR_METRIC_TOTALS = AGGREGATOR_ROWS.reduce(
   (acc, row) => ({
     farmers: acc.farmers + row.farmers,
+    eventsCreated: acc.eventsCreated + row.eventsCreated,
+    harvestsCreated: acc.harvestsCreated + row.harvestsCreated,
     deposits: acc.deposits + row.deposits,
     offersReceived: acc.offersReceived + row.offersReceived,
     offersAccepted: acc.offersAccepted + row.offersAccepted,
@@ -355,6 +369,8 @@ const AGGREGATOR_METRIC_TOTALS = AGGREGATOR_ROWS.reduce(
   }),
   {
     farmers: 0,
+    eventsCreated: 0,
+    harvestsCreated: 0,
     deposits: 0,
     offersReceived: 0,
     offersAccepted: 0,
@@ -369,6 +385,18 @@ export const AGGREGATOR_METRIC_ITEMS: AggregatorMetricItem[] = [
     iconId: "farmer",
     label: "farmers registered",
     value: AGGREGATOR_METRIC_TOTALS.farmers,
+  },
+  {
+    id: "events-created",
+    iconId: "event",
+    label: "events created",
+    value: AGGREGATOR_METRIC_TOTALS.eventsCreated,
+  },
+  {
+    id: "harvests-created",
+    iconId: "harvest",
+    label: "harvests created",
+    value: AGGREGATOR_METRIC_TOTALS.harvestsCreated,
   },
   {
     id: "deposits-created",
@@ -658,6 +686,16 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     id: "farmers",
     header: getEntityType("farmer").plural,
     render: (row) => <LinkedCountCell value={row.farmers} />,
+  },
+  {
+    id: "eventsCreated",
+    header: "Events created",
+    render: (row) => row.eventsCreated,
+  },
+  {
+    id: "harvestsCreated",
+    header: "Harvests created",
+    render: (row) => row.harvestsCreated,
   },
   {
     id: "deposits",

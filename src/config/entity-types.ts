@@ -3,8 +3,10 @@ import {
   ArrowLeftRight,
   HandCoins,
   MessagesSquare,
+  Package2,
   ShoppingBasket,
   Store,
+  Timeline,
   User,
   Users,
 } from "lucide-react";
@@ -33,11 +35,20 @@ export type EntityType = {
   searchPlaceholder: string;
 };
 
-export type MetricIconId = "farmer" | "deposit" | "offer" | "exchange" | "payment";
+export type MetricIconId =
+  | "farmer"
+  | "event"
+  | "harvest"
+  | "deposit"
+  | "offer"
+  | "exchange"
+  | "payment";
 
 export const METRIC_ICONS: Record<MetricIconId, LucideIcon> = {
   farmer: User,
-  deposit: ShoppingBasket,
+  event: Timeline,
+  harvest: ShoppingBasket,
+  deposit: Package2,
   offer: MessagesSquare,
   exchange: ArrowLeftRight,
   payment: HandCoins,
