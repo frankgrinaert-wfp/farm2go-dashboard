@@ -1,7 +1,7 @@
 import { ArrowDown, ArrowUp } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "@/components/ui/link";
 import { cn } from "@/lib/utils";
 
 export type EntityListStatCardConfig = {
@@ -10,8 +10,8 @@ export type EntityListStatCardConfig = {
   /** Primary count shown on the card. */
   number?: number;
   caption?: string;
-  /** When true, shows a “View” link beside the number (placeholder for future filters). */
-  captionLink?: boolean;
+  /** When true, the number is a link (placeholder for future filters). */
+  numberLink?: boolean;
   /** Percentage-point change in the last 30 days (positive = up, negative = down). */
   trend30d: number;
   /** When true, an increase is bad (danger) and a decrease is good (success). */
@@ -39,7 +39,10 @@ function StatCardTrend({
 
   return (
     <p
-      className={cn("flex flex-wrap items-center gap-x-1 text-sm", trendColor)}
+      className={cn(
+        "flex shrink-0 flex-wrap items-center justify-end gap-x-1 text-sm",
+        trendColor,
+      )}
     >
       <span className="inline-flex items-center gap-0.5 tabular-nums">
         <Icon className="size-3.5 shrink-0" aria-hidden />
@@ -54,7 +57,7 @@ function EntityListStatCard({
   number,
   metric,
   caption,
-  captionLink,
+  numberLink,
   trend30d,
   invertTrendColors,
 }: EntityListStatCardProps) {
@@ -64,25 +67,26 @@ function EntityListStatCard({
     <Card className="gap-0 py-4 shadow-xs">
       <CardContent className="flex flex-col gap-1.5 px-4">
         <p className="text-muted-foreground text-sm font-medium">{metric}</p>
-        <div className="flex flex-wrap gap-1">
-          <p className="font-semibold text-2xl text-foreground tabular-nums">
-            {primaryValue}
-          </p>
-          {captionLink ? (
-            <Button
-              variant="link"
-              size="sm"
+        <div className="flex items-center justify-between gap-3">
+          {numberLink ? (
+            <Link
+              href="#"
               onClick={(e) => e.preventDefault()}
               aria-label={`View ${metric.toLowerCase()}`}
+              className="font-semibold text-2xl text-foreground tabular-nums no-underline hover:text-primary-600 hover:underline"
             >
-              View
-            </Button>
-          ) : null}
+              {primaryValue}
+            </Link>
+          ) : (
+            <p className="font-semibold text-2xl text-foreground tabular-nums">
+              {primaryValue}
+            </p>
+          )}
+          <StatCardTrend
+            change={trend30d}
+            invertTrendColors={invertTrendColors}
+          />
         </div>
-        <StatCardTrend
-          change={trend30d}
-          invertTrendColors={invertTrendColors}
-        />
         {caption ? (
           <p className="text-muted-foreground text-sm">{caption}</p>
         ) : null}
