@@ -61,7 +61,7 @@ function EntityListTable<TRow extends { id: string }>({
             </TableHead>
           ))}
           {config.renderRowActions ? (
-            <TableHead className="w-px text-right">
+            <TableHead className="w-px pl-10 text-right">
               <span className="sr-only">Actions</span>
             </TableHead>
           ) : null}
@@ -76,7 +76,7 @@ function EntityListTable<TRow extends { id: string }>({
               </TableCell>
             ))}
             {config.renderRowActions ? (
-              <TableCell className="w-px text-right">
+              <TableCell className="w-px pl-10 text-right">
                 <div className="flex items-center justify-end gap-2">
                   {config.renderRowActions(row)}
                 </div>

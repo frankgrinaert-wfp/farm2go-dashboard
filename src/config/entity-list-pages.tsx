@@ -685,6 +685,12 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     render: (row) => <AggregatorAreaCell area={row.area} />,
   },
   {
+    id: "lastActive",
+    header: "Last active",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => <LastActiveCell lastActive={row.lastActive} />,
+  },
+  {
     id: "farmers",
     header: getEntityType("farmer").plural,
     headerClassName: NUMERIC_COLUMN_CLASS,
@@ -740,12 +746,6 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
     cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.farmerPayments} />,
   },
-  {
-    id: "lastActive",
-    header: "Last active",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => <LastActiveCell lastActive={row.lastActive} />,
-  },
 ];
 
 const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
@@ -764,6 +764,12 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
     header: "Area",
     cellClassName: "text-sm",
     render: (row) => <AggregatorAreaCell area={row.area} />,
+  },
+  {
+    id: "lastActive",
+    header: "Last active",
+    cellClassName: "whitespace-nowrap",
+    render: (row) => <LastActiveCell lastActive={row.lastActive} />,
   },
   {
     id: "directOffers",
@@ -792,12 +798,6 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
     headerClassName: NUMERIC_COLUMN_CLASS,
     cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.exchanges} />,
-  },
-  {
-    id: "lastActive",
-    header: "Last active",
-    cellClassName: "whitespace-nowrap",
-    render: (row) => <LastActiveCell lastActive={row.lastActive} />,
   },
 ];
 
