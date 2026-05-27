@@ -7,6 +7,7 @@ import { MainPage } from "@/pages";
 import { AggregatorsPage } from "@/pages/aggregators-page";
 import { BuyersPage } from "@/pages/buyers-page";
 import { FarmersPage } from "@/pages/farmers-page";
+import { LoadingPage } from "@/pages/loading-page";
 import { MetricDetailPage } from "@/pages/metric-detail-page";
 
 import "@fontsource/open-sans/400.css";
@@ -25,6 +26,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/farmers" element={<FarmersPage />} />
           <Route path="/aggregators" element={<AggregatorsPage />} />
           <Route path="/buyers" element={<BuyersPage />} />
+          <Route path="/loading" element={<LoadingPage />} />
           <Route path="/overview/metrics/:slug" element={<MetricDetailPage />} />
         </Routes>
       </Layout>

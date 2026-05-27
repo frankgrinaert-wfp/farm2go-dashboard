@@ -10,14 +10,16 @@ interface IProps {
 function Layout({ children }: IProps) {
   const { pathname } = useLocation();
   const mutedBackgroundRoutes = new Set(["/"]);
+  const headerHiddenRoutes = new Set(["/loading"]);
   const hasMutedBackground = mutedBackgroundRoutes.has(pathname);
+  const hideHeader = headerHiddenRoutes.has(pathname);
 
   return (
     <AdminCountryProvider>
       <div
         className={hasMutedBackground ? "min-h-screen bg-muted" : "min-h-screen"}
       >
-        <ProjectsHeader />
+        {!hideHeader ? <ProjectsHeader /> : null}
         {children}
       </div>
     </AdminCountryProvider>
