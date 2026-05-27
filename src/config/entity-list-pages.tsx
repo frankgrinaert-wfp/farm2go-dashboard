@@ -22,6 +22,8 @@ import {
 } from "@/config/entity-types";
 import { isLastActiveStale } from "@/lib/format-last-active-at";
 
+const NUMERIC_COLUMN_CLASS = "text-right tabular-nums";
+
 export type ActivityStatus =
   | "Active"
   | "Low activity"
@@ -685,41 +687,57 @@ const AGGREGATOR_COLUMNS: EntityListColumn<AggregatorRow>[] = [
   {
     id: "farmers",
     header: getEntityType("farmer").plural,
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <LinkedCountCell value={row.farmers} />,
   },
   {
     id: "eventsCreated",
     header: "Events created",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => row.eventsCreated,
   },
   {
     id: "harvestsCreated",
     header: "Harvests created",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => row.harvestsCreated,
   },
   {
     id: "deposits",
     header: "Deposits",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <MetricValue value={row.deposits} />,
   },
   {
     id: "offersReceived",
     header: "Offers received",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.offersReceived} />,
   },
   {
     id: "offersAccepted",
     header: "Offers accepted",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <MetricValue value={row.offersAccepted} />,
   },
   {
     id: "exchanges",
     header: "Exchanges",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <MetricValue value={row.exchanges} />,
   },
   {
     id: "farmerPayments",
     header: "Farmer payments",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.farmerPayments} />,
   },
   {
@@ -750,21 +768,29 @@ const BUYER_COLUMNS: EntityListColumn<BuyerRow>[] = [
   {
     id: "directOffers",
     header: "Direct offers",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.directOffers} />,
   },
   {
     id: "demandOffers",
     header: "Demand offers",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.demandOffers} />,
   },
   {
     id: "offersAccepted",
     header: "Offers accepted",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.offersAccepted} />,
   },
   {
     id: "exchanges",
     header: "Exchanges",
+    headerClassName: NUMERIC_COLUMN_CLASS,
+    cellClassName: NUMERIC_COLUMN_CLASS,
     render: (row) => <EmptyZeroCell value={row.exchanges} />,
   },
   {
