@@ -1,13 +1,7 @@
 import {
-  ArrowLeftRight,
-  Banknote,
   Ban,
   FilePenLine,
-  HandCoins,
-  Handshake,
   Mail,
-  MessagesSquare,
-  ShoppingBasket,
   Sprout,
   MailOpen,
   Forward,
@@ -19,7 +13,7 @@ import {
   type MetricItem,
 } from "@/components/custom/metrics-column-card";
 import { getMetricDetailListIcon } from "@/config/metric-detail-config";
-import type { EntityTypeId } from "@/config/entity-types";
+import { METRIC_ICONS, type EntityTypeId } from "@/config/entity-types";
 
 type MetricsColumn = {
   entityType: EntityTypeId;
@@ -42,13 +36,13 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Harvests created",
         value: "1000",
         byline: "by 20 Farmers",
-        icon: ShoppingBasket,
+        icon: METRIC_ICONS.harvest,
       },
       {
         label: "Deposits created",
         value: "1000",
         byline: "by 20 Farmers",
-        icon: getMetricDetailListIcon("deposits-created"),
+        icon: METRIC_ICONS.deposit,
         detailSlug: "deposits-created",
       },
       {
@@ -62,14 +56,14 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Farmers with produce exchanged",
         value: "1000",
         byline: "by 20 Farmers",
-        icon: ArrowLeftRight,
+        icon: METRIC_ICONS.exchange,
         hideByline: true,
       },
       {
         label: "Farmers that received payments",
         value: "1000",
         byline: "by 20 Farmers",
-        icon: HandCoins,
+        icon: METRIC_ICONS.payment,
         hideByline: true,
       },
       {
@@ -96,33 +90,33 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Farmer commodity events created",
         value: "800",
         byline: "by 20 Aggregators",
-        icon: getMetricDetailListIcon("farmer-commodity-events-created"),
+        icon: METRIC_ICONS.event,
         detailSlug: "farmer-commodity-events-created",
       },
       {
         label: "Farmer harvests created",
         value: "700",
         byline: "by 20 Aggregators",
-        icon: ShoppingBasket,
+        icon: METRIC_ICONS.harvest,
       },
       {
         label: "Deposits created",
         value: "900",
         byline: "by 20 Aggregators",
-        icon: getMetricDetailListIcon("deposits-created"),
+        icon: METRIC_ICONS.deposit,
         detailSlug: "deposits-created",
       },
       {
         label: "Offers received",
         value: "1500",
         byline: "by 20 Aggregators",
-        icon: MessagesSquare,
+        icon: METRIC_ICONS.offer,
       },
       {
         label: "Offers accepted",
         value: "1100",
         byline: "by 20 Aggregators",
-        icon: Handshake,
+        icon: METRIC_ICONS.offer,
       },
       {
         label: "Offers rejected",
@@ -134,13 +128,13 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Exchanges completed",
         value: "650",
         byline: "by 20 Aggregators",
-        icon: ArrowLeftRight,
+        icon: METRIC_ICONS.exchange,
       },
       {
         label: "Farmer payments marked as done",
         value: "950",
         byline: "by 20 Aggregators",
-        icon: Banknote,
+        icon: METRIC_ICONS.payment,
       },
       {
         label: "Agro-Advisory messages received",
@@ -182,7 +176,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Direct offers created",
         value: "300",
         byline: "by 20 Buyers",
-        icon: MessagesSquare,
+        icon: METRIC_ICONS.offer,
       },
       {
         label: "Demands created",
@@ -194,7 +188,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Offers accepted (by Aggregator or Buyer)",
         value: "180",
         byline: "by 20 Buyers",
-        icon: Handshake,
+        icon: METRIC_ICONS.offer,
       },
       {
         label: "Offers rejected",
@@ -206,7 +200,7 @@ const METRICS_COLUMNS: MetricsColumn[] = [
         label: "Exchanges completed for buyer-created offers",
         value: "120",
         byline: "by 20 Buyers",
-        icon: ArrowLeftRight,
+        icon: METRIC_ICONS.exchange,
       },
     ],
   },

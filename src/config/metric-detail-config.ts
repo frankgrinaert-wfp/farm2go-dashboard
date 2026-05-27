@@ -1,5 +1,7 @@
 import type { LucideIcon } from "lucide-react";
-import { Package, Timeline, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
+
+import { METRIC_ICONS } from "@/config/entity-types";
 
 const METRIC_DETAIL_SLUGS = [
   "deposits-created",
@@ -57,7 +59,7 @@ function repeatRows<T>(factory: (i: number) => T, count = 10): T[] {
 const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
   "deposits-created": {
     slug: "deposits-created",
-    listIcon: Package,
+    listIcon: METRIC_ICONS.deposit,
     title: "Deposits created",
     summary: "1000 Deposits, by 20 Farmers",
     filters: [
@@ -124,7 +126,7 @@ const METRIC_DETAIL_PAGES: Record<MetricDetailSlug, MetricDetailPageConfig> = {
   },
   "farmer-commodity-events-created": {
     slug: "farmer-commodity-events-created",
-    listIcon: Timeline,
+    listIcon: METRIC_ICONS.event,
     title: "Farmer commodity events created",
     summary: "1000 Events, by 20 Aggregators",
     filters: [
